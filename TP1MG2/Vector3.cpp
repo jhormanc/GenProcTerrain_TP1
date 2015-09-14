@@ -34,7 +34,7 @@ Vector3& Vector3::operator/(const double x_)
 	return *this;
 }
 
-Vector3 Vector3::normalize(const Vector3& v)
+Vector3 Vector3&::normalize(const Vector3& v)
 {
 	return v / v.normal;
 }
