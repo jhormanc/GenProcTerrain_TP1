@@ -10,7 +10,7 @@ public:
 	Vector3() :x(0.0), y(0.0), z(0.0){};
 	Vector3(const Vector3& v) : x(v.x), y(v.y), z(v.z){};
 
-	static Vector3& normalize(const Vector3& v);
+	static Vector3& normalize(Vector3& v);
 	double normal() const;
 	// Surcharge des operateurs arithmetiques.
 	Vector3& operator=(const Vector3& v);
