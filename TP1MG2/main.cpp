@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 	/*TP1MG2 w;
 	w.show(); */
 	Debug d;
-	QImage hm("x64/Debug/testhm");
+	QImage hm("Resources/testhm");
 	Terrain t(hm, 10, 10, 20.0, 20.0);
 	QTextEdit logTxt;
 	logTxt.setReadOnly(true);
