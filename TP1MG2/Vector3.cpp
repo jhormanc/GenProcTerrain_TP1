@@ -34,11 +34,15 @@ Vector3& Vector3::operator/(const double x_)
 	return *this;
 }
 
-double Vector3::normalize(const Vector3& v)
+Vector3 Vector3::normalize(const Vector3& v)
 {
-	return std::sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+	return v / v.normal;
 }
 
+double Vector3::normal() const
+{
+	return std::sqrt(x*x + y*y + z*z);
+}
 // pdt scalaire
 Vector3& Vector3::operator*(const Vector3& v)
 {
