@@ -76,6 +76,10 @@ Vector3 Terrain::getPoint(double x, double y) const
 {
 	int tmpI = (int)(x / step_x);
 	int tmpJ = (int)(y / step_y);
+	if (!(tmpI < terrain_width && tmpJ < terrain_height))
+	{
+		return Vector3(x, y, -10000);
+	}
 	Vector3 a;
 	Vector3 b;
 
