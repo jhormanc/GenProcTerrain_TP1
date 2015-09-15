@@ -148,7 +148,7 @@ Vector3 Terrain::instersection(Ray r) const
 		tmp = r.getOrigin() + r.getDirection() * (double)t;
 		deltaz = p.z - getPoint(tmp.x, tmp.y).z; 
 		if (deltaz < epsilon) { return tmp; };
-		if (deltaz > k) { return Vector3(0, 0, 0); };
+		if (deltaz > k) { return Vector3(-10.0, -10.0, -10.0); };
 		t += (deltaz) / (k - r.getDirection().z);
 		p = p + r.getDirection() * (double)t;
 	}

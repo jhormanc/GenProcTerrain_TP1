@@ -1,11 +1,13 @@
 #include "tp1mg2.h"
 #include "Terrain.h"
 #include "Debug.h"
+#include "Sphere.h"
 #include "heightmapwidget.h"
 #include "Camera.h"
 #include <QtWidgets/QApplication>
 #include <qtextedit.h>
 #include <ctime>
+#include<qlabel.h>
 
 // point d'entrée du programme, initialise Qt et les objets necessaire au déroulement du programme
 // Vector2 pour point (utile dans raymarch)
@@ -51,9 +53,38 @@ int main(int argc, char *argv[])
 	double z = t.getPoint(x, z).z;
 	}
 	}*/
-	Camera c(Vector3(0.0, 10.0, -5.0), Vector3(0.0, 0.0, 0.0), 12.0);
+	//Camera c(Vector3(0.0, 10.0, -5.0), Vector3(0.0, 0.0, 0.0), 12.0);
 	HeightmapWidget hmw(&t, 0);
 	hmw.show();
 
+	// Raytracage de la sphere
+	Vector3 origin(0.0, 0.0, -1.0); // Fait office de camera : represente l'emplacement de l'oeil.
+	//Camera c(origin, Vector3(0.0, 0.0, 0.0), 12.0);
+	const int width_scrn = 800;
+	const int height_scrn = 600;
+	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
+	QPixmap pxmp;
+	Vector3 intersect;
+	Sphere s(Vector3(0.0, 0.0, 0.0), 0.8);
+	for (int i = 0; i < width_scrn; i++)
+	{
+		for (int j = 0; j < height_scrn; j++)
+		{
+			double x = 2 * (i - (width_scrn * 0.5)) / width_scrn; // -1.0 <= x <= 1.0
+			double y = 2 * (j - (height_scrn * 0.5)) / height_scrn; //  ...  y ...
+			if ((intersect = s.intersection(Ray(origin, Vector3::normalize(Vector3(x, y, 0) - origin)))) != Vector3(-10, -10, -10))
+			{
+				screen.setPixel(i, j, qRgb(255, 255, 255));
+			}
+			else
+			{
+				screen.setPixel(i, j, qRgb(0, 0, 0));
+			}
+		}
+	}
+
+	QLabel l;
+	l.setPixmap(QPixmap::fromImage(screen));
+	l.show();
 	return a.exec();
 }
