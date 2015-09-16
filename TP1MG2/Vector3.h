@@ -48,6 +48,11 @@ public:
 		return v.x != x || v.y != y || v.x != x;
 	}
 
+	inline bool operator==(const Vector3& v) const
+	{
+		return v.x == x && v.y == y && v.z == z;
+	}
+
 	static inline Vector3& normalize(Vector3& v)
 	{
 		return v / v.normal();

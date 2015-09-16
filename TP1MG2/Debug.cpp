@@ -44,7 +44,7 @@ QString Debug::testIntersection(Ray r, Terrain t) const
 	res.append(printVector3(r.getOrigin()));
 	res.append(printVector3(r.getDirection()));
 	Vector3 v(t.instersection(r));
-	if (v.x == 0 && v.y == 0 && v.z == 0)
+	if (v == Vector3(-10.0, -10.0, -10.0))
 		res.append(" ne touche pas");
 	else
 		res.append(" touche");
