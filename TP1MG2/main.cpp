@@ -46,17 +46,6 @@ int main(int argc, char *argv[])
 	logTxt.append(d.printTerrain(t2).toHtmlEscaped());
 	logTxt.show();
 
-	/*for (int z = 0; z < t.getHeight(); ++z)
-	{
-	for (int x = 0; x < t.getWidth(); ++x)
-	{
-	double z = t.getPoint(x, z).z;
-	}
-	}*/
-	//Camera c(Vector3(0.0, 10.0, -5.0), Vector3(0.0, 0.0, 0.0), 12.0);
-	HeightmapWidget hmw(&t, 0);
-	hmw.show();
-
 	// Raytracage de la sphere
 	Vector3 origin(0.0, 0.0, -1.0); // Fait office de camera : represente l'emplacement de l'oeil.
 	//Camera c(origin, Vector3(0.0, 0.0, 0.0), 12.0);
@@ -86,5 +75,12 @@ int main(int argc, char *argv[])
 	QLabel l;
 	l.setPixmap(QPixmap::fromImage(screen));
 	l.show();
+
+	HeightmapWidget *hmw;
+	hmw = new HeightmapWidget(&t, 0);
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, -20)));
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 5)));
+	hmw->show();
+
 	return a.exec();
 }
