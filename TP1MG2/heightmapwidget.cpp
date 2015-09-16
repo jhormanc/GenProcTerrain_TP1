@@ -54,7 +54,7 @@ QSize HeightmapWidget::minimumSizeHint() const
 
 QSize HeightmapWidget::sizeHint() const
 {
-    return QSize(800,600);
+    return QSize(1280, 720); // 800x600
 }
 
 void HeightmapWidget::initializeGL()
@@ -135,7 +135,7 @@ void HeightmapWidget::initializeGL()
     }
 
     // Load texture
-    m_textureid = bindTexture(QPixmap("Resources/testhm.png"), GL_TEXTURE_2D);
+    m_textureid = bindTexture(QPixmap("Resources/Heightmap.png"), GL_TEXTURE_2D);
 
     // Vertex buffer init
     m_vertexbuffer.create();
@@ -174,13 +174,16 @@ void HeightmapWidget::paintGL()
     // Model view matrix
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.0, 0.0, -distance,
+	gluLookAt(0.0, 0.0, -distance,
               0.0, 0.0, 0.0,
               0.0, 1.0, 0.0);
 
     glRotatef(x_rot / 16.0f, 1.0f, 0.0f, 0.0f);
     glRotatef(y_rot / 16.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(z_rot / 16.0f, 0.0f, 0.0f, 1.0f);
+
+
+	//glTranslatef(x_dis, 0, z_dis);
 
     // Projection matrix
     glMatrixMode(GL_PROJECTION);

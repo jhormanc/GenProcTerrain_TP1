@@ -58,4 +58,6 @@ public:
 
 	// Desctructeur. Desalloue pointList.
 	~Terrain();
+
+	static double noise(double x, double y, const double res_x, const double res_y);
 };

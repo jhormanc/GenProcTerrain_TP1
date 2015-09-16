@@ -20,12 +20,12 @@ int main(int argc, char *argv[])
 	/*TP1MG2 w;
 	w.show(); */
 	Debug d;
-	QImage hm("Resources/testhm");
-	Terrain t(hm, 10, 10, 20.0, 20.0);
-	Terrain t2 = Terrain::CreateRidgeFractal(10, 10, 20.0, 20.0, 255.0);
+	QImage hm("Resources/Heightmap");
+	Terrain t(hm, 257, 257, 20.0, 20.0);
+	Terrain t2 = Terrain::CreateRidgeFractal(100, 100, 10.0, 15.0, 255.0);
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
-	hmw = new HeightmapWidget(&t, 0);
+	hmw = new HeightmapWidget(&t2, 0);
 
 	logTxt.setReadOnly(true);
 	logTxt.insertPlainText(d.printTerrain(t).toHtmlEscaped());
@@ -38,12 +38,12 @@ int main(int argc, char *argv[])
 	logTxt.append(d.printVector3(t.getPoint(90.0, 10.0)).toHtmlEscaped());
 	logTxt.append(d.testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, -5.0)), t).toHtmlEscaped());
 	logTxt.append(d.testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, 5.0)), t).toHtmlEscaped());
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, -5.0)));
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 5.0)));
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(2.0, 1.0, -20)));
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.5, 1.5, -20)));
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.0, 0.5, 5)));
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 50)));
+	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 255), Vector3(1.0, 1.0, -100.0)));
+	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 5.0)));
+	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(2.0, 1.0, -20)));
+	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.5, 1.5, -20)));
+	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.0, 0.5, 5)));
+	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 50)));
 
 	for (int i = 0; i < 10; i++)
 	{
