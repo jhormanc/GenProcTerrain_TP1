@@ -127,7 +127,7 @@ bool Terrain::instersection(Ray r, double &t) const
 		for (int i = 0; i < terrain_width; i++)
 				zMax = std::max(zMax, pointList[i][j].z);
 
-	// Calcul de l'écart z maximum entre deux points (== zMax ?)
+	// Calcul de l'écart z maximum entre deux points
 	for (int j = 0; j < terrain_height - 1; j++)
 	{
 		for (int i = 0; i < terrain_width - 1; i++)
@@ -141,7 +141,7 @@ bool Terrain::instersection(Ray r, double &t) const
 	}
 
 	t = zMin;
-	double epsilon = 1.0;
+	double epsilon = 1;
 	double deltaz;
 	Vector3 p = r.getOrigin(); // Point de départ du lancé de rayon
 	Vector3 tmp, pas;
@@ -150,7 +150,7 @@ bool Terrain::instersection(Ray r, double &t) const
 	{
 		pas = (r.getDirection() * (double)t);
 		tmp = r.getOrigin() + pas;
-		deltaz = p.z - getPoint(tmp.x, tmp.y).z; 
+		deltaz = p.z - getPoint(tmp.x * step_x, tmp.y * step_y).z;
 
 		if (deltaz < epsilon) 
 		{ 
@@ -159,12 +159,11 @@ bool Terrain::instersection(Ray r, double &t) const
 
 		if (deltaz > k) 
 		{ 
-			//pas = r.getDirection() * zMax;
 			return false;
 		}
 
 		t += (deltaz) / (k - r.getDirection().z);
-		p = p + pas;
+		p = tmp;
 	}
 	return false;
 

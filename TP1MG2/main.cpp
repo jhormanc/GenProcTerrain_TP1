@@ -22,7 +22,11 @@ int main(int argc, char *argv[])
 	Debug d;
 	QImage hm("Resources/testhm");
 	Terrain t(hm, 10, 10, 20.0, 20.0);
+	Terrain t2 = Terrain::CreateRidgeFractal(10, 10, 20.0, 20.0, 255.0);
 	QTextEdit logTxt;
+	HeightmapWidget *hmw;
+	hmw = new HeightmapWidget(&t, 0);
+
 	logTxt.setReadOnly(true);
 	logTxt.insertPlainText(d.printTerrain(t).toHtmlEscaped());
 	for (int i = 0; i < 10; i++)
@@ -34,15 +38,22 @@ int main(int argc, char *argv[])
 	logTxt.append(d.printVector3(t.getPoint(90.0, 10.0)).toHtmlEscaped());
 	logTxt.append(d.testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, -5.0)), t).toHtmlEscaped());
 	logTxt.append(d.testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, 5.0)), t).toHtmlEscaped());
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, -5.0)));
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 5.0)));
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(2.0, 1.0, -20)));
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.5, 1.5, -20)));
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.0, 0.5, 5)));
+	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 50)));
+
 	for (int i = 0; i < 10; i++)
 	{
-		Vector3 tmp1((int)(rand() % 180) / 10.0, (int)(rand() % 180) / 10.0, (int)(rand() % 200) / 10.0);
-		Vector3 tmp2((int)(rand() % 180) / 10.0, (int)(rand() % 180) / 10.0, (int)(rand() % 200) / 10.0);
+		Vector3 tmp1((int)(rand() % 180) / 10.0, (int)(rand() % 180) / 10.0, (int)(rand() % 200) / 10.0 + 5);
+		Vector3 tmp2((int)(rand() % 180) / 10.0, (int)(rand() % 180) / 10.0, (int)(rand() % 200) / 10.0 + 5);
 		logTxt.append(d.testIntersection(Ray(tmp1, tmp2), t).toHtmlEscaped());
 	}
 	//logTxt.append(d.printVector3(t.getPoint(90.0, 10.0)));
 	logTxt.append(QString('\n').toHtmlEscaped());
-	Terrain t2 = Terrain::CreateRidgeFractal(10, 10, 20.0, 20.0, 255.0);
+	
 	logTxt.append(d.printTerrain(t2).toHtmlEscaped());
 	logTxt.show();
 
@@ -76,10 +87,8 @@ int main(int argc, char *argv[])
 	l.setPixmap(QPixmap::fromImage(screen));
 	l.show();
 
-	HeightmapWidget *hmw;
-	hmw = new HeightmapWidget(&t, 0);
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, -20)));
-	hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 5)));
+	
+	
 	hmw->show();
 
 	return a.exec();

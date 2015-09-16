@@ -268,38 +268,29 @@ void HeightmapWidget::paintGL()
 	{
 		double t;
 		bool touche = terrain->instersection(*ray, t);
-		glLineWidth(5);
+		glLineWidth(2);
 		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0f, 0.0f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f); // le point de départ du lancé est en bleu
 
 		// Origine
 		glVertex3f((MAP_SIZE * ray->getOrigin().x / vertices_by_x) - MAP_SIZE / 2,
 			ray->getOrigin().z / 255,
 			(MAP_SIZE * ray->getOrigin().y / vertices_by_z) - MAP_SIZE / 2);
 
-		//glColor3f(1.0f, 1.0f, 1.0f);
-		//// Direction
-		//glVertex3f((MAP_SIZE * lit->getDirection().x / vertices_by_x) - MAP_SIZE / 2,
-		//	lit->getDirection().z / 255,
-		//	(MAP_SIZE * lit->getDirection().y / vertices_by_z) - MAP_SIZE / 2);
-
 		if (touche)
-			glColor3f(1.0f, 0.0f, 0.0f);
+			glColor3f(0.0f, 1.0f, 0.0f); // point vert si le Ray a touché le terrain
 		else
-			glColor3f(1.0f, 1.0f, 1.0f);
-		//glVertex3f(point.x, point.y, point.z);
-		//glVertex3f(1, 1, 1);
+			glColor3f(1.0f, 0.0f, 0.0f); // point rouge sinon
+
 		Vector3 tmp(ray->getDirection() * t);
 
+		// Point d'arrivée du lancé de rayon
 		glVertex3f((MAP_SIZE * (ray->getOrigin() + tmp).x / vertices_by_x) - MAP_SIZE / 2,
 			(ray->getOrigin() + tmp).z / 255,
 			(MAP_SIZE * (ray->getOrigin() + tmp).y / vertices_by_z) - MAP_SIZE / 2);
 
+		glEnd();
 	}
-
-	
-
-	glEnd();
 
     // FPS count
     ++frame_count;
