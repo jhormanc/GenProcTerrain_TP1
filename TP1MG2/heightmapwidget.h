@@ -35,6 +35,8 @@ public:
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
 
+	void AddRay(Ray r);
+
 protected:
     void initializeGL();
     void paintGL();
@@ -95,8 +97,7 @@ private:
 
 	// Terrain
 	Terrain *terrain;
-
-	void AddRay(Ray r);
+	std::list<Ray> listRays;
 };
 
 #endif // HEIGHTMAP_H

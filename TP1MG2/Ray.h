@@ -8,6 +8,7 @@ class Ray
 	Vector3 direction;
 public:
 	// Constructeurs.
+	Ray();
 	Ray(Vector3 origin_, Vector3 direction_) : origin(origin_), direction(direction_){};
 	Ray(const Ray& r) : origin(r.origin), direction(r.direction){};
 	

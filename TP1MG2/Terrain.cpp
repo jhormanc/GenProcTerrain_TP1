@@ -76,6 +76,7 @@ Vector3 Terrain::getPoint(double x, double y) const
 {
 	int tmpI = (int)(x / step_x);
 	int tmpJ = (int)(y / step_y);
+
 	if (!(tmpI < terrain_width && tmpJ < terrain_height))
 	{
 		return Vector3(x, y, -10000);
@@ -86,12 +87,12 @@ Vector3 Terrain::getPoint(double x, double y) const
 	if (tmpI < terrain_width - 1)
 		a = Vector3(pointList[tmpI + 1][tmpJ]);
 	else
-		a = Vector3(tmpI * step_x, tmpJ * step_x, 0);
+		a = Vector3(x, y, 0);
 
 	if (tmpJ < terrain_height - 1)
 		b = Vector3(pointList[tmpI][tmpJ + 1]);
 	else
-		b = Vector3(tmpI * step_x, tmpJ * step_x, 0);
+		b = Vector3(x, y, 0);
 
 
 	double x2 = (x - b.x) / step_x;
@@ -114,16 +115,19 @@ bool Terrain::inOut(Vector3 p) const
 	return (p.z > getPoint(p.x, p.y).z);
 }
 
-// Renvoie vrai si le Ray r touche le terrain.
-Vector3 Terrain::instersection(Ray r) const
+// Renvoie True si le Ray r touche le terrain
+bool Terrain::instersection(Ray r, double &t) const
 {
 	double zMin = 0;
 	double zMax = 0;
 	double k = 0;
+
+	// Calcul du point z le plus haut du terrain
 	for (int j = 0; j < terrain_height; j++)
 		for (int i = 0; i < terrain_width; i++)
 				zMax = std::max(zMax, pointList[i][j].z);
 
+	// Calcul de l'écart z maximum entre deux points (== zMax ?)
 	for (int j = 0; j < terrain_height - 1; j++)
 	{
 		for (int i = 0; i < terrain_width - 1; i++)
@@ -131,28 +135,38 @@ Vector3 Terrain::instersection(Ray r) const
 			k = std::max(
 			    	std::max(
 			     	  std::max(k, std::abs(pointList[i][j].z - pointList[i][j + 1].z)), 
-				      std::abs(pointList[i][j].z - pointList[i][j + 1].z)),					  
+				      std::abs(pointList[i][j].z - pointList[i + 1][j].z)),					  
 			    	std::abs(pointList[i][j].z - pointList[i + 1][j + 1].z));
 		}
 	}
 
-
-
-	double t = zMin;
+	t = zMin;
 	double epsilon = 1.0;
-	Vector3 p = r.getOrigin();
 	double deltaz;
-	Vector3 tmp;
+	Vector3 p = r.getOrigin(); // Point de départ du lancé de rayon
+	Vector3 tmp, pas;
+
 	while (t < zMax)
 	{
-		tmp = r.getOrigin() + r.getDirection() * (double)t;
+		pas = (r.getDirection() * (double)t);
+		tmp = r.getOrigin() + pas;
 		deltaz = p.z - getPoint(tmp.x, tmp.y).z; 
-		if (deltaz < epsilon) { return tmp; };
-		if (deltaz > k) { return Vector3(0, 0, 0); };
+
+		if (deltaz < epsilon) 
+		{ 
+			return true; 
+		}
+
+		if (deltaz > k) 
+		{ 
+			//pas = r.getDirection() * zMax;
+			return false;
+		}
+
 		t += (deltaz) / (k - r.getDirection().z);
-		p = p + r.getDirection() * (double)t;
+		p = p + pas;
 	}
-	return tmp;
+	return false;
 
 }
 

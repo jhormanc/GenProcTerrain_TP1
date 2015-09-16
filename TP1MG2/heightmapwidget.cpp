@@ -29,7 +29,7 @@ HeightmapWidget::HeightmapWidget(Terrain *t, QWidget *parent) :
 		terrain(t)
 {
     // Render mode set up
-    mode_rendu = MODE_GL_VERTEX;
+	mode_rendu = MODE_VERTEBUFFEROBJECT_INDICES;
     mode_texture = true;
     mode_fill = true;
 
@@ -84,9 +84,9 @@ void HeightmapWidget::initializeGL()
             //QRgb color = img.pixel(x, z);
 			float y = terrain->getPoint(x * terrain->getStepX(), z * terrain->getStepY()).z;
 
-            vertice.setX((MAP_SIZE * x / vertices_by_x) - MAP_SIZE / 2);
+			vertice.setX((MAP_SIZE * x / vertices_by_x) - MAP_SIZE / 2); // x
 			vertice.setY(y / 255); //(2.0 * qGray(color) / 255);
-            vertice.setZ((MAP_SIZE * z / vertices_by_z) - MAP_SIZE / 2);
+			vertice.setZ((MAP_SIZE * z / vertices_by_z) - MAP_SIZE / 2); // y
             m_vertices.push_back(vertice);
 
             texture.setX(static_cast<float>(x) / static_cast<float>(vertices_by_x));
@@ -135,7 +135,7 @@ void HeightmapWidget::initializeGL()
     }
 
     // Load texture
-    m_textureid = bindTexture(QPixmap("x64/Debug/testhm.png"), GL_TEXTURE_2D);
+    m_textureid = bindTexture(QPixmap("Resources/testhm.png"), GL_TEXTURE_2D);
 
     // Vertex buffer init
     m_vertexbuffer.create();
@@ -189,6 +189,7 @@ void HeightmapWidget::paintGL()
 
     // Draw map
     qglColor(Qt::white);
+	glLineWidth(1);
 
     switch(mode_rendu)
     {
@@ -206,9 +207,9 @@ void HeightmapWidget::paintGL()
 
             glTexCoord2f(m_texturearray[i+2].x(), m_texturearray[i+2].y());
             glVertex3f(m_vertexarray[i+2].x(), m_vertexarray[i+2].y(), m_vertexarray[i+2].z());
-        }        
+        }   
+		
         glEnd();
-		AddRay(Ray(Vector3(5.0, 5.0, 5.0), Vector3(1.0, 1.0, 0.0)));
         break;
 
     case MODE_VERTEXARRAY:
@@ -258,6 +259,47 @@ void HeightmapWidget::paintGL()
         glDisableClientState(GL_VERTEX_ARRAY);
         break;
     }
+
+	std::list<Ray>::iterator
+		ray(listRays.begin()),
+		lend(listRays.end());
+
+	for (; ray != lend; ++ray)
+	{
+		double t;
+		bool touche = terrain->instersection(*ray, t);
+		glLineWidth(5);
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0f, 0.0f, 1.0f);
+
+		// Origine
+		glVertex3f((MAP_SIZE * ray->getOrigin().x / vertices_by_x) - MAP_SIZE / 2,
+			ray->getOrigin().z / 255,
+			(MAP_SIZE * ray->getOrigin().y / vertices_by_z) - MAP_SIZE / 2);
+
+		//glColor3f(1.0f, 1.0f, 1.0f);
+		//// Direction
+		//glVertex3f((MAP_SIZE * lit->getDirection().x / vertices_by_x) - MAP_SIZE / 2,
+		//	lit->getDirection().z / 255,
+		//	(MAP_SIZE * lit->getDirection().y / vertices_by_z) - MAP_SIZE / 2);
+
+		if (touche)
+			glColor3f(1.0f, 0.0f, 0.0f);
+		else
+			glColor3f(1.0f, 1.0f, 1.0f);
+		//glVertex3f(point.x, point.y, point.z);
+		//glVertex3f(1, 1, 1);
+		Vector3 tmp(ray->getDirection() * t);
+
+		glVertex3f((MAP_SIZE * (ray->getOrigin() + tmp).x / vertices_by_x) - MAP_SIZE / 2,
+			(ray->getOrigin() + tmp).z / 255,
+			(MAP_SIZE * (ray->getOrigin() + tmp).y / vertices_by_z) - MAP_SIZE / 2);
+
+	}
+
+	
+
+	glEnd();
 
     // FPS count
     ++frame_count;
@@ -343,11 +385,5 @@ void HeightmapWidget::rotateBy(int x, int y, int z)
 
 void HeightmapWidget::AddRay(Ray r)
 {
-	
-	Vector3 point(terrain->instersection(r));
-	glBegin(GL_LINE_STRIP);
-	glVertex3f(r.getOrigin().x, r.getOrigin().y, r.getOrigin().z);
-	glVertex3f(point.x, point.y, point.z);
-	
-	glEnd();
+	listRays.push_back(r);
 }
