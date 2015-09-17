@@ -12,7 +12,7 @@ public:
 
 	// Surcharge des operateurs arithmetiques.
 
-	inline Vector3& operator=(const Vector3& v)
+	inline Vector3 operator=(const Vector3& v)
 	{
 		x = v.x;
 		y = v.y;
@@ -20,12 +20,12 @@ public:
 		return *this;
 	}
 
-	inline Vector3& operator+(const Vector3& v) const
+	inline Vector3 operator+(const Vector3& v) const
 	{
 		return Vector3(x + v.x, y + v.y, z + v.z);
 	}
 
-	inline Vector3& operator+=(const Vector3& v)
+	inline Vector3 operator+=(const Vector3& v)
 	{
 		x += v.x;
 		y += v.y;
@@ -33,12 +33,17 @@ public:
 		return *this;
 	}
 
-	inline Vector3& operator*(const double& x_) const
+	inline Vector3 operator*(const double& x_) const
 	{
 		return Vector3(x * x_, y * x_, z * x_);
 	}
 
-	inline Vector3& operator/(const double& x_) const
+	inline Vector3 operator+(const double& x_) const
+	{
+		return Vector3(x + x_, y + x_, z + x_);
+	}
+
+	inline Vector3 operator/(const double& x_) const
 	{
 		return Vector3(x / x_, y / x_, z / x_);
 	}
@@ -53,7 +58,7 @@ public:
 		return v.x == x && v.y == y && v.z == z;
 	}
 
-	static inline Vector3& normalize(Vector3& v)
+	static inline Vector3 normalize(Vector3& v)
 	{
 		return v / v.normal();
 	}
@@ -63,12 +68,12 @@ public:
 		return std::sqrt(x*x + y*y + z*z);
 	}
 	// pdt scalaire
-	inline Vector3& operator*(const Vector3& v) const
+	inline double operator*(const Vector3& v) const
 	{
-		return Vector3(x * v.x, y * v.y, z * v.z);
+		return x * v.x + y * v.y + z * v.z;
 	}
 	// pdt vectoriel
-	inline Vector3& operator^(const Vector3& v) const
+	inline Vector3 operator^(const Vector3& v) const
 	{
 		double tmpX = x;
 		double tmpY = y;
@@ -79,11 +84,11 @@ public:
 
 		return Vector3(xRes, yRes, zRes);
 	}
-	inline Vector3& operator-(const Vector3& v) const
+	inline Vector3 operator-(const Vector3& v) const
 	{
 		return Vector3(x - v.x, y - v.y, z - v.z);
 	}
-	inline Vector3& inv()
+	inline Vector3 inv()
 	{
 		x = -x;
 		y = -y;

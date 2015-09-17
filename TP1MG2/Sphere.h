@@ -2,6 +2,9 @@
 #include "Vector3.h"
 #include "Ray.h"
 
+const double pi = 3.1415927;
+const double noIntersect = -10.0;
+
 class Sphere {
 	Vector3 o;
 	double rayon;
@@ -24,8 +27,14 @@ public:
 		return (p - o).normal() <= rayon;
 	}
 
-	Vector3 intersection(Ray r) const
+	inline Vector3 normal(Vector3 p) const
 	{
+		return p - o;
+	}
+
+	bool intersection(Ray r, double& t) const
+	{
+<<<<<<< HEAD
 		Vector3 p = r.getOrigin();
 		double eps = .5;
 		for (int i = 0; i < 10; i++)
@@ -37,5 +46,16 @@ public:
 			p += r.getDirection() * eps;
 		}
 		return Vector3(-10, -10, -10);
+=======
+		Vector3 op = r.getOrigin() - o;		// Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
+		double b = r.getDirection() * op;
+		t = 0.0;
+		double det = b * b - (op * op) + rayon * rayon;
+		if (det < 0)
+			return (t = noIntersect);
+		else
+			det = std::sqrt(det);
+		return (t = b - det) >= 0 ? t : ((t = b + det) >= 0 ? t : noIntersect);
+>>>>>>> 623d0e56a3c4b0e5c61079757428020d889dc491
 	}
 };
