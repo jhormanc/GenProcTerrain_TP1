@@ -65,14 +65,20 @@ int main(int argc, char *argv[])
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	QPixmap pxmp;
 	Vector3 intersect;
-	Sphere s(Vector3(0.0, 0.0, 0.0), 0.8);
+	Sphere s(Vector3(0.0, 0.0, 0.0), 0.5);
+	double f;
 	for (int i = 0; i < width_scrn; i++)
 	{
 		for (int j = 0; j < height_scrn; j++)
 		{
-			double x = 2 * (i - (width_scrn * 0.5)) / width_scrn; // -1.0 <= x <= 1.0
-			double y = 2 * (j - (height_scrn * 0.5)) / height_scrn; //  ...  y ...
-			if ((intersect = s.intersection(Ray(origin, Vector3::normalize(Vector3(x, y, 0) - origin)))) != Vector3(-10, -10, -10))
+			double width = (double)width_scrn;
+			double height = (double)height_scrn;
+			double x = (2 * (i - (width * 0.5)) / width) * (width / height); // -1.0 <= x <= 1.0
+			double y = (2 * (j - (height * 0.5)) / height);//* (width_scrn / height_scrn); //  ...  y ...
+			Ray r = Ray(origin, Vector3::normalize(Vector3(x, y, 0) - origin));
+			s.intersection(r, f);
+
+			if (f > noIntersect)
 			{
 				screen.setPixel(i, j, qRgb(255, 255, 255));
 			}
