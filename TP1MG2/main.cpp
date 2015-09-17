@@ -21,19 +21,21 @@ int main(int argc, char *argv[])
 	w.show(); */
 	Debug d;
 	QImage hm("Resources/Heightmap");
-	Terrain t(hm, 257, 257, 20.0, 20.0);
-	Terrain t2 = Terrain::CreateRidgeFractal(100, 100, 10.0, 15.0, 255.0);
+	Terrain t(hm, 257, 257, 20.0, 20.0); /*Terrain crée grace à une image*/
+	Terrain t2 = Terrain::CreateRidgeFractal(100, 100, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
 	hmw = new HeightmapWidget(&t2, 0);
 
+	/*Debugage écrie*/
 	logTxt.setReadOnly(true);
-	logTxt.insertPlainText(d.printTerrain(t).toHtmlEscaped());
+	//Afficher en écrie le Terrain "t"
+	/*logTxt.insertPlainText(d.printTerrain(t).toHtmlEscaped()); 
 	for (int i = 0; i < 10; i++)
 	{
 		Vector3 tmp(((int)(rand()) % 1800) / 10.0, ((int)(rand()) % 1800) / 10.0, ((int)(rand()) % 2000) / 10.0);
 		logTxt.append(d.testInOut(tmp, t).toHtmlEscaped());
-	}
+	}*/
 
 	logTxt.append(d.printVector3(t.getPoint(90.0, 10.0)).toHtmlEscaped());
 	logTxt.append(d.testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, -5.0)), t).toHtmlEscaped());
@@ -54,7 +56,10 @@ int main(int argc, char *argv[])
 	//logTxt.append(d.printVector3(t.getPoint(90.0, 10.0)));
 	logTxt.append(QString('\n').toHtmlEscaped());
 	
-	logTxt.append(d.printTerrain(t2).toHtmlEscaped());
+	//Afficher en écrie le Terrain "t2"
+	/*logTxt.append(d.printTerrain(t2).toHtmlEscaped());*/
+	
+	
 	logTxt.show();
 
 	// Raytracage de la sphere

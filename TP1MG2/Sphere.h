@@ -28,7 +28,7 @@ public:
 	{
 		Vector3 p = r.getOrigin();
 		double eps = .5;
-		for (int i = 0; i < 200; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			if (isIn(p))
 			{

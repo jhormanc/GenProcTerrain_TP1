@@ -42,6 +42,54 @@ Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, do
 	}
 }
 
+Terrain::Terrain(QImage heightmap,Vector3 v1,Vector3 v2/*, const double* low_, const double* hight_*/){
+	
+	
+	pointList = new Vector3 *[heightmap.height()];
+	for (int i = 0; i < heightmap.width(); i++)
+		pointList[i] = new Vector3[heightmap.width()];
+
+	terrain_height = heightmap.height();
+	terrain_width = heightmap.width();
+	/*step_x = step_x_;
+	step_y = step_y_;*/
+	double fact = 1.0;
+	for (int j = 0; j < heightmap.height(); j++)
+	{
+		for (int i = 0; i < heightmap.width(); i++)
+		{
+		
+			QColor it = (heightmap.pixel(i, j));
+			double gray = 255 - ((it.red() + it.blue() + it.green()) / 3);
+			MaxMin(gray);
+			pointList[i][j] = Vector3(step_x * i, step_y * j, gray * fact);
+
+		}
+	}
+	
+	//v1 etant le point bas gauche on va lui donner comme z la valeur de "low"
+	v1.z=low;
+	
+	//v2 etant le point haut droite on va lui donner comme z la valeur de "hight"
+	v2.z=hight;
+	
+	//*On passe en parametre les deux vecteur3 definissant les limites du carrée : le coté bas gauche et le coté haut droit*//
+	boxlimit = new Box(v1 , v2);
+	
+}
+
+
+//*Fonction pour trouver la hauteur max et min*//
+void Terrain::MaxMin(float x){
+	if(x>hight)
+		hight=x;
+		
+	if(x<low)
+		low=x;
+		
+}
+
+
 // Renvoi une valeur aleatoire entre 0 et 1 a partir de x.
 double Terrain::hash(double x)
 {
