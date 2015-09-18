@@ -38,7 +38,7 @@ public:
 	bool inOut(Vector3 p) const;
 
 	// Renvoie vrai si le Ray r touche le terrain.
-	bool instersection(Ray r, double &t) const;
+	bool intersection(Ray r, double &t) const;
 	
 	// DEBUG
 	uint getWidth() const

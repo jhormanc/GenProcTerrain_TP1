@@ -34,19 +34,7 @@ public:
 
 	bool intersection(Ray r, double& t) const
 	{
-<<<<<<< HEAD
-		Vector3 p = r.getOrigin();
-		double eps = .5;
-		for (int i = 0; i < 10; i++)
-		{
-			if (isIn(p))
-			{
-				return p;
-			}
-			p += r.getDirection() * eps;
-		}
-		return Vector3(-10, -10, -10);
-=======
+		
 		Vector3 op = r.getOrigin() - o;		// Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
 		double b = r.getDirection() * op;
 		t = 0.0;
@@ -56,6 +44,5 @@ public:
 		else
 			det = std::sqrt(det);
 		return (t = b - det) >= 0 ? t : ((t = b + det) >= 0 ? t : noIntersect);
->>>>>>> 623d0e56a3c4b0e5c61079757428020d889dc491
 	}
 };

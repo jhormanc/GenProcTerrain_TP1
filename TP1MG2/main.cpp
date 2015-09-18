@@ -64,12 +64,13 @@ int main(int argc, char *argv[])
 
 	// Raytracage de la sphere
 	Vector3 origin(0.0, 0.0, -1.0); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 light(0.0, -0.6, -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	//Camera c(origin, Vector3(0.0, 0.0, 0.0), 12.0);
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	QPixmap pxmp;
-	Vector3 intersect;
+	//Vector3 intersect;
 	Sphere s(Vector3(0.0, 0.0, 0.0), 0.5);
 	double f;
 	for (int i = 0; i < width_scrn; i++)
@@ -81,19 +82,35 @@ int main(int argc, char *argv[])
 			double x = (2 * (i - (width * 0.5)) / width) * (width / height); // -1.0 <= x <= 1.0
 			double y = (2 * (j - (height * 0.5)) / height);//* (width_scrn / height_scrn); //  ...  y ...
 			Ray r = Ray(origin, Vector3::normalize(Vector3(x, y, 0) - origin));
-			s.intersection(r, f);
+			s.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
 
-			if (f > noIntersect)
+			if (f > noIntersect) //Si intersection
 			{
-				screen.setPixel(i, j, qRgb(255, 255, 255));
+				Vector3 intersect(r.getOrigin()+r.getDirection()*(-f)); //Pour avoir le point d'intersection sur la l'objet ( sphere )
+				Vector3 direction = Vector3::normalize(intersect-light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
+				Ray lightvec=Ray(light,direction); //On crée le ray.
+
+				s.intersection(lightvec,f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
+
+				Vector3 intersectlight(lightvec.getOrigin()+lightvec.getDirection()*(-f)); // coordonée du point d'intersection du Ray sur la sphere.
+	/*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/	
+				double distance1= Vector3::distance(lightvec.getOrigin(),intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
+				double distance2= Vector3::distance(lightvec.getOrigin(),intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
+
+				if(distance1<distance2){ //si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
+					screen.setPixel(i, j, qRgb(150, 255, 255));//alors pixel d'intersection camera/objet represente l'ombre
+				}else{
+					screen.setPixel(i, j, qRgb(255, 255, 255));//sinon represente lumiére 
+				}
+				
 			}
 			else
 			{
-				screen.setPixel(i, j, qRgb(0, 0, 0));
+				screen.setPixel(i, j, qRgb(0, 0, 0)); // aucun contact avec l'objet.
 			}
 		}
 	}
-
+	
 	QLabel l;
 	l.setPixmap(QPixmap::fromImage(screen));
 	l.show();

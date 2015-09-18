@@ -242,7 +242,7 @@ bool Terrain::inOut(Vector3 p) const
 }
 
 // Renvoie True si le Ray r touche le terrain
-bool Terrain::instersection(Ray r, double &t) const
+bool Terrain::intersection(Ray r, double &t) const
 {
 	double zMin = 0;
 	double zMax = 0;

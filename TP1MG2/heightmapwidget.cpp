@@ -270,7 +270,7 @@ void HeightmapWidget::paintGL()
 	for (; ray != lend; ++ray)
 	{
 		double t;
-		bool touche = terrain->instersection(*ray, t);
+		bool touche = terrain->intersection(*ray, t);
 		glLineWidth(2);
 		glBegin(GL_LINE_STRIP);
 		glColor3f(0.0f, 0.0f, 1.0f); // le point de départ du lancé est en bleu
