@@ -60,7 +60,8 @@ public:
 
 	static inline Vector3 normalize(Vector3& v)
 	{
-		return v / v.normal();
+		double tmpNormal = v.normal();
+		return tmpNormal == 0.0 ? Vector3(.0, .0, .0) : v / tmpNormal;
 	}
 
 	inline double normal() const
@@ -79,8 +80,8 @@ public:
 		double tmpY = y;
 
 		int xRes = y*v.z - z*v.y;
-		int yRes = z*v.x - tmpX * v.z;
-		int zRes = tmpX * v.y - tmpY * v.x;
+		int yRes = z*v.x - x * v.z;
+		int zRes = x * v.y - y * v.x;
 
 		return Vector3(xRes, yRes, zRes);
 	}

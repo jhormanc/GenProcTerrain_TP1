@@ -64,7 +64,8 @@ int main(int argc, char *argv[])
 
 	// Raytracage de la sphere
 	Vector3 origin(0.0, 0.0, -1.0); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(0.0, -0.6, -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
+//	Vector3 light(0.0, -0.6, -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 light(0.5, 0.5, -1.);
 	//Camera c(origin, Vector3(0.0, 0.0, 0.0), 12.0);
 	const int width_scrn = 800;
 	const int height_scrn = 600;
@@ -90,25 +91,33 @@ int main(int argc, char *argv[])
 				Vector3 intersect(r.getOrigin()+r.getDirection()*(-f)); //Pour avoir le point d'intersection sur la l'objet ( sphere )
 				Vector3 direction = Vector3::normalize(intersect-light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
 				Ray lightvec=Ray(light,direction); //On crée le ray.
-
+				
 				s.intersection(lightvec,f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
 
 				Vector3 intersectlight(lightvec.getOrigin()+lightvec.getDirection()*(-f)); // coordonée du point d'intersection du Ray sur la sphere.
 	/*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/	
-				intersectlight += lightvec.getDirection() * eps; // regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
+				intersectlight += lightvec.getDirection() * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
 				double distance1= Vector3::distance(lightvec.getOrigin(),intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
 				double distance2= Vector3::distance(lightvec.getOrigin(),intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
 
 				if(distance1<distance2){ //si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
-					screen.setPixel(i, j, qRgb(150, 255, 255));//alors pixel d'intersection camera/objet represente l'ombre
+					
+					screen.setPixel(i, j, qRgb(0, 0, 0));//alors pixel d'intersection camera/objet represente l'ombre
 				}else{
-					screen.setPixel(i, j, qRgb(255, 255, 255));//sinon represente lumiére 
+					// Diffus :
+					Vector3 tmpDebug = (intersectlight + direction) * 10.0; // car produit vectorielle est compatible avec la multiplication avec un scalaire.
+					Vector3 tmpDebug1 = Vector3::normalize(((intersectlight * 10.0) ^ tmpDebug) * 0.01);
+					double tmpDebug2 = ((s.normal(intersectlight) * 10.) * (tmpDebug1 * 10.)) * 0.01; // car produit scalaire bilinéaire. 
+					double fact = ((tmpDebug2 * 10.) / (pi)) * 0.1 ; // calcul de la force de la lumiere
+					fact = ((fact + 0.3) * 3.); //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
+					double color = std::max(0, std::min((int)(255. * fact), 255));
+					screen.setPixel(i, j, qRgb(std::max(0, std::min((int)(155. * fact), 155)) , color, color));//sinon represente lumiére 
 				}
 				
 			}
 			else
 			{
-				screen.setPixel(i, j, qRgb(0, 0, 0)); // aucun contact avec l'objet.
+				screen.setPixel(i, j, qRgb(255, 255, 255)); // aucun contact avec l'objet.
 			}
 		}
 	}
