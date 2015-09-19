@@ -76,9 +76,6 @@ public:
 	// pdt vectoriel
 	inline Vector3 operator^(const Vector3& v) const
 	{
-		double tmpX = x;
-		double tmpY = y;
-
 		int xRes = y*v.z - z*v.y;
 		int yRes = z*v.x - x * v.z;
 		int zRes = x * v.y - y * v.x;
