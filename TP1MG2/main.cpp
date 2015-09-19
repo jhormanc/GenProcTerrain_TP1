@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
 	//Vector3 intersect;
 	Sphere s(Vector3(0.0, 0.0, 0.0), 0.5);
 	double f;
+	double eps = 0.1;
 	for (int i = 0; i < width_scrn; i++)
 	{
 		for (int j = 0; j < height_scrn; j++)
@@ -94,6 +95,7 @@ int main(int argc, char *argv[])
 
 				Vector3 intersectlight(lightvec.getOrigin()+lightvec.getDirection()*(-f)); // coordonée du point d'intersection du Ray sur la sphere.
 	/*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/	
+				intersectlight += lightvec.getDirection() * eps; // regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
 				double distance1= Vector3::distance(lightvec.getOrigin(),intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
 				double distance2= Vector3::distance(lightvec.getOrigin(),intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
 
