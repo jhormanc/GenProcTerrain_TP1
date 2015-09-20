@@ -17,6 +17,7 @@ class Terrain {
 	uint step_x;
 	uint step_y;
 	Box* boxlimit;
+	double k;  // pente maximale (coefficient de liepz...
 	float hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/
 
 	// Renvoi une valeur aleatoire entre 0 et 1 a partir de x.
@@ -62,6 +63,11 @@ public:
 		return pointList;
 	}
 
+	// calcul la pente maximale du terrain
+	void calcK();
+	
+	// renvoi la normal du terrain au point p
+	Vector3 normal(Vector3 p);
 	// Desctructeur. Desalloue pointList.
 	~Terrain();
 

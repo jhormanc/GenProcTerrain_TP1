@@ -13,6 +13,7 @@ Terrain::Terrain(const Terrain& t){
 	terrain_width = t.terrain_width;
 	step_x = t.step_x;
 	step_y = t.step_y;
+	calcK();
 }
 
 
@@ -40,6 +41,7 @@ Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, do
 
 		}
 	}
+	calcK();
 }
 
 Terrain::Terrain(QImage heightmap,Vector3 v1,Vector3 v2/*, const double* low_, const double* hight_*/){
@@ -75,7 +77,7 @@ Terrain::Terrain(QImage heightmap,Vector3 v1,Vector3 v2/*, const double* low_, c
 	
 	//*On passe en parametre les deux vecteur3 definissant les limites du carrée : le coté bas gauche et le coté haut droit*//
 	boxlimit = new Box(v1 , v2);
-	
+	calcK();
 }
 
 
@@ -244,27 +246,15 @@ bool Terrain::inOut(Vector3 p) const
 // Renvoie True si le Ray r touche le terrain
 bool Terrain::intersection(Ray r, double &t) const
 {
-	double zMin = 0;
-	double zMax = 0;
-	double k = 0;
-
+	double zMin = low;
+	double zMax = hight;
+	/*
 	// Calcul du point z le plus haut du terrain
 	for (int j = 0; j < terrain_height; j++)
 		for (int i = 0; i < terrain_width; i++)
 				zMax = std::max(zMax, pointList[i][j].z);
-
-	// Calcul de l'écart z maximum entre deux points
-	for (int j = 0; j < terrain_height - 1; j++)
-	{
-		for (int i = 0; i < terrain_width - 1; i++)
-		{
-			k = std::max(
-			    	std::max(
-			     	  std::max(k, std::abs(pointList[i][j].z - pointList[i][j + 1].z)), 
-				      std::abs(pointList[i][j].z - pointList[i + 1][j].z)),					  
-			    	std::abs(pointList[i][j].z - pointList[i + 1][j + 1].z));
-		}
-	}
+				*/
+	
 
 	t = zMin;
 	double epsilon = 1;
@@ -295,6 +285,34 @@ bool Terrain::intersection(Ray r, double &t) const
 
 }
 
+// calcul la pente maximale du terrain
+void Terrain::calcK()
+{
+	// Calcul de l'écart z maximum entre deux points
+	for (int j = 0; j < terrain_height - 1; j++)
+	{
+		for (int i = 0; i < terrain_width - 1; i++)
+		{
+			k = std::max(
+				std::max(
+				std::max(k, std::abs(pointList[i][j].z - pointList[i][j + 1].z)),
+				std::abs(pointList[i][j].z - pointList[i + 1][j].z)),
+				std::abs(pointList[i][j].z - pointList[i + 1][j + 1].z));
+		}
+	}
+}
+
+
+// renvoi la normal du terrain au point p
+Vector3 Terrain::normal(Vector3 p)
+{
+	int tmpI = (int)(p.x / step_x);
+	int tmpJ = (int)(p.y / step_y);
+	Vector3 a = getPoint(p.x, p.y);
+	Vector3 b = pointList[tmpI < terrain_width - 1 ? tmpI + 1 : tmpI][tmpJ];
+	Vector3 c = pointList[tmpI][tmpI < terrain_height - 1 ? tmpJ + 1 : tmpJ];
+	return Vector3::normalize((b - a) ^ (c - a));
+}
 // Desctructeur. Desalloue pointList.
 Terrain::~Terrain()
 {
