@@ -99,13 +99,14 @@ double Terrain::hash(double x)
 }
 
 // Perlin noise
-double Terrain::noise(double x, double y, const double res_x, const double res_y)
+// Renvoie un double compris entre -1 et 1
+double Terrain::perlin2D(double x, double y, const double res_x, const double res_y)
 {
 	double tempX, tempY;
 	int x0, y0, ii, jj, gi0, gi1, gi2, gi3;
 	double unit = 1.0f / sqrt(2);
 	double tmp, s, t, u, v, Cx, Cy, Li1, Li2;
-	double gradient2[][2] = { { unit, unit }, { -unit, unit }, { unit, -unit }, { -unit, -unit }, 
+	double gradient2[][2] = { { unit, unit }, { -unit, unit }, { unit, -unit }, { -unit, -unit },
 	{ 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
 	unsigned int perm[] =
@@ -172,28 +173,64 @@ double Terrain::noise(double x, double y, const double res_x, const double res_y
 	return Li1 + Cy*(Li2 - Li1);
 }
 
+double Terrain::noise(double x, double y, const int persistence, const int nbOctaves)
+{
+	double total = 0;
+	double sum = 0;
+
+	for (int i = 0; i < nbOctaves - 1; i++)
+	{
+		double frequency = std::pow(2, i);
+		double amplitude = std::pow(persistence, i);
+
+		total = total + perlin2D(x * frequency, y * frequency, 10, 10) * amplitude;
+		sum += amplitude;
+	}
+
+	return total / sum;
+
+	//return perlin2D(x, y, res_x, res_y);
+}
+
+double Terrain::ridge(const double z, const double zr)
+{
+	if (z < zr)
+		return z;
+	return 2 * zr - z;
+}
+
+Vector3 Terrain::warp(const Vector3 p)
+{
+	return Vector3(0, 0, 0);
+}
 
 // Renvoi un terrain genere aléatoirement
 Terrain Terrain::CreateRidgeFractal(uint terrain_width_, uint terrain_height_, double step_x_, double step_y_, double max_z)
 {
-//	Terrain res();
+	//	Terrain res();
 	double facteur = max_z; // On veut que les montagnes dépassent pour pouvoir faire le ridge.
 	Vector3 ** pointList = new Vector3 *[terrain_width_];
 	for (int i = 0; i < terrain_width_; i++)
 		pointList[i] = new Vector3[terrain_height_];
 
-	double z0, z1;
+	double z0, z1, z2, z3, z, zr, zp;
 
 	for (int j = 0; j < terrain_height_; j++)
 	{
 		for (int i = 0; i < terrain_width_; i++)
 		{
-
-			pointList[i][j] = Vector3(step_x_ * i, step_y_ * j, (noise(i, j, step_x_, step_y_) + 1) * 0.5 * facteur);
-			if (pointList[i][j].z > max_z)
-				pointList[i][j].z = 2 * max_z - pointList[i][j].z;
+			//z0 = noise(i / 1000.0, j / 1000.0, step_x_ * 1000.0, step_y_ * 1000.0);
+			//z1 = noise(i / 100.0, j / 100.0, step_x_ * 100.0, step_y_ * 100.0);
+			//z2 = noise(i / 10.0, j / 10.0, step_x_ * 10.0, step_y_ * 10.0);
+			//z3 = noise(i, j, step_x_, step_y_);
+			z3 = noise(i, j, 2, 8);
+			z = (noise(i, j, 0.5, 8) + 1) * 0.5 * facteur; //(z0 + z1 + z2 + z3 + 1) * 0.5 * facteur;
+			zr = ridge(z, max_z);
+			zp = zr;
+			pointList[i][j] = Vector3(step_x_ * i, step_y_ * j, zp);
 		}
 	}
+
 	return Terrain(pointList, terrain_width_, terrain_height_, step_x_, step_y_);
 }
 

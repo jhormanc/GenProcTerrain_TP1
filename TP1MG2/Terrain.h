@@ -71,5 +71,8 @@ public:
 	// Desctructeur. Desalloue pointList.
 	~Terrain();
 
-	static double noise(double x, double y, const double res_x, const double res_y);
+	static double noise(double x, double y, const int persistence, const int nbOctaves);
+	static double perlin2D(double x, double y, const double res_x, const double res_y);
+	static double ridge(const double z, const double zr);
+	static Vector3 warp(const Vector3 p);
 };
