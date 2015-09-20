@@ -65,14 +65,11 @@ int main(int argc, char *argv[])
 	// Raytracage de la sphere
 	Vector3 origin(0., 0., -1.); // Fait office de camera : represente l'emplacement de l'oeil.
 	Vector3 light(200., 200., -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
-	//Vector3 light(0., -100., -100.);
-	//Camera c(origin, Vector3(0.0, 0.0, 0.0), 12.0);
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.0), 0.0);
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	QPixmap pxmp;
-	//Vector3 intersect;
 	Sphere s(Vector3(0.0, 0.0, 100.0), 93.);
 	double f;
 	double eps = 0.1;
@@ -82,13 +79,9 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < height_scrn; j++)
 		{
-			double width = (double)width_scrn;
-			double height = (double)height_scrn;
-			/*double x = (2 * (i - (width * 0.5)) / width) * (width / height); // -1.0 <= x <= 1.0
-			double y = (2 * (j - (height * 0.5)) / height);//* (width_scrn / height_scrn); //  ...  y ...*/
 			Ray r = Ray(origin, Vector3::normalize(c.getPoint(i, j) - origin));
 			s.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
-		//	t.intersection(r, f);
+			//t2.intersection(r, f);
 			if (f > noIntersect) //Si intersection
 			{
 				Vector3 intersect(r.getOrigin()+r.getDirection()*(-f)); //Pour avoir le point d'intersection sur la l'objet ( sphere )
@@ -111,12 +104,12 @@ int main(int argc, char *argv[])
 					Vector3 tmpDebug = (intersectlight + direction /* Vector3::normalize(light - intersectlight )*/); // car produit vectorielle est compatible avec la multiplication avec un scalaire.
 					Vector3 tmpDebug1 = Vector3::normalize(((intersectlight) ^ tmpDebug) );
 					double tmpDebug2 = ((Vector3::normalize(s.normal(intersectlight))) * (tmpDebug1 )) ; // car produit scalaire bilinéaire. 
-					double fact = ((tmpDebug2));// / pi)  ; // calcul de la force de la lumiere
+					/*double fact = ((tmpDebug2));// / pi)  ; // calcul de la force de la lumiere
 					fact = ((fact) + 1.) * 0.5; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
 					maxFact = std::max(fact, maxFact);
 					minFact = std::min(fact, minFact);
-					double color = std::max(0., std::min(fact, 1.));
-				//	double fact = 1.;
+					double color = std::max(0., std::min(fact, 1.));*/
+					double fact = 1.;
 					screen.setPixel(i, j, qRgb(150 * fact , 255 * fact, 255 * fact));//sinon represente lumiére 
 				}
 				
