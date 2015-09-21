@@ -64,13 +64,12 @@ int main(int argc, char *argv[])
 
 	// Raytracage de la sphere
 	Vector3 origin(0., 0., -1.); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(200., 200., -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 light(0., 200.0, -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.0), 0.0);
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
-	QPixmap pxmp;
-	Sphere s(Vector3(0.0, 0.0, 100.0), 93.);
+	Sphere s(Vector3(0.0, 0., 100.0), 40.);
 	double f;
 	double eps = 0.1;
 	double maxFact = - 100000000000.;
@@ -79,7 +78,7 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < height_scrn; j++)
 		{
-			Ray r = Ray(origin, Vector3::normalize(c.getPoint(i, j) - origin));
+			Ray r = Ray(origin, Vector3::normalize(c.PtScreen(i, j, width_scrn, height_scrn)));
 			s.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
 			//t2.intersection(r, f);
 			if (f > noIntersect) //Si intersection
@@ -101,16 +100,17 @@ int main(int argc, char *argv[])
 				}else{
 
 					// Diffus :
-					Vector3 tmpDebug = (intersectlight + direction /* Vector3::normalize(light - intersectlight )*/); // car produit vectorielle est compatible avec la multiplication avec un scalaire.
-					Vector3 tmpDebug1 = Vector3::normalize(((intersectlight) ^ tmpDebug) );
-					double tmpDebug2 = ((Vector3::normalize(s.normal(intersectlight))) * (tmpDebug1 )) ; // car produit scalaire bilinéaire. 
-					/*double fact = ((tmpDebug2));// / pi)  ; // calcul de la force de la lumiere
-					fact = ((fact) + 1.) * 0.5; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
+				
+					Vector3 l(Vector3::normalize(light - (intersect)));
+					double fact = s.normal(intersect)* l;
+					
+					fact = (fact + 30.) * 0.009; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
 					maxFact = std::max(fact, maxFact);
 					minFact = std::min(fact, minFact);
-					double color = std::max(0., std::min(fact, 1.));*/
-					double fact = 1.;
+					double color = std::max(0., std::min(fact, 1.));
+				//	double fact = 1.;
 					screen.setPixel(i, j, qRgb(150 * fact , 255 * fact, 255 * fact));//sinon represente lumiére 
+
 				}
 				
 			}
@@ -121,6 +121,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	
+
 	QLabel l;
 	l.setPixmap(QPixmap::fromImage(screen));
 	l.show();

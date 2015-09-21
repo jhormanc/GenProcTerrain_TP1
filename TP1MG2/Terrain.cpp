@@ -7,9 +7,14 @@ Terrain::Terrain(const Terrain& t){
 		pointList[i] = new Vector3[t.terrain_height];
 	
 	for (int j = 0; j < t.terrain_height; j++)
-		for (int i = 0; i < t.terrain_width; i++)
+		for (int i = 0; i < t.terrain_width; i++){
 			pointList[i][j] = t.pointList[i][j];
-
+			if(i==0 && j==0){
+				hight=t.pointList[i][j].z;
+				low=t.pointList[i][j].z;
+			}
+			MaxMin(t.pointList[i][j].z);
+		}
 	terrain_height = t.terrain_height;
 	terrain_width = t.terrain_width;
 	step_x = t.step_x;
@@ -39,7 +44,11 @@ Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, do
 			QColor it = (heightmap.pixel(i, j));
 			double gray = 255 - ((it.red() + it.blue() + it.green()) / 3);
 			pointList[i][j] = Vector3(step_x_ * i, step_y_ * j, gray * fact);
-
+			if(i==0 && j==0){
+				hight=gray*fact;
+				low=gray*fact;
+			}
+			MaxMin(gray*fact);
 		}
 	}
 	calcK();
@@ -95,16 +104,18 @@ void Terrain::MaxMin(float x){
 
 
 
+
 // Renvoi un terrain genere aléatoirement
 Terrain Terrain::CreateRidgeFractal(uint terrain_width_, uint terrain_height_, double step_x_, double step_y_, double max_z)
 {
-	//	Terrain res();
+//	Terrain res();
 	double facteur = max_z; // On veut que les montagnes dépassent pour pouvoir faire le ridge.
 	Vector3 ** pointList = new Vector3 *[terrain_width_];
 	for (int i = 0; i < terrain_width_; i++)
 		pointList[i] = new Vector3[terrain_height_];
 
-	double z0, z1, z2, z3, z, zr, zp;
+	double z;
+	float h,l;
 
 	for (int j = 0; j < terrain_height_; j++)
 	{
@@ -112,10 +123,22 @@ Terrain Terrain::CreateRidgeFractal(uint terrain_width_, uint terrain_height_, d
 		{
 			z = Noise::noise(i, j);
 			pointList[i][j] = Vector3(step_x_ * i, step_y_ * j, z);
+		
+		/**Pour recuperer le Low and Hight**/
+			if(j==0 && i==0){
+				h=pointList[i][j].z;
+				l=pointList[i][j].z;
+			}
+			if(pointList[i][j].z>h)
+				h=pointList[i][j].z;
+
+			if(pointList[i][j].z<l)
+				l=pointList[i][j].z;
+		
+
 		}
 	}
-
-	return Terrain(pointList, terrain_width_, terrain_height_, step_x_, step_y_);
+	return Terrain(pointList, terrain_width_, terrain_height_, step_x_, step_y_,h,l);
 }
 
 
