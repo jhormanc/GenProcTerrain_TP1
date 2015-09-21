@@ -30,6 +30,6 @@ Vector3 Camera::getPoint(int i, int j)
 	double width = lu + lu;
 	double height = lv + lv;
 	double x = (2 * (i - (width * 0.5)) / width) * (width / height); // -1.0 <= x <= 1.0
-	double y = (2 * (j - (height * 0.5)) / height); //  ...  y ...
+	double y = (2 * ((height * 0.5) - j) / height); //  ...  y ...
 	return Vector3(x, y, 0);
 }
