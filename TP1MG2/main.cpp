@@ -64,16 +64,24 @@ int main(int argc, char *argv[])
 
 	// Raytracage de la sphere
 	Vector3 origin(0., 0., -1.); // Fait office de camera : represente l'emplacement de l'oeil.
+<<<<<<< HEAD
 	Vector3 light(0., 200.0, -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	//Vector3 light(0., -100., -100.);
 	//Camera c(origin, Vector3(0.0, 0.0, 0.0), 12.0);
+=======
+	Vector3 light(200., 200., -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
+>>>>>>> 359ed08708b8c82007546f87e4935d802aa91585
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.0), 0.0);
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	QPixmap pxmp;
+<<<<<<< HEAD
 	//Vector3 intersect;
 	Sphere s(Vector3(0.0, 0., 100.0), 93.);
+=======
+	Sphere s(Vector3(0.0, 0.0, 100.0), 93.);
+>>>>>>> 359ed08708b8c82007546f87e4935d802aa91585
 	double f;
 	double eps = 0.1;
 	double maxFact = - 100000000000.;
@@ -82,13 +90,9 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < height_scrn; j++)
 		{
-			double width = (double)width_scrn;
-			double height = (double)height_scrn;
-			/*double x = (2 * (i - (width * 0.5)) / width) * (width / height); // -1.0 <= x <= 1.0
-			double y = (2 * (j - (height * 0.5)) / height);//* (width_scrn / height_scrn); //  ...  y ...*/
 			Ray r = Ray(origin, Vector3::normalize(c.getPoint(i, j) - origin));
 			s.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
-		//	t.intersection(r, f);
+			//t2.intersection(r, f);
 			if (f > noIntersect) //Si intersection
 			{
 				Vector3 intersect(r.getOrigin()+r.getDirection()*(-f)); //Pour avoir le point d'intersection sur la l'objet ( sphere )
@@ -118,6 +122,7 @@ int main(int argc, char *argv[])
 					double color = std::max(0., std::min(fact, 1.));
 				//	double fact = 1.;
 					screen.setPixel(i, j, qRgb(255 * fact , 255 * fact, 255 * fact));//sinon represente lumiére 
+
 				}
 				
 			}
