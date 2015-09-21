@@ -64,24 +64,14 @@ int main(int argc, char *argv[])
 
 	// Raytracage de la sphere
 	Vector3 origin(0., 0., -1.); // Fait office de camera : represente l'emplacement de l'oeil.
-<<<<<<< HEAD
 	Vector3 light(0., 200.0, -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
-	//Vector3 light(0., -100., -100.);
-	//Camera c(origin, Vector3(0.0, 0.0, 0.0), 12.0);
-=======
-	Vector3 light(200., 200., -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
->>>>>>> 359ed08708b8c82007546f87e4935d802aa91585
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.0), 0.0);
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	QPixmap pxmp;
-<<<<<<< HEAD
 	//Vector3 intersect;
 	Sphere s(Vector3(0.0, 0., 100.0), 93.);
-=======
-	Sphere s(Vector3(0.0, 0.0, 100.0), 93.);
->>>>>>> 359ed08708b8c82007546f87e4935d802aa91585
 	double f;
 	double eps = 0.1;
 	double maxFact = - 100000000000.;
