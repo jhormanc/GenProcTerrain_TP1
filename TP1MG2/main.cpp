@@ -69,8 +69,6 @@ int main(int argc, char *argv[])
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.0), 0.0);
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
-	QPixmap pxmp;
-	//Vector3 intersect;
 	Sphere s(Vector3(0.0, 0., 100.0), 93.);
 	double f;
 	double eps = 0.1;
