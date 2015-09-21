@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	Debug d;
 	QImage hm("Resources/Heightmap");
 	Terrain t(hm, 257, 257, 20.0, 20.0); /*Terrain crée grace à une image*/
-	Terrain t2 = Terrain::CreateRidgeFractal(100, 100, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
+	Terrain t2 = Terrain::CreateRidgeFractal(1000, 1000, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
 	hmw = new HeightmapWidget(&t2, 0);

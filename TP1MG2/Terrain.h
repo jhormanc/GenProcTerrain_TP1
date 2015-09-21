@@ -2,6 +2,7 @@
 #include "Vector3.h"
 #include "Ray.h"
 #include "Box.h"
+#include "Mesh.h"
 #include <qimage>
 #include <qpixmap>
 #include <qrect>
@@ -19,9 +20,7 @@ class Terrain {
 	Box* boxlimit;
 	double k;  // pente maximale (coefficient de liepz...
 	float hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/
-
-	// Renvoi une valeur aleatoire entre 0 et 1 a partir de x.
-	static double hash(double x);
+	
 public:
 	// Constructeur.
 	Terrain(const Terrain& t);
@@ -71,8 +70,5 @@ public:
 	// Desctructeur. Desalloue pointList.
 	~Terrain();
 
-	static double noise(double x, double y, const int persistence, const int nbOctaves);
-	static double perlin2D(double x, double y, const double res_x, const double res_y);
-	static double ridge(const double z, const double zr);
-	static Vector3 warp(const Vector3 p);
+	Mesh* GetMesh();
 };

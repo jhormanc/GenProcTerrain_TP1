@@ -68,71 +68,7 @@ void HeightmapWidget::initializeGL()
     // Load heightmap
     //QImage img = QImage("x64/Debug/testhm.png");
 
-	vertices_by_x = terrain->getHeight(); //img.width();
-	vertices_by_z = terrain->getWidth(); // img.height();
-    quads_by_x = vertices_by_x - 1;
-    quads_by_z = vertices_by_z - 1;
-
-    QVector3D vertice;
-    QVector2D texture;
-    m_vertices.reserve(vertices_by_x * vertices_by_z);
-    m_textures.reserve(vertices_by_x * vertices_by_z);
-    for(int z = 0; z < vertices_by_z; ++z)
-    {
-        for(int x = 0; x < vertices_by_x; ++x)
-        {
-            //QRgb color = img.pixel(x, z);
-			float y = terrain->getPoint(x * terrain->getStepX(), z * terrain->getStepY()).z;
-
-			vertice.setX((MAP_SIZE * x / vertices_by_x) - MAP_SIZE / 2); // x
-			vertice.setY(y / 255); //(2.0 * qGray(color) / 255);
-			vertice.setZ((MAP_SIZE * z / vertices_by_z) - MAP_SIZE / 2); // y
-            m_vertices.push_back(vertice);
-
-            texture.setX(static_cast<float>(x) / static_cast<float>(vertices_by_x));
-            texture.setY(1.0 - static_cast<float>(z) / static_cast<float>(vertices_by_z));
-            m_textures.push_back(texture);
-        }
-    }
-
-    // Vertex array & indices
-    m_vertexarray.reserve(quads_by_x * quads_by_z * 6);
-    m_texturearray.reserve(quads_by_x * quads_by_z * 6);
-    m_indices.reserve(quads_by_x * quads_by_z * 6);
-    for (int z = 0; z < quads_by_z; ++z)
-    {
-        for (int x = 0; x < quads_by_x; ++x)
-        {
-            int i = z * vertices_by_x + x;
-
-            // VertexArray
-            m_vertexarray.push_back(m_vertices[i]);
-            m_vertexarray.push_back(m_vertices[i+vertices_by_x]);
-            m_vertexarray.push_back(m_vertices[i+1]);
-
-            m_vertexarray.push_back(m_vertices[i+1]);
-            m_vertexarray.push_back(m_vertices[i+vertices_by_x]);
-            m_vertexarray.push_back(m_vertices[i+1+vertices_by_x]);
-
-            // Texture array
-            m_texturearray.push_back(m_textures[i]);
-            m_texturearray.push_back(m_textures[i+vertices_by_x]);
-            m_texturearray.push_back(m_textures[i+1]);
-
-            m_texturearray.push_back(m_textures[i+1]);
-            m_texturearray.push_back(m_textures[i+vertices_by_x]);
-            m_texturearray.push_back(m_textures[i+1+vertices_by_x]);
-
-            // Indices
-            m_indices.push_back(i);
-            m_indices.push_back(i + vertices_by_x);
-            m_indices.push_back(i + 1);
-
-            m_indices.push_back(i + 1);
-            m_indices.push_back(i + vertices_by_x);
-            m_indices.push_back(i + 1 + vertices_by_x);
-        }
-    }
+	mesh = terrain->GetMesh();
 
     // Load texture
     m_textureid = bindTexture(QPixmap("Resources/Heightmap.png"), GL_TEXTURE_2D);
@@ -140,19 +76,19 @@ void HeightmapWidget::initializeGL()
     // Vertex buffer init
     m_vertexbuffer.create();
     m_vertexbuffer.bind();
-    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
+    m_vertexbuffer.allocate(mesh->getVertices().constData(), mesh->getVertices().size() * sizeof(QVector3D));
     m_vertexbuffer.release();
 
     // Texture coordonnees vbo
     m_texturebuffer.create();
     m_texturebuffer.bind();
-    m_texturebuffer.allocate(m_textures.constData(), sizeof(QVector2D) * m_textures.size());
+    m_texturebuffer.allocate(mesh->getTextures().constData(), sizeof(QVector2D) * mesh->getTextures().size());
     m_texturebuffer.release();
 
     // Indices buffer init
     m_indicebuffer.create();
     m_indicebuffer.bind();
-    m_indicebuffer.allocate(m_indices.constData(), m_indices.size() * sizeof(GLuint));
+    m_indicebuffer.allocate(mesh->getIndices().constData(), mesh->getIndices().size() * sizeof(GLuint));
     m_indicebuffer.release();
 
     // GL options
@@ -193,6 +129,13 @@ void HeightmapWidget::paintGL()
     // Draw map
     qglColor(Qt::white);
 	glLineWidth(1);
+
+
+	QVector<QVector3D> m_vertices = mesh->getVertices();
+    QVector<QVector3D> m_vertexarray = mesh->getVertexArray();
+    QVector<QVector2D> m_textures = mesh->getTextures();
+    QVector<QVector2D> m_texturearray = mesh->getTextureArray();
+	QVector<GLuint>    m_indices = mesh->getIndices();
 
     switch(mode_rendu)
     {
@@ -276,9 +219,9 @@ void HeightmapWidget::paintGL()
 		glColor3f(0.0f, 0.0f, 1.0f); // le point de départ du lancé est en bleu
 
 		// Origine
-		glVertex3f((MAP_SIZE * ray->getOrigin().x / vertices_by_x) - MAP_SIZE / 2,
+		glVertex3f((MAP_SIZE * ray->getOrigin().x / mesh->getHeight()) - MAP_SIZE / 2,
 			ray->getOrigin().z / 255,
-			(MAP_SIZE * ray->getOrigin().y / vertices_by_z) - MAP_SIZE / 2);
+			(MAP_SIZE * ray->getOrigin().y / mesh->getWidth()) - MAP_SIZE / 2);
 
 		if (touche)
 			glColor3f(0.0f, 1.0f, 0.0f); // point vert si le Ray a touché le terrain
@@ -288,9 +231,9 @@ void HeightmapWidget::paintGL()
 		Vector3 tmp(ray->getDirection() * t);
 
 		// Point d'arrivée du lancé de rayon
-		glVertex3f((MAP_SIZE * (ray->getOrigin() + tmp).x / vertices_by_x) - MAP_SIZE / 2,
+		glVertex3f((MAP_SIZE * (ray->getOrigin() + tmp).x / mesh->getHeight()) - MAP_SIZE / 2,
 			(ray->getOrigin() + tmp).z / 255,
-			(MAP_SIZE * (ray->getOrigin() + tmp).y / vertices_by_z) - MAP_SIZE / 2);
+			(MAP_SIZE * (ray->getOrigin() + tmp).y / mesh->getWidth()) - MAP_SIZE / 2);
 
 		glEnd();
 	}
