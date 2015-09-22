@@ -10,10 +10,10 @@ Camera::Camera(Vector3 o_, Vector3 a_, double dw)
 	u = Vector3::normalize(tmpu);
 	v = w^u;
 
-//	lu = 1.;
+//	lu = 16./9.;
 //	lv = 1.;
-	lu = 16./20.;
-	lv = 9./20.;
+	lu = 4./3.;
+	lv = 1.;
 	lw = dw;
 }
 
