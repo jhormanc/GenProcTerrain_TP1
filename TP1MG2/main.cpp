@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 					Vector3 L = Vector3::normalize(light-intersect);
 					Vector3 N = t.normal(intersect);
 					double color = L*N;
-					color=color/pi;
+					color=std::abs(color)/pi;
 					screen.setPixel(i, j, qRgb(255 * color , 255 * color, 255 * color));//sinon represente lumiére 
 
 					// Diffus :

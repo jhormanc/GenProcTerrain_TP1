@@ -242,6 +242,11 @@ void Terrain::calcK()
 // renvoi la normal du terrain au point p
 Vector3 Terrain::normal(Vector3 p)
 {
+	
+	/*Essaie thibault*/
+	//if(p.x==0 && p.y==0
+
+	
 	int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
 	int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
 	//int tmpI = (int)(p.x / step_x);
@@ -251,6 +256,8 @@ Vector3 Terrain::normal(Vector3 p)
 	Vector3 c = pointList[tmpI][tmpI < terrain_height - 1 ? tmpJ + 1 : tmpJ];
 	return Vector3::normalize((b - a) ^ (c - a));
 }
+
+
 // Desctructeur. Desalloue pointList.
 Terrain::~Terrain()
 {
