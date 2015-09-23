@@ -9,14 +9,15 @@
 #include <math.h>
 
 #define BIG_DOUBLE 43758.5453123
+const Vector3 noneVec(-10., -10., -10.);
 // Classe représentant un Terrain 3D.
 class Terrain {
 
 	Vector3 ** pointList;
 	uint terrain_width;
 	uint terrain_height;
-	uint step_x;
-	uint step_y;
+	double step_x;
+	double step_y;
 	Box* boxlimit;
 	double k;  // pente maximale (coefficient de liepz...
 	float hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/

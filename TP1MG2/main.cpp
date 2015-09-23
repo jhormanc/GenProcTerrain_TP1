@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
 	/*TP1MG2 w;
 	w.show(); */
 	Debug d;
-	QImage hm("Resources/Heightmap");
-	Terrain t(hm, 257, 257, 20.0, 20.0); /*Terrain crée grace à une image*/
+	QImage hm("Resources/testhm");
+	Terrain t(hm, 257, 257, 0.1, 0.1); /*Terrain crée grace à une image*/
 	Terrain t2 = Terrain::CreateRidgeFractal(1000, 1000, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
@@ -59,17 +59,19 @@ int main(int argc, char *argv[])
 	//Afficher en écrie le Terrain "t2"
 	/*logTxt.append(d.printTerrain(t2).toHtmlEscaped());*/
 	
-	
+	logTxt.insertPlainText(d.printTerrain(t).toHtmlEscaped());
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(0., 0., -1.); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(0., 200.0, -0.7);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 origin(0., .0
+		, 3.0); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 light(-1., 2.
+		, 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
-	Camera c(origin, Vector3(0., 0., 0.0), 0.0);
+	Camera c(origin, Vector3(0., 0., .0), 1.);
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
-	Sphere s(Vector3(0.0, 0., 100.0), 40.);
+	Sphere s(Vector3(0.0, 0., 0.), .5);
 	double f;
 	double eps = 0.1;
 	double maxFact = - 100000000000.;
@@ -78,18 +80,19 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < height_scrn; j++)
 		{
-			Ray r = Ray(origin, Vector3::normalize(c.PtScreen(i, j, width_scrn, height_scrn)));
-			s.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
+			Ray r = Ray(origin, Vector3::normalize(c.PtScreen(i, j, width_scrn, height_scrn) - origin));
+			
+			t.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
 			//t2.intersection(r, f);
 			if (f > noIntersect) //Si intersection
 			{
-				Vector3 intersect(r.getOrigin()+r.getDirection()*(-f)); //Pour avoir le point d'intersection sur la l'objet ( sphere )
+				Vector3 intersect(r.getOrigin()+r.getDirection()*(abs(f))); //Pour avoir le point d'intersection sur la l'objet ( sphere )
 				Vector3 direction = Vector3::normalize(intersect-light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
 				Ray lightvec=Ray(light,direction); //On crée le ray.
 				
-				s.intersection(lightvec,f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
+				t.intersection(lightvec,f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
 
-				Vector3 intersectlight(lightvec.getOrigin()+lightvec.getDirection()*(-f)); // coordonée du point d'intersection du Ray sur la sphere.
+				Vector3 intersectlight(lightvec.getOrigin()+lightvec.getDirection()*(abs(f))); // coordonée du point d'intersection du Ray sur la sphere.
 	/*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/	
 				intersectlight += lightvec.getDirection() * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
 				double distance1= Vector3::distance(lightvec.getOrigin(),intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
@@ -103,20 +106,21 @@ int main(int argc, char *argv[])
 				
 					Vector3 l(Vector3::normalize(light - (intersect)));
 					double fact = s.normal(intersect)* l;
-					
-					fact = (fact + 30.) * 0.009; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
 					maxFact = std::max(fact, maxFact);
 					minFact = std::min(fact, minFact);
+					fact = (fact + 1.) * 1.; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
+					
 					double color = std::max(0., std::min(fact, 1.));
 				//	double fact = 1.;
-					screen.setPixel(i, j, qRgb(150 * fact , 255 * fact, 255 * fact));//sinon represente lumiére 
+					screen.setPixel(i, j, qRgb(255 * color , 255 * color, 255 * color));//sinon represente lumiére 
 
 				}
 				
+
 			}
 			else
 			{
-				screen.setPixel(i, j, qRgb(255, 255, 255)); // aucun contact avec l'objet.
+				screen.setPixel(i, j, qRgb(155, 255, 255)); // aucun contact avec l'objet.
 			}
 		}
 	}
@@ -128,7 +132,7 @@ int main(int argc, char *argv[])
 
 	
 	
-	hmw->show();
+//	hmw->show();
 
 	return a.exec();
 }

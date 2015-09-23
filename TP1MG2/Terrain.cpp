@@ -25,17 +25,18 @@ Terrain::Terrain(const Terrain& t){
 
 Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, double step_x_, double step_y_)
 {
-	pointList = new Vector3 *[terrain_width_];
-	for (int i = 0; i < terrain_width_; i++)
-		pointList[i] = new Vector3[terrain_height_];
-
-	terrain_height = terrain_height_;
-	terrain_width = terrain_width_;
-	step_x = step_x_;
-	step_y = step_y_;
-	double fact = 1.0;
 	int height = heightmap.height();
 	int width = heightmap.width();
+	pointList = new Vector3 *[width];
+	for (int i = 0; i < width; i++)
+		pointList[i] = new Vector3[height];
+
+	terrain_height = height;
+	terrain_width = width;
+	step_x = 1. / width;
+	step_y = 1. / height;
+	double fact = 1.5 / 255.;
+	
 	for (int j = 0; j < height; j++)
 	{
 		for (int i = 0; i < width; i++)
@@ -43,7 +44,7 @@ Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, do
 		
 			QColor it = (heightmap.pixel(i, j));
 			double gray = 255 - ((it.red() + it.blue() + it.green()) / 3);
-			pointList[i][j] = Vector3(step_x_ * i, step_y_ * j, gray * fact);
+			pointList[i][j] = Vector3((2 * (i - width * 0.5) / width), (2 * (j - height * 0.5) / height), gray * fact);
 			if(i==0 && j==0){
 				hight=gray*fact;
 				low=gray*fact;
@@ -146,12 +147,12 @@ Terrain Terrain::CreateRidgeFractal(uint terrain_width_, uint terrain_height_, d
 // Renvoi le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
 Vector3 Terrain::getPoint(double x, double y) const
 {
-	int tmpI = (int)(x / step_x);
-	int tmpJ = (int)(y / step_y);
-
+		int tmpI = (int)(( (( x + 1. ) * 0.5) * terrain_width ));
+		int tmpJ = (int)(( ((y +1) * 0.5) * terrain_height ));
+		//int tmpJ = (int)(((( terrain_height * 2 - y) * 0.5) / step_y));
 	if (!(tmpI < terrain_width && tmpJ < terrain_height))
 	{
-		return Vector3(x, y, -10000);
+		return noneVec;
 	}
 	Vector3 a;
 	Vector3 b;
@@ -169,12 +170,14 @@ Vector3 Terrain::getPoint(double x, double y) const
 
 	double x2 = (x - b.x) / step_x;
 	double y2 = (y - a.y) / step_y;
-	int z = (1 - x2) * (1 - y2) * pointList[tmpI][tmpJ].z
+	double z = (1 - x2) * (1 - y2) * pointList[tmpI][tmpJ].z
 		+ x2 * (1 - y2) * a.z
 		+ (1 - x2) * y2 * b.z;
 
 	if (tmpI < terrain_width - 1 && tmpJ < terrain_height - 1)
+	{
 		z += x2 * y2 * pointList[tmpI + 1][tmpJ + 1].z;
+	}
 
 
 	return Vector3(x, y, z);
@@ -190,8 +193,8 @@ bool Terrain::inOut(Vector3 p) const
 // Renvoie True si le Ray r touche le terrain
 bool Terrain::intersection(Ray r, double &t) const
 {
-	double zMin = low;
-	double zMax = hight;
+	double zMin = -1.;
+	double zMax = 1.;
 	/*
 	// Calcul du point z le plus haut du terrain
 	for (int j = 0; j < terrain_height; j++)
@@ -199,9 +202,10 @@ bool Terrain::intersection(Ray r, double &t) const
 				zMax = std::max(zMax, pointList[i][j].z);
 				*/
 	
+	/*
+	t = 0;
 
-	t = zMin;
-	double epsilon = 1;
+	double epsilon = 0.1;
 	double deltaz;
 	Vector3 p = r.getOrigin(); // Point de départ du lancé de rayon
 	Vector3 tmp, pas;
@@ -210,7 +214,7 @@ bool Terrain::intersection(Ray r, double &t) const
 	{
 		pas = (r.getDirection() * (double)t);
 		tmp = r.getOrigin() + pas;
-		deltaz = p.z - getPoint(tmp.x * step_x, tmp.y * step_y).z;
+		deltaz = p.z - getPoint(tmp.x, tmp.y).z;
 
 		if (deltaz < epsilon) 
 		{ 
@@ -219,14 +223,34 @@ bool Terrain::intersection(Ray r, double &t) const
 
 		if (deltaz > k) 
 		{ 
+			t = -10.;
 			return false;
 		}
 
-		t += (deltaz) / (k - r.getDirection().z);
+		t += (deltaz) * 0.5;
 		p = tmp;
 	}
+	t = -10.;
 	return false;
-
+	*/
+	t = 0.;
+	Vector3 res;
+	for (int i = 0; i<256; i++)
+	{
+		res = r.getOrigin() + (r.getDirection() * t);
+		Vector3 tmp = getPoint(res.x, res.y);
+		if (tmp != noneVec)
+		{
+			double h = res.z - tmp.z;
+			if (h < (0.01*t)) return true;
+			t += 0.5*h;
+		}
+		else
+			t += 0.1;
+		
+	}
+	t = -10.;
+	return false;
 }
 
 // calcul la pente maximale du terrain
@@ -241,6 +265,7 @@ void Terrain::calcK()
 				std::max(
 				std::max(k, std::abs(pointList[i][j].z - pointList[i][j + 1].z)),
 				std::abs(pointList[i][j].z - pointList[i + 1][j].z)),
+
 				std::abs(pointList[i][j].z - pointList[i + 1][j + 1].z));
 		}
 	}
