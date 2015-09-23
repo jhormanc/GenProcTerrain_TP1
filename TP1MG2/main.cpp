@@ -63,9 +63,9 @@ int main(int argc, char *argv[])
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(.2, 1.2
-		, 1); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(-1., 2.
+	Vector3 origin(.0, .3
+		, .7); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 light(0., 0.
 		, 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;

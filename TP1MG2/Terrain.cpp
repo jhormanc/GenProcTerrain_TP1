@@ -156,28 +156,32 @@ Vector3 Terrain::getPoint(double x, double y) const
 	}
 	Vector3 a;
 	Vector3 b;
-
+	Vector3 c;
 	if (tmpI < terrain_width - 1)
 		a = Vector3(pointList[tmpI + 1][tmpJ]);
 	else
-		a = Vector3(x, y, 0);
+		a = pointList[tmpI][tmpJ];
 
 	if (tmpJ < terrain_height - 1)
 		b = Vector3(pointList[tmpI][tmpJ + 1]);
 	else
-		b = Vector3(x, y, 0);
+		b = pointList[tmpI][tmpJ];
 
-
+	if (tmpI < terrain_width - 1 && tmpJ < terrain_height - 1)
+	{
+		c =  pointList[tmpI + 1][tmpJ + 1];
+	}
+	else
+	{
+		c = pointList[tmpI][tmpJ];
+	}
 	double x2 = (x - b.x) / step_x;
 	double y2 = (y - a.y) / step_y;
 	double z = (1 - x2) * (1 - y2) * pointList[tmpI][tmpJ].z
 		+ x2 * (1 - y2) * a.z
-		+ (1 - x2) * y2 * b.z;
+		+ (1 - x2) * y2 * b.z
+		+ x2 * y2 * c.z;
 
-	if (tmpI < terrain_width - 1 && tmpJ < terrain_height - 1)
-	{
-		z += x2 * y2 * pointList[tmpI + 1][tmpJ + 1].z;
-	}
 
 
 	return Vector3(x, y, z);
