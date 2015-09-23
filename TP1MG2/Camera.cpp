@@ -1,11 +1,11 @@
 #include "Camera.h"
 
-Camera::Camera(Vector3 o_, Vector3 a_, double dw)
+Camera::Camera(Vector3 o_, Vector3 a_, double dw, Vector3 up)
 {
 	o = o_;
 	Vector3 tmpw = a_ - o;
 	w = Vector3::normalize(tmpw);
-	Vector3 tmpu1 = w ^ Vector3(0, 1, 0);
+	Vector3 tmpu1 = w ^ up;
 	Vector3 tmpu = (tmpu1).inv();
 	u = Vector3::normalize(tmpu);
 	v = w^u;

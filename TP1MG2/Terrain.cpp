@@ -275,8 +275,10 @@ void Terrain::calcK()
 // renvoi la normal du terrain au point p
 Vector3 Terrain::normal(Vector3 p)
 {
-	int tmpI = (int)(p.x / step_x);
-	int tmpJ = (int)(p.y / step_y);
+	int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
+	int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+	//int tmpI = (int)(p.x / step_x);
+	//int tmpJ = (int)(p.y / step_y);
 	Vector3 a = getPoint(p.x, p.y);
 	Vector3 b = pointList[tmpI < terrain_width - 1 ? tmpI + 1 : tmpI][tmpJ];
 	Vector3 c = pointList[tmpI][tmpI < terrain_height - 1 ? tmpJ + 1 : tmpJ];

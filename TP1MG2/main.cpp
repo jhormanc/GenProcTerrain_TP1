@@ -63,13 +63,13 @@ int main(int argc, char *argv[])
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(0., .0
-		, 3.0); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 origin(.2, 1.2
+		, 1); // Fait office de camera : represente l'emplacement de l'oeil.
 	Vector3 light(-1., 2.
 		, 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
-	Camera c(origin, Vector3(0., 0., .0), 1.);
+	Camera c(origin, Vector3(0., 0., 0.), 1., Vector3(0., 1., 0.));
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	Sphere s(Vector3(0.0, 0., 0.), .5);
 	double f;
@@ -105,10 +105,10 @@ int main(int argc, char *argv[])
 					// Diffus :
 				
 					Vector3 l(Vector3::normalize(light - (intersect)));
-					double fact = s.normal(intersect)* l;
+					double fact = t.normal(intersect)* l;
 					maxFact = std::max(fact, maxFact);
 					minFact = std::min(fact, minFact);
-					fact = (fact + 1.) * 1.; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
+					fact = (fact + 1.) * 0.5; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
 					
 					double color = std::max(0., std::min(fact, 1.));
 				//	double fact = 1.;
