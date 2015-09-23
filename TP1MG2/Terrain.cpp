@@ -147,8 +147,9 @@ Terrain Terrain::CreateRidgeFractal(uint terrain_width_, uint terrain_height_, d
 // Renvoi le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
 Vector3 Terrain::getPoint(double x, double y) const
 {
+	
 		int tmpI = (int)(( (( x + 1. ) * 0.5) * terrain_width ));
-		int tmpJ = (int)(( ((y +1) * 0.5) * terrain_height ));
+		int tmpJ = (int)(( ((y +1.) * 0.5) * terrain_height ));
 		//int tmpJ = (int)(((( terrain_height * 2 - y) * 0.5) / step_y));
 	if (!(tmpI < terrain_width && tmpJ < terrain_height))
 	{
@@ -175,8 +176,8 @@ Vector3 Terrain::getPoint(double x, double y) const
 	{
 		c = pointList[tmpI][tmpJ];
 	}
-	double x2 = (x - b.x) / step_x;
-	double y2 = (y - a.y) / step_y;
+	double x2 = ((x  - b.x) / (step_x)) * 0.5;
+	double y2 = ((y  - a.y) / (step_y)) * 0.5;
 	double z = (1 - x2) * (1 - y2) * pointList[tmpI][tmpJ].z
 		+ x2 * (1 - y2) * a.z
 		+ (1 - x2) * y2 * b.z
