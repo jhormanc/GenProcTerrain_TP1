@@ -25,17 +25,17 @@ int main(int argc, char *argv[])
 	Terrain t2 = Terrain::CreateRidgeFractal(1000, 1000, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
-	hmw = new HeightmapWidget(&t2, 0);
+	hmw = new HeightmapWidget(&t, 0);
 
 	/*Debugage écrie*/
 	logTxt.setReadOnly(true);
 	//Afficher en écrie le Terrain "t"
-	/*logTxt.insertPlainText(d.printTerrain(t).toHtmlEscaped()); 
+	logTxt.insertPlainText(d.printTerrain(t).toHtmlEscaped()); 
 	for (int i = 0; i < 10; i++)
 	{
 		Vector3 tmp(((int)(rand()) % 1800) / 10.0, ((int)(rand()) % 1800) / 10.0, ((int)(rand()) % 2000) / 10.0);
 		logTxt.append(d.testInOut(tmp, t).toHtmlEscaped());
-	}*/
+	}
 
 	logTxt.append(d.printVector3(t.getPoint(90.0, 10.0)).toHtmlEscaped());
 	logTxt.append(d.testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, -5.0)), t).toHtmlEscaped());
@@ -63,10 +63,8 @@ int main(int argc, char *argv[])
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(.0, .3
-		, .7); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(0., 0.
-		, 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 origin(.0, .3, .7); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 light(0., 0., 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.), 1., Vector3(0., 1., 0.));
@@ -102,9 +100,15 @@ int main(int argc, char *argv[])
 					screen.setPixel(i, j, qRgb(0, 0, 0));//alors pixel d'intersection camera/objet represente l'ombre
 				}else{
 
+					/*Diffu v2*/
+					Vector3 L = Vector3::normalize(light-intersect);
+					Vector3 N = t.normal(intersect);
+					double color = L*N;
+					color=color/pi;
+					screen.setPixel(i, j, qRgb(255 * color , 255 * color, 255 * color));//sinon represente lumiére 
+
 					// Diffus :
-				
-					Vector3 l(Vector3::normalize(light - (intersect)));
+					/*Vector3 l(Vector3::normalize(light - (intersect)));
 					double fact = t.normal(intersect)* l;
 					maxFact = std::max(fact, maxFact);
 					minFact = std::min(fact, minFact);
@@ -113,7 +117,7 @@ int main(int argc, char *argv[])
 					double color = std::max(0., std::min(fact, 1.));
 				//	double fact = 1.;
 					screen.setPixel(i, j, qRgb(255 * color , 255 * color, 255 * color));//sinon represente lumiére 
-
+					*/
 				}
 				
 
@@ -132,7 +136,7 @@ int main(int argc, char *argv[])
 
 	
 	
-//	hmw->show();
+	//hmw->show();
 
 	return a.exec();
 }

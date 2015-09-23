@@ -200,44 +200,6 @@ bool Terrain::intersection(Ray r, double &t) const
 {
 	double zMin = -1.;
 	double zMax = 1.;
-	/*
-	// Calcul du point z le plus haut du terrain
-	for (int j = 0; j < terrain_height; j++)
-		for (int i = 0; i < terrain_width; i++)
-				zMax = std::max(zMax, pointList[i][j].z);
-				*/
-	
-	/*
-	t = 0;
-
-	double epsilon = 0.1;
-	double deltaz;
-	Vector3 p = r.getOrigin(); // Point de départ du lancé de rayon
-	Vector3 tmp, pas;
-
-	while (t < zMax)
-	{
-		pas = (r.getDirection() * (double)t);
-		tmp = r.getOrigin() + pas;
-		deltaz = p.z - getPoint(tmp.x, tmp.y).z;
-
-		if (deltaz < epsilon) 
-		{ 
-			return true; 
-		}
-
-		if (deltaz > k) 
-		{ 
-			t = -10.;
-			return false;
-		}
-
-		t += (deltaz) * 0.5;
-		p = tmp;
-	}
-	t = -10.;
-	return false;
-	*/
 	t = 0.;
 	Vector3 res;
 	for (int i = 0; i<256; i++)
