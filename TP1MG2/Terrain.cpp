@@ -244,9 +244,55 @@ Vector3 Terrain::normal(Vector3 p)
 {
 	
 	/*Essaie thibault*/
-	//if(p.x==0 && p.y==0
 
-	
+	//Pour les 4 angles
+	if(p.x==0 && p.y==0){
+		int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
+		int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+		Vector3 a = getPoint(p.x, p.y);
+		Vector3 b = pointList[tmpI + 1] [tmpJ];
+		Vector3 c = pointList[tmpI][ tmpJ + 1];
+		return Vector3::normalize((b - a) ^ (c - a));
+	}
+
+	if(p.x==255 && p.y==0){
+		int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
+		int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+		Vector3 a = getPoint(p.x, p.y);
+		Vector3 b = pointList[tmpI -1] [tmpJ];
+		Vector3 c = pointList[tmpI][ tmpJ + 1];
+		return Vector3::normalize((b - a) ^ (c - a));
+	}
+
+	if(p.x==255 && p.y==255){
+		int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
+		int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+		Vector3 a = getPoint(p.x, p.y);
+		Vector3 b = pointList[tmpI -1] [tmpJ];
+		Vector3 c = pointList[tmpI][ tmpJ - 1];
+		return Vector3::normalize((b - a) ^ (c - a));
+	}
+
+	if(p.x==0 && p.y==255){
+		int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
+		int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+		Vector3 a = getPoint(p.x, p.y);
+		Vector3 b = pointList[tmpI +1] [tmpJ];
+		Vector3 c = pointList[tmpI][ tmpJ - 1];
+		return Vector3::normalize((b - a) ^ (c - a));
+	}
+
+	//cotés:
+		//Coté 1
+	if(p.x==0 && p.y!=0 && p.y!=255){
+		int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
+		int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+		Vector3 a = getPoint(p.x, p.y);
+		Vector3 b = pointList[tmpI +1] [tmpJ];
+		Vector3 c = pointList[tmpI][ tmpJ - 1];
+		return Vector3::normalize((b - a) ^ (c - a));
+	}
+
 	int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
 	int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
 	//int tmpI = (int)(p.x / step_x);
