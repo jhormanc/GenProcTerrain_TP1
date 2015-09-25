@@ -63,6 +63,15 @@ public:
 		return pointList;
 	}
 
+	double getLow() const
+	{
+		return low;
+	}
+
+	double getHight() const
+	{
+		return hight;
+	}
 	// calcul la pente maximale du terrain
 	void calcK();
 	

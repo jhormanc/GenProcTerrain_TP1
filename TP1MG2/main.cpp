@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(.0, .3, .7); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 origin(1.5, 2., 2.); // Fait office de camera : represente l'emplacement de l'oeil.
 	Vector3 light(0., 0., 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
@@ -82,9 +82,10 @@ int main(int argc, char *argv[])
 			
 			t.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
 			//t2.intersection(r, f);
-			if (f > noIntersect) //Si intersection
+			Vector3 intersect(r.getOrigin() + r.getDirection()*(abs(f)));
+			if (f > noIntersect && intersect.z >= t.getLow()) //Si intersection
 			{
-				Vector3 intersect(r.getOrigin()+r.getDirection()*(abs(f))); //Pour avoir le point d'intersection sur la l'objet ( sphere )
+				//Pour avoir le point d'intersection sur la l'objet ( sphere )
 				Vector3 direction = Vector3::normalize(intersect-light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
 				Ray lightvec=Ray(light,direction); //On crée le ray.
 				
@@ -103,9 +104,17 @@ int main(int argc, char *argv[])
 					/*Diffu v2*/
 					Vector3 L = Vector3::normalize(light-intersect);
 					Vector3 N = t.normal(intersect);
-					double color = L*N;
-					color=std::abs(color)/pi;
-					screen.setPixel(i, j, qRgb(255 * color , 255 * color, 255 * color));//sinon represente lumiére 
+					double colorDiffuse = L*N;
+					colorDiffuse=std::abs(colorDiffuse)/pi;
+					double tmpZ = t.getPoint(intersect.x, intersect.y).z;
+					Vector3 color;
+					if (tmpZ <= t.getLow() + (t.getHight() * (5. / 100.)))
+						color = Vector3(0., 255., 0.);
+					else if (tmpZ <= t.getLow() + (t.getHight() * (90. / 100.)))
+						color = Vector3(88., 41., 0.);
+					else
+						color = Vector3(255., 255., 255);
+					screen.setPixel(i, j, qRgb(color.x * colorDiffuse , color.y * colorDiffuse, color.z * colorDiffuse));//sinon represente lumiére 
 
 					// Diffus :
 					/*Vector3 l(Vector3::normalize(light - (intersect)));
