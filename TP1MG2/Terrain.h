@@ -81,4 +81,6 @@ public:
 	~Terrain();
 
 	Mesh* GetMesh();
+
+	Vector3 getColor(double x, double y);
 };
