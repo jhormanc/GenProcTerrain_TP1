@@ -83,8 +83,4 @@ public:
 	Mesh* GetMesh();
 
 	Vector3 getColor(double x, double y);
-
-	double changeRepereX(double _x);
-	double changeRepereY(double _y);
-	double changeRepereZ(double _z);
 };

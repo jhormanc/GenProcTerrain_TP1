@@ -63,11 +63,11 @@ int main(int argc, char *argv[])
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(1200., 1000., 3.); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(300., 300., 3.);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 origin(1000., 1000., 300.); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 light(1000., 1000., 400.);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
-	Camera c(origin, Vector3(0., 0., 0.), 1., Vector3(1., 0., 0.));
+	Camera c(origin, Vector3(width_scrn / 2., height_scrn / 2., 0.), 1., Vector3(0., 0., -1.));
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	Sphere s(Vector3(0.0, 0., 0.), .5);
 	double f;

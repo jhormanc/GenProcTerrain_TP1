@@ -44,7 +44,7 @@ Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, do
 		
 			QColor it = (heightmap.pixel(i, j));
 			double gray = 255 - ((it.red() + it.blue() + it.green()) / 3);
-			pointList[i][j] = Vector3(changeRepereX(i), changeRepereY(j), gray * fact);
+			pointList[i][j] = Vector3(i, j, gray * fact);
 			if(i==0 && j==0){
 				hight=gray*fact;
 				low=gray*fact;
@@ -127,7 +127,7 @@ Terrain Terrain::CreateRidgeFractal(uint terrain_width_, uint terrain_height_, d
 			double x = i; 
 			double y = j;
 
-			z = Noise::noise(i, j) / 255;
+			z = Noise::noise(i, j);
 			pointList[i][j] = Vector3(x, y, z);
 		
 		/**Pour recuperer le Low and Hight**/
@@ -251,7 +251,7 @@ Vector3 Terrain::normal(Vector3 p)
 {
 
 	//Technique Derivé
-	//Vector3 eps(0.01,0.0,0.0);
+	//Vector3 eps(1.,0.0,0.0);
 	//Vector3 tmp = p;
 	//Vector3 tmp2 = eps;
 	//double x = getPoint(tmp.x-tmp2.x,tmp.z-tmp2.y).z-getPoint(tmp.x+tmp2.x,tmp.z+tmp2.y).z;
@@ -474,10 +474,10 @@ Mesh* Terrain::GetMesh()
     {
         for(int x = 0; x < terrain_height; ++x)
         {
-			float y = getPoint(changeRepereX(x), changeRepereY(z)).z;
+			float y = getPoint(x, z).z;
 
 			vertice.setX((MAP_SIZE * x / terrain_height) - MAP_SIZE / 2); // x
-			vertice.setY(y); //(2.0 * qGray(color) / 255);
+			vertice.setY(y / 255); //(2.0 * qGray(color) / 255);
 			vertice.setZ((MAP_SIZE * z / terrain_width) - MAP_SIZE / 2); // y
 			mesh->pushVertice(vertice);
 
@@ -517,22 +517,4 @@ Vector3 Terrain::getColor(double x, double y)
 		color = blue;
 
 	return color;
-}
-
-double Terrain::changeRepereX(double _x)
-{
-	//return (2 * (_x - terrain_height * 0.5) / terrain_height);
-	return _x; // *step_x;
-}
-
-double Terrain::changeRepereY(double _y)
-{
-	//return (2 * (_y - terrain_width * 0.5) / terrain_width);
-	return _y; // *step_y;
-}
-
-double changeRepereZ(double _z)
-{
-	//return _z / 255.;
-	return _z; // / 255;
 }
