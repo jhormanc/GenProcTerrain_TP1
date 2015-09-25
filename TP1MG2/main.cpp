@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(1.5, 2., 2.); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(0., 0., 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 origin(1., 0.0, 1.5); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 light(3., 3., 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.), 1., Vector3(0., 1., 0.));
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 		{
 			Ray r = Ray(origin, Vector3::normalize(c.PtScreen(i, j, width_scrn, height_scrn) - origin));
 			
-			t.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
+			t2.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
 			//t2.intersection(r, f);
 			Vector3 intersect(r.getOrigin() + r.getDirection()*(abs(f)));
 			if (f > noIntersect && intersect.z >= t.getLow()) //Si intersection
@@ -89,31 +89,28 @@ int main(int argc, char *argv[])
 				Vector3 direction = Vector3::normalize(intersect-light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
 				Ray lightvec=Ray(light,direction); //On crée le ray.
 				
-				t.intersection(lightvec,f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
+				t2.intersection(lightvec,f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
 
 				Vector3 intersectlight(lightvec.getOrigin()+lightvec.getDirection()*(abs(f))); // coordonée du point d'intersection du Ray sur la sphere.
 	/*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/	
-				intersectlight += lightvec.getDirection() * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
+				//intersectlight += lightvec.getDirection()  * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
 				double distance1= Vector3::distance(lightvec.getOrigin(),intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
 				double distance2= Vector3::distance(lightvec.getOrigin(),intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
 
-				if(distance1<distance2){ //si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
-					screen.setPixel(i, j, qRgb(0, 0, 0));//alors pixel d'intersection camera/objet represente l'ombre
+				if(distance1 + eps <distance2){ //si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
+					screen.setPixel(i, j, qRgb(255, 255, 0));//alors pixel d'intersection camera/objet represente l'ombre
 				}else{
 
 					/*Diffu v2*/
 					Vector3 L = Vector3::normalize(light-intersect);
-					Vector3 N = t.normal(intersect);
+					Vector3 N = t2.normal(intersect);
 					double colorDiffuse = L*N;
-					colorDiffuse=std::abs(colorDiffuse)/pi;
-					double tmpZ = t.getPoint(intersect.x, intersect.y).z;
-					Vector3 color;
-					if (tmpZ <= t.getLow() + (t.getHight() * (5. / 100.)))
-						color = Vector3(0., 255., 0.);
-					else if (tmpZ <= t.getLow() + (t.getHight() * (90. / 100.)))
-						color = Vector3(88., 41., 0.);
-					else
-						color = Vector3(255., 255., 255);
+					colorDiffuse=std::abs(colorDiffuse)/(0.5*pi);
+
+					colorDiffuse = 1.0;
+					Vector3 color = t2.getColor(intersect.x, intersect.y);
+					
+
 					screen.setPixel(i, j, qRgb(color.x * colorDiffuse , color.y * colorDiffuse, color.z * colorDiffuse));//sinon represente lumiére 
 
 					// Diffus :
