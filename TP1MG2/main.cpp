@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	Terrain t2 = Terrain::CreateRidgeFractal(1000, 1000, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
-	hmw = new HeightmapWidget(&t, 0);
+	hmw = new HeightmapWidget(&t2, 0);
 
 	/*Debugage écrie*/
 	logTxt.setReadOnly(true);
@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
 	logTxt.show();
 
 	// Raytracage de la sphere
-	Vector3 origin(1., 0.0, 1.5); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(3., 3., 9.);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 origin(1200., 1000., 3.); // Fait office de camera : represente l'emplacement de l'oeil.
+	Vector3 light(300., 300., 3.);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(0., 0., 0.), 1., Vector3(1., 0., 0.));
@@ -78,12 +78,16 @@ int main(int argc, char *argv[])
 	{
 		for (int j = 0; j < height_scrn; j++)
 		{
-			Ray r = Ray(origin, Vector3::normalize(c.PtScreen(i, j, width_scrn, height_scrn) - origin));
+			Vector3 pt(c.PtScreen(i, j, width_scrn, height_scrn));
+			//pt.x = ((((pt.x + 1.) * 0.5) * width_scrn));
+			//pt.y = ((((pt.y + 1.) * 0.5) * height_scrn));
+
+			Ray r = Ray(origin, Vector3::normalize(pt - origin));
 			
 			t2.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
 			//t2.intersection(r, f);
 			Vector3 intersect(r.getOrigin() + r.getDirection()*(abs(f)));
-			if (f > noIntersect && intersect.z >= t.getLow()) //Si intersection
+			if (f > noIntersect && intersect.z >= t2.getLow()) //Si intersection
 			{
 				//Pour avoir le point d'intersection sur la l'objet ( sphere )
 				Vector3 direction = Vector3::normalize(intersect-light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
@@ -102,8 +106,8 @@ int main(int argc, char *argv[])
 					double fact=0.2;
 					Vector3 color = t2.getColor(intersect.x,intersect.y);
 
-					//screen.setPixel(i, j, qRgb(color.x*fact,color.y*fact,color.z*fact));//alors pixel d'intersection camera/objet represente l'ombre
-					screen.setPixel(i,j,qRgb(255.,255.,0.));//alors pixel d'intersection camera/objet represente l'ombre
+					screen.setPixel(i, j, qRgb(color.x*fact,color.y*fact,color.z*fact));//alors pixel d'intersection camera/objet represente l'ombre
+					//screen.setPixel(i,j,qRgb(255.,255.,0.));//alors pixel d'intersection camera/objet represente l'ombre
 				}else{
 
 					/*Diffu v2*/
@@ -146,7 +150,7 @@ int main(int argc, char *argv[])
 
 	
 	
-	//hmw->show();
+	hmw->show();
 
 	return a.exec();
 }
