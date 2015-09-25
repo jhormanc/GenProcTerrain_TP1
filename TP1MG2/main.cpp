@@ -64,10 +64,10 @@ int main(int argc, char *argv[])
 
 	// Raytracage de la sphere
 	Vector3 origin(1., 0.0, 1.5); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(3., 3., 3.0);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 light(3., 3., 9.);//Fait office de lumiére : represente l'emplacement de la lumiére.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
-	Camera c(origin, Vector3(0., 0., 0.), 1., Vector3(0., 1., 0.));
+	Camera c(origin, Vector3(0., 0., 0.), 1., Vector3(1., 0., 0.));
 	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	Sphere s(Vector3(0.0, 0., 0.), .5);
 	double f;
@@ -98,16 +98,20 @@ int main(int argc, char *argv[])
 				double distance2= Vector3::distance(lightvec.getOrigin(),intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
 
 				if(distance1 + eps <distance2){ //si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
-					screen.setPixel(i, j, qRgb(255, 255, 0));//alors pixel d'intersection camera/objet represente l'ombre
+					
+					double fact=0.2;
+					Vector3 color = t2.getColor(intersect.x,intersect.y);
+
+					//screen.setPixel(i, j, qRgb(color.x*fact,color.y*fact,color.z*fact));//alors pixel d'intersection camera/objet represente l'ombre
+					screen.setPixel(i,j,qRgb(255.,255.,0.));//alors pixel d'intersection camera/objet represente l'ombre
 				}else{
 
 					/*Diffu v2*/
 					Vector3 L = Vector3::normalize(light-intersect);
 					Vector3 N = t2.normal(intersect);
 					double colorDiffuse = L*N;
-					colorDiffuse=std::abs(colorDiffuse)/(0.5*pi);
+					colorDiffuse=std::abs(colorDiffuse)/(pi)*2+0.1;
 
-					colorDiffuse = 1.0;
 					Vector3 color = t2.getColor(intersect.x, intersect.y);
 					
 

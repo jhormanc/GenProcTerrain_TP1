@@ -244,164 +244,175 @@ void Terrain::calcK()
 // renvoi la normal du terrain au point p
 Vector3 Terrain::normal(Vector3 p)
 {
+
+	//Technique Derivé
+	Vector3 eps(0.01,0.0,0.0);
+	Vector3 tmp = p;
+	Vector3 tmp2 = eps;
+	double x = getPoint(tmp.x-tmp2.x,tmp.z-tmp2.y).z-getPoint(tmp.x+tmp2.x,tmp.z+tmp2.y).z;
+	double y = 2*eps.x;
+	double z = getPoint(tmp.x-tmp2.y,tmp.z-tmp2.x).z-getPoint(tmp.x+tmp2.y,tmp.z+tmp2.x).z;
+
+	return Vector3::normalize(Vector3(x,y,z));
 	
-	int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
-	int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+	//Technique triangle
+	//int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
+	//int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
 
-	if(tmpI==0 && tmpJ==0){
-		//Need 2 normals
-		Vector3 a = getPoint(p.x, p.y);
-		Vector3 b = pointList[tmpI + 1] [tmpJ];
-		Vector3 c = pointList[tmpI][ tmpJ + 1];
-		//normal point b
-		Vector3 nb= Vector3::normalize( (c-b) ^ (a-b));
-		//normal point c
-		Vector3 nc= Vector3::normalize( (b-c) ^ (a-c));
-		return Vector3::normalize((nb+nc)/2.0);
-	}
+	//if(tmpI==0 && tmpJ==0){
+	//	//Need 2 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	Vector3 b = pointList[tmpI + 1] [tmpJ];
+	//	Vector3 c = pointList[tmpI][ tmpJ + 1];
+	//	//normal point b
+	//	Vector3 nb= ( (c-b) ^ (a-b));
+	//	//normal point c
+	//	Vector3 nc= ( (b-c) ^ (a-c));
+	//	return Vector3::normalize((nb+nc)/2.0);
+	//}
 
-	if(tmpI==terrain_width-1 && tmpJ==0){
-		//Need 3 normals
-		Vector3 a = getPoint(p.x, p.y);
-		Vector3 b = pointList[tmpI -1] [tmpJ];
-		Vector3 c = pointList[tmpI][ tmpJ + 1];
-		Vector3 d = pointList[tmpI-1][tmpJ+1];
-		//normal point b
-		Vector3 nb= Vector3::normalize( (a-b) ^ (d-b));
-		//normal point c
-		Vector3 nc= Vector3::normalize( (a-c) ^ (d-c));
-		//normal point d
-		Vector3 nd= Vector3::normalize( (a-d) ^ (b-d));
-		return Vector3::normalize((nb+nc+nd)/3.0);
-	}
-	
-	if(tmpI==terrain_width-1 && tmpJ==terrain_height-1){
-		//Need 3 normals
-		Vector3 a = getPoint(p.x, p.y);
-		Vector3 b = pointList[tmpI +1] [tmpJ];
-		Vector3 c = pointList[tmpI][ tmpJ -1];
-		Vector3 d = pointList[tmpI+1][tmpJ-1];
-		//normal point b
-		Vector3 nb= Vector3::normalize( (a-b) ^ (d-b));
-		//normal point c
-		Vector3 nc= Vector3::normalize( (a-c) ^ (d-c));
-		//normal point d
-		Vector3 nd= Vector3::normalize( (a-d) ^ (b-d));
-		return Vector3::normalize((nb+nc+nd)/3.0);
-	}
+	//if(tmpI==terrain_width-1 && tmpJ==0){
+	//	//Need 3 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	Vector3 b = pointList[tmpI -1] [tmpJ];
+	//	Vector3 c = pointList[tmpI][ tmpJ + 1];
+	//	Vector3 d = pointList[tmpI-1][tmpJ+1];
+	//	//normal point b
+	//	Vector3 nb= ( (a-b) ^ (d-b));
+	//	//normal point c
+	//	Vector3 nc=( (a-c) ^ (d-c));
+	//	//normal point d
+	//	Vector3 nd=( (a-d) ^ (b-d));
+	//	return Vector3::normalize((nb+nc+nd)/3.0);
+	//}
+	//
+	//if(tmpI==terrain_width-1 && tmpJ==terrain_height-1){
+	//	//Need 3 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	Vector3 b = pointList[tmpI +1] [tmpJ];
+	//	Vector3 c = pointList[tmpI][ tmpJ -1];
+	//	Vector3 d = pointList[tmpI+1][tmpJ-1];
+	//	//normal point b
+	//	Vector3 nb= ( (a-b) ^ (d-b));
+	//	//normal point c
+	//	Vector3 nc= ( (a-c) ^ (d-c));
+	//	//normal point d
+	//	Vector3 nd= ( (a-d) ^ (b-d));
+	//	return Vector3::normalize((nb+nc+nd)/3.0);
+	//}
 
-	if(tmpI==0 && tmpJ==terrain_height-1){
-		//Need 2 normals
-		Vector3 a = getPoint(p.x, p.y);
-		Vector3 b = pointList[tmpI - 1] [tmpJ];
-		Vector3 c = pointList[tmpI][ tmpJ - 1];
-		//normal point b
-		Vector3 nb= Vector3::normalize( (c-b) ^ (a-b));
-		//normal point c
-		Vector3 nc= Vector3::normalize( (a-c) ^ (b-c));
-		return Vector3::normalize((nb+nc)/2.0);
-	}
+	//if(tmpI==0 && tmpJ==terrain_height-1){
+	//	//Need 2 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	Vector3 b = pointList[tmpI - 1] [tmpJ];
+	//	Vector3 c = pointList[tmpI][ tmpJ - 1];
+	//	//normal point b
+	//	Vector3 nb= ( (c-b) ^ (a-b));
+	//	//normal point c
+	//	Vector3 nc= ( (a-c) ^ (b-c));
+	//	return Vector3::normalize((nb+nc)/2.0);
+	//}
 
-	//cotés:
-		//Coté gauche
-	if(tmpI==0 && tmpJ!=0 && tmpJ!=terrain_height-1){
-		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
-		//point du haut
-		Vector3 b = pointList[tmpI] [tmpJ-1];
-		//point diagonal
-		Vector3 c = pointList[tmpI +1][ tmpJ - 1];
-		//point gauche
-		Vector3 d = pointList[tmpI + 1][tmpJ];
-		//point bas
-		Vector3 e = pointList[tmpI][tmpJ+1];
+	////cotés:
+	//	//Coté gauche
+	//if(tmpI==0 && tmpJ!=0 && tmpJ!=terrain_height-1){
+	//	//Need 4 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	//point du haut
+	//	Vector3 b = pointList[tmpI] [tmpJ-1];
+	//	//point diagonal
+	//	Vector3 c = pointList[tmpI +1][ tmpJ - 1];
+	//	//point gauche
+	//	Vector3 d = pointList[tmpI + 1][tmpJ];
+	//	//point bas
+	//	Vector3 e = pointList[tmpI][tmpJ+1];
 
-		Vector3 nb = Vector3::normalize((a-b)^(c-b));
-		Vector3 nc = Vector3::normalize((b-c)^(a-c));
-		Vector3 nd = Vector3::normalize((a-d)^(e-d));
-		Vector3 ne = Vector3::normalize((a-e)^(d-e));
-		return Vector3::normalize((nb+nc+nd+ne)/4.0);
-	}
+	//	Vector3 nb =((a-b)^(c-b));
+	//	Vector3 nc =((b-c)^(a-c));
+	//	Vector3 nd =((a-d)^(e-d));
+	//	Vector3 ne =((a-e)^(d-e));
+	//	return Vector3::normalize((nb+nc+nd+ne)/4.0);
+	//}
 
-	//Coté haut
-	if(tmpJ==0 && tmpI!=0 && tmpI!=terrain_width-1){
-		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
-		//point du haut
-		Vector3 b = pointList[tmpI-1] [tmpJ];
-		//point diagonal
-		Vector3 c = pointList[tmpI -1][ tmpJ + 1];
-		//point gauche
-		Vector3 d = pointList[tmpI][tmpJ+1];
-		//point bas
-		Vector3 e = pointList[tmpI+1][tmpJ];
+	////Coté haut
+	//if(tmpJ==0 && tmpI!=0 && tmpI!=terrain_width-1){
+	//	//Need 4 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	//point du haut
+	//	Vector3 b = pointList[tmpI-1] [tmpJ];
+	//	//point diagonal
+	//	Vector3 c = pointList[tmpI -1][ tmpJ + 1];
+	//	//point gauche
+	//	Vector3 d = pointList[tmpI][tmpJ+1];
+	//	//point bas
+	//	Vector3 e = pointList[tmpI+1][tmpJ];
 
-		Vector3 nb = Vector3::normalize((a-b)^(c-b));
-		Vector3 nc = Vector3::normalize((b-c)^(a-c));
-		Vector3 nd = Vector3::normalize((a-d)^(e-d));
-		Vector3 ne = Vector3::normalize((a-e)^(d-e));
-		return Vector3::normalize((nb+nc+nd+ne)/4.0);
-	}
+	//	Vector3 nb =((a-b)^(c-b));
+	//	Vector3 nc =((b-c)^(a-c));
+	//	Vector3 nd =((a-d)^(e-d));
+	//	Vector3 ne = ((a-e)^(d-e));
+	//	return Vector3::normalize((nb+nc+nd+ne)/4.0);
+	//}
 
-	//Coté droit
-	if(tmpI==terrain_width-1 && tmpJ!=0 && tmpJ!=terrain_height-1){
-		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
-		//point du haut
-		Vector3 b = pointList[tmpI] [tmpJ-1];
-		//point diagonal
-		Vector3 c = pointList[tmpI -1][ tmpJ ];
-		//point gauche
-		Vector3 d = pointList[tmpI - 1][tmpJ+1];
-		//point bas
-		Vector3 e = pointList[tmpI][tmpJ+1];
+	////Coté droit
+	//if(tmpI==terrain_width-1 && tmpJ!=0 && tmpJ!=terrain_height-1){
+	//	//Need 4 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	//point du haut
+	//	Vector3 b = pointList[tmpI] [tmpJ-1];
+	//	//point diagonal
+	//	Vector3 c = pointList[tmpI -1][ tmpJ ];
+	//	//point gauche
+	//	Vector3 d = pointList[tmpI - 1][tmpJ+1];
+	//	//point bas
+	//	Vector3 e = pointList[tmpI][tmpJ+1];
 
-		Vector3 nb = Vector3::normalize((a-b)^(c-b));
-		Vector3 nc = Vector3::normalize((b-c)^(a-c));
-		Vector3 nd = Vector3::normalize((a-d)^(e-d));
-		Vector3 ne = Vector3::normalize((a-e)^(d-e));
-		return Vector3::normalize((nb+nc+nd+ne)/4.0);
-	}
+	//	Vector3 nb = ((a-b)^(c-b));
+	//	Vector3 nc = ((b-c)^(a-c));
+	//	Vector3 nd = ((a-d)^(e-d));
+	//	Vector3 ne = ((a-e)^(d-e));
+	//	return Vector3::normalize((nb+nc+nd+ne)/4.0);
+	//}
 
-	//Coté Bas
-	if(tmpJ==terrain_height && tmpI!=0 && tmpI!=terrain_width-1){
-		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
-		//point du haut
-		Vector3 b = pointList[tmpI-1] [tmpJ];
-		//point diagonal
-		Vector3 c = pointList[tmpI ][ tmpJ - 1];
-		//point gauche
-		Vector3 d = pointList[tmpI + 1][tmpJ-1];
-		//point bas
-		Vector3 e = pointList[tmpI+1][tmpJ];
+	////Coté Bas
+	//if(tmpJ==terrain_height && tmpI!=0 && tmpI!=terrain_width-1){
+	//	//Need 4 normals
+	//	Vector3 a = getPoint(p.x, p.y);
+	//	//point du haut
+	//	Vector3 b = pointList[tmpI-1] [tmpJ];
+	//	//point diagonal
+	//	Vector3 c = pointList[tmpI ][ tmpJ - 1];
+	//	//point gauche
+	//	Vector3 d = pointList[tmpI + 1][tmpJ-1];
+	//	//point bas
+	//	Vector3 e = pointList[tmpI+1][tmpJ];
 
-		Vector3 nb = Vector3::normalize((a-b)^(c-b));
-		Vector3 nc = Vector3::normalize((b-c)^(a-c));
-		Vector3 nd = Vector3::normalize((a-d)^(e-d));
-		Vector3 ne = Vector3::normalize((a-e)^(d-e));
-		return Vector3::normalize((nb+nc+nd+ne)/4.0);
-	}
+	//	Vector3 nb = ((a-b)^(c-b));
+	//	Vector3 nc = ((b-c)^(a-c));
+	//	Vector3 nd = ((a-d)^(e-d));
+	//	Vector3 ne = ((a-e)^(d-e));
+	//	return Vector3::normalize((nb+nc+nd+ne)/4.0);
+	//}
 
-	//Le reste des points :
-	
-	//Need 6 normals
-	Vector3 a = getPoint(p.x, p.y);
-	Vector3 b = pointList[tmpI -1] [tmpJ];
-	Vector3 c = pointList[tmpI][ tmpJ - 1];
-	Vector3 d = pointList[tmpI+1][ tmpJ - 1];
-	Vector3 e = pointList[tmpI+1][ tmpJ - 1];
-	Vector3 f = pointList[tmpI][ tmpJ + 1];
-	Vector3 g = pointList[tmpI-1][ tmpJ + 1];
+	////Le reste des points :
+	//
+	////Need 6 normals
+	//Vector3 a = getPoint(p.x, p.y);
+	//Vector3 b = pointList[tmpI -1] [tmpJ];
+	//Vector3 c = pointList[tmpI][ tmpJ - 1];
+	//Vector3 d = pointList[tmpI+1][ tmpJ - 1];
+	//Vector3 e = pointList[tmpI+1][ tmpJ - 1];
+	//Vector3 f = pointList[tmpI][ tmpJ + 1];
+	//Vector3 g = pointList[tmpI-1][ tmpJ + 1];
 
-	Vector3 nb = Vector3::normalize((a-b)^(c-b));
-	Vector3 nc = Vector3::normalize((b-c)^(a-c));
-	Vector3 nd = Vector3::normalize((a-d)^(e-d));
-	Vector3 ne = Vector3::normalize((a-e)^(f-e));
-	Vector3 nf = Vector3::normalize((a-f)^(e-f));
-	Vector3 ng = Vector3::normalize((a-g)^(f-g));
+	//Vector3 nb = ((a-b)^(c-b));
+	//Vector3 nc = ((b-c)^(a-c));
+	//Vector3 nd = ((a-d)^(e-d));
+	//Vector3 ne = ((a-e)^(f-e));
+	//Vector3 nf = ((a-f)^(e-f));
+	//Vector3 ng = ((a-g)^(f-g));
 
-	return Vector3::normalize((nb+nc+nd+ne+nf+ng)/6.0);
+	//return Vector3::normalize((nb+nc+nd+ne+nf+ng)/6.0);
 	
 
 	//Old technic
