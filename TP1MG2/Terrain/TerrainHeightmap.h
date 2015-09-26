@@ -18,8 +18,8 @@ public:
 		Vector3 & b(pointList[tmpI][tmpJ < terrain_width - 1 ? tmpJ + 1 : tmpJ]);
 		Vector3 & c(pointList[tmpI < terrain_width - 1 ? tmpI + 1 : tmpI][tmpJ < terrain_width - 1 ? tmpJ + 1 : tmpJ]);
 
-		double x2 = ((x - b.x) / (step_x)) * 0.5;
-		double y2 = ((y - a.y) / (step_y)) * 0.5;
+		double x2 = x - tmpI;
+		double y2 = y = tmpJ;
 		double z = (1 - x2) * (1 - y2) * pointList[tmpI][tmpJ].z
 			+ x2 * (1 - y2) * a.z
 			+ (1 - x2) * y2 * b.z
