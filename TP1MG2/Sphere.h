@@ -1,10 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Ray.h"
-
-const double pi = 3.1415927;
-const double noIntersect = -10.0;
-
+#include "Constante.h"
 class Sphere {
 	Vector3 o;
 	double rayon;
@@ -40,9 +37,9 @@ public:
 		t = 0.0;
 		double det = b * b - (op * op) + rayon * rayon;
 		if (det < 0)
-			return (t = noIntersect);
+			return (t = Constante::noIntersect);
 		else
 			det = std::sqrt(det);
-		return (t = b - det) >= 0 ? t : ((t = b + det) >= 0 ? t : noIntersect);
+		return (t = b - det) >= 0 ? t : ((t = b + det) >= 0 ? t : Constante::noIntersect);
 	}
 };

@@ -4,15 +4,13 @@
 #include "Sphere.h"
 #include "heightmapwidget.h"
 #include "Camera.h"
+#include "Renderer.h"
 #include <QtWidgets/QApplication>
 #include <qtextedit.h>
 #include <ctime>
 #include<qlabel.h>
 
 // point d'entrée du programme, initialise Qt et les objets necessaire au déroulement du programme
-// Vector2 pour point (utile dans raymarch)
-// test raymarching
-// Terrain : static Terrain CreateRidgeFractal();
 int main(int argc, char *argv[])
 {
 	srand(time(0));
@@ -21,7 +19,7 @@ int main(int argc, char *argv[])
 	w.show(); */
 	Debug d;
 	QImage hm("Resources/testhm");
-	Terrain t(hm, 257, 257, 0.1, 0.1); /*Terrain crée grace à une image*/
+	Terrain t(hm); /*Terrain crée grace à une image*/
 	Terrain t2 = Terrain::CreateRidgeFractal(1000, 1000, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
@@ -68,84 +66,13 @@ int main(int argc, char *argv[])
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(width_scrn / 2., height_scrn / 2., 0.), 1., Vector3(0., 0., -1.));
-	QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
+	//QImage screen(width_scrn, height_scrn, QImage::Format::Format_RGB32);
 	Sphere s(Vector3(0.0, 0., 0.), .5);
-	double f;
-	double eps = 0.1;
-	double maxFact = - 100000000000.;
-	double minFact = 100000000000.;
-	for (int i = 0; i < width_scrn; i++)
-	{
-		for (int j = 0; j < height_scrn; j++)
-		{
-			Vector3 pt(c.PtScreen(i, j, width_scrn, height_scrn));
-			//pt.x = ((((pt.x + 1.) * 0.5) * width_scrn));
-			//pt.y = ((((pt.y + 1.) * 0.5) * height_scrn));
-
-			Ray r = Ray(origin, Vector3::normalize(pt - origin));
-			
-			t2.intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
-			//t2.intersection(r, f);
-			Vector3 intersect(r.getOrigin() + r.getDirection()*(abs(f)));
-			if (f > noIntersect && intersect.z >= t2.getLow()) //Si intersection
-			{
-				//Pour avoir le point d'intersection sur la l'objet ( sphere )
-				Vector3 direction = Vector3::normalize(intersect-light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
-				Ray lightvec=Ray(light,direction); //On crée le ray.
-				
-				t2.intersection(lightvec,f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
-
-				Vector3 intersectlight(lightvec.getOrigin()+lightvec.getDirection()*(abs(f))); // coordonée du point d'intersection du Ray sur la sphere.
-	/*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/	
-				//intersectlight += lightvec.getDirection()  * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
-				double distance1= Vector3::distance(lightvec.getOrigin(),intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
-				double distance2= Vector3::distance(lightvec.getOrigin(),intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
-
-				if(distance1 + eps <distance2){ //si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
-					
-					double fact=0.2;
-					Vector3 color = t2.getColor(intersect.x,intersect.y);
-
-					screen.setPixel(i, j, qRgb(color.x*fact,color.y*fact,color.z*fact));//alors pixel d'intersection camera/objet represente l'ombre
-					//screen.setPixel(i,j,qRgb(255.,255.,0.));//alors pixel d'intersection camera/objet represente l'ombre
-				}else{
-
-					/*Diffu v2*/
-					Vector3 L = Vector3::normalize(light-intersect);
-					Vector3 N = t2.normal(intersect);
-					double colorDiffuse = L*N;
-					colorDiffuse=std::abs(colorDiffuse)/(pi)*2+0.1;
-
-					Vector3 color = t2.getColor(intersect.x, intersect.y);
-					
-
-					screen.setPixel(i, j, qRgb(color.x * colorDiffuse , color.y * colorDiffuse, color.z * colorDiffuse));//sinon represente lumiére 
-
-					// Diffus :
-					/*Vector3 l(Vector3::normalize(light - (intersect)));
-					double fact = t.normal(intersect)* l;
-					maxFact = std::max(fact, maxFact);
-					minFact = std::min(fact, minFact);
-					fact = (fact + 1.) * 0.5; //  0.0 <= fact <= 1.0 pour diminuer la luminosité (valeurs expermientales)
-					
-					double color = std::max(0., std::min(fact, 1.));
-				//	double fact = 1.;
-					screen.setPixel(i, j, qRgb(255 * color , 255 * color, 255 * color));//sinon represente lumiére 
-					*/
-				}
-				
-
-			}
-			else
-			{
-				screen.setPixel(i, j, qRgb(155, 255, 255)); // aucun contact avec l'objet.
-			}
-		}
-	}
-	
+	Renderer r(width_scrn, height_scrn, c, light, t2);
+	r.Raytrace();
 
 	QLabel l;
-	l.setPixmap(QPixmap::fromImage(screen));
+	l.setPixmap(QPixmap::fromImage(r.getScreen()));
 	l.show();
 
 	

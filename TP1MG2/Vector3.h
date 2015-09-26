@@ -7,6 +7,7 @@ public:
 
 	// Contructeurs
 	Vector3(double x_, double y_, double z_) :x(x_), y(y_), z(z_){};
+	Vector3(double x_) :x(x_), y(x_), z(x_){};
 	Vector3() :x(0.0), y(0.0), z(0.0){};
 	Vector3(const Vector3& v) : x(v.x), y(v.y), z(v.z){};
 
@@ -60,8 +61,8 @@ public:
 
 	static inline Vector3 normalize(Vector3& v)
 	{
-		double tmpNormal = v.normal();
-		return tmpNormal == 0.0 ? Vector3(.0, .0, .0) : v / tmpNormal;
+		double normalV = v.normal();
+		return normalV == 0.0 ? Vector3(.0) : v / normalV; // regle pb division 0
 	}
 
 	inline double normal() const
@@ -76,11 +77,9 @@ public:
 	// pdt vectoriel
 	inline Vector3 operator^(const Vector3& v) const
 	{
-		double xRes = y*v.z - z*v.y;
-		double yRes = z*v.x - x * v.z;
-		double zRes = x * v.y - y * v.x;
-
-		return Vector3(xRes, yRes, zRes);
+		return Vector3(y*v.z - z*v.y,
+						z*v.x - x * v.z,
+						x * v.y - y * v.x);
 	}
 	inline Vector3 operator-(const Vector3& v) const
 	{

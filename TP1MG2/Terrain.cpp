@@ -23,7 +23,7 @@ Terrain::Terrain(const Terrain& t){
 }
 
 
-Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, double step_x_, double step_y_)
+Terrain::Terrain(QImage heightmap)
 {
 	int height = heightmap.height();
 	int width = heightmap.width();
@@ -33,9 +33,7 @@ Terrain::Terrain(QImage heightmap, uint terrain_width_, uint terrain_height_, do
 
 	terrain_height = height;
 	terrain_width = width;
-	step_x = 1. / width;
-	step_y = 1. / height;
-	double fact = 1.5 / 255.;
+	double fact = 1.;
 	
 	for (int j = 0; j < height; j++)
 	{
@@ -160,7 +158,7 @@ Vector3 Terrain::getPoint(double x, double y) const
 
 	if (!(tmpI < terrain_width && tmpJ < terrain_height))
 	{
-		return noneVec;
+		return Constante::noIntersectVec;
 	}
 	Vector3 a;
 	Vector3 b;
@@ -213,7 +211,7 @@ bool Terrain::intersection(Ray r, double &t) const
 	{
 		res = r.getOrigin() + (r.getDirection() * t);
 		Vector3 tmp = getPoint(res.x, res.y);
-		if (tmp != noneVec)
+		if (tmp != Constante::noIntersectVec)
 		{
 			double h = res.z - tmp.z;
 			if (h < (0.01*t)) return true;
