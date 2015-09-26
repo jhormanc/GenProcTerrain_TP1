@@ -142,7 +142,8 @@ Terrain Terrain::CreateRidgeFractal(uint terrain_width_, uint terrain_height_, d
 
 		}
 	}
-	return Terrain(pointList, terrain_width_, terrain_height_, step_x_, step_y_,h,l);
+
+	return Terrain(pointList, terrain_width_, terrain_height_, step_x_, step_y_, h, l);
 }
 
 
@@ -160,16 +161,18 @@ Vector3 Terrain::getPoint(double x, double y) const
 	{
 		return Constante::noIntersectVec;
 	}
+
 	Vector3 a;
 	Vector3 b;
 	Vector3 c;
+
 	if (tmpI < terrain_width - 1)
-		a = Vector3(pointList[tmpI + 1][tmpJ]);
+		a = pointList[tmpI + 1][tmpJ];
 	else
 		a = pointList[tmpI][tmpJ];
 
 	if (tmpJ < terrain_height - 1)
-		b = Vector3(pointList[tmpI][tmpJ + 1]);
+		b = pointList[tmpI][tmpJ + 1];
 	else
 		b = pointList[tmpI][tmpJ];
 
@@ -181,8 +184,9 @@ Vector3 Terrain::getPoint(double x, double y) const
 	{
 		c = pointList[tmpI][tmpJ];
 	}
-	double x2 = ((x  - b.x) / (step_x)) * 0.5;
-	double y2 = ((y  - a.y) / (step_y)) * 0.5;
+
+	double x2 = x - (double)tmpI; //((x  - b.x) / (step_x)) * 0.5;
+	double y2 = y - (double)tmpJ; //((y  - a.y) / (step_y)) * 0.5;
 	double z = (1 - x2) * (1 - y2) * pointList[tmpI][tmpJ].z
 		+ x2 * (1 - y2) * a.z
 		+ (1 - x2) * y2 * b.z
@@ -249,7 +253,7 @@ Vector3 Terrain::normal(Vector3 p)
 {
 
 	//Technique Derivé
-	//Vector3 eps(1.,0.0,0.0);
+	//Vector3 eps(1.,1.0,0.0);
 	//Vector3 tmp = p;
 	//Vector3 tmp2 = eps;
 	//double x = getPoint(tmp.x-tmp2.x,tmp.z-tmp2.y).z-getPoint(tmp.x+tmp2.x,tmp.z+tmp2.y).z;
@@ -261,8 +265,11 @@ Vector3 Terrain::normal(Vector3 p)
 	//Technique triangle
 	//int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
 	//int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
-	int tmpI = p.x;
-	int tmpJ = p.y;
+	int tmpI = (int)p.x;
+	int tmpJ = (int)p.y;
+
+	//Vector
+
 
 	if (tmpI == 0 && tmpJ == 0){
 		//Need 2 normals

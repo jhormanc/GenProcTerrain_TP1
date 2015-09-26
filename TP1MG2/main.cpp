@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	Debug d;
 	QImage hm("Resources/testhm");
 	Terrain t(hm); /*Terrain crée grace à une image*/
-	Terrain t2 = Terrain::CreateRidgeFractal(1000, 1000, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
+	Terrain t2 = Terrain::CreateRidgeFractal(1000, 1000, 1.0, 1.0, 255.0); /*Terain créé grace à une fonction*/
 	QTextEdit logTxt;
 	HeightmapWidget *hmw;
 	hmw = new HeightmapWidget(&t2, 0);
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
 	// Raytracage de la sphere
 	Vector3 origin(1000., 1000., 300.); // Fait office de camera : represente l'emplacement de l'oeil.
-	Vector3 light(1000., 1000., 400.);//Fait office de lumiére : represente l'emplacement de la lumiére.
+	Vector3 light(1500., 1800., 400.); // 1000., 1000., 400. // Fait office de lumière : represente l'emplacement du soleil.
 	const int width_scrn = 800;
 	const int height_scrn = 600;
 	Camera c(origin, Vector3(width_scrn / 2., height_scrn / 2., 0.), 1., Vector3(0., 0., -1.));

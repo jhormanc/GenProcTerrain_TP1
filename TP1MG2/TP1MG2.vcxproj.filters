@@ -78,7 +78,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Constante.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,10 +129,10 @@
     <ClInclude Include="Noise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="Constante.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constante.h">
+    <ClInclude Include="Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

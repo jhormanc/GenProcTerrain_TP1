@@ -25,7 +25,7 @@ public:
 	// Constructeur.
 	Terrain(const Terrain& t);
 	Terrain(QImage heightmap);
-	Terrain(Vector3 ** pointList_, uint terrain_width_, uint terrain_height_, double step_x_, double step_y_,float h,float l) : pointList(pointList_), terrain_height(terrain_height_), terrain_width(terrain_width_), step_x(step_x_), step_y(step_y_),hight(h),low(l){};
+	Terrain(Vector3 ** pointList_, uint terrain_width_, uint terrain_height_, double step_x_, double step_y_,float h,float l) : pointList(pointList_), terrain_height(terrain_height_), terrain_width(terrain_width_), step_x(step_x_), step_y(step_y_), hight(h), low(l){};
 	Terrain(QImage,Vector3,Vector3/*,const double*,const double**/);/*Constructeur pour créer la box avec le terrain*/
 
 	//Pour definir un max et un min

@@ -26,7 +26,7 @@ public:
 
 	inline Vector3 normal(Vector3 p) const
 	{
-		return p - o;
+		return Vector3::normalize(p - o);
 	}
 
 	bool intersection(Ray r, double& t) const
