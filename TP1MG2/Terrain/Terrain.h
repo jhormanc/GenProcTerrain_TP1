@@ -11,29 +11,22 @@
 
 // Classe représentant un Terrain 3D.
 class Terrain {
-
-	Vector3 ** pointList;
+protected:
 	uint terrain_width;
 	uint terrain_height;
 	double step_x;
 	double step_y;
 	Box* boxlimit;
 	double k;  // pente maximale (coefficient de liepz...
-	float hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/
+	double hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/
 	
 public:
-	// Constructeur.
-	Terrain(const Terrain& t);
-	Terrain(QImage heightmap);
-	Terrain(Vector3 ** pointList_, uint terrain_width_, uint terrain_height_, double step_x_, double step_y_,float h,float l) : pointList(pointList_), terrain_height(terrain_height_), terrain_width(terrain_width_), step_x(step_x_), step_y(step_y_),hight(h),low(l){};
-	Terrain(QImage,Vector3,Vector3/*,const double*,const double**/);/*Constructeur pour créer la box avec le terrain*/
-
+	Terrain(){};
 	//Pour definir un max et un min
 	void MaxMin(float);
-	// Renvoi un terrain genere aléatoirement
-	static Terrain CreateRidgeFractal(uint terrain_width_, uint terrain_height_, double step_x_, double step_y_, double max_z);
+	
 	// Renvoi le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
-	Vector3 getPoint(double x, double y) const;
+	virtual inline Vector3 getPoint(double x, double y) const = 0;
 	// Renvoie vrai si le point p est en dehors du terrain, faux sinon.
 	bool inOut(Vector3 p) const;
 
@@ -57,10 +50,6 @@ public:
 	{
 		return step_y;
 	}
-	Vector3 ** getPointList()
-	{
-		return pointList;
-	}
 
 	double getLow() const
 	{
@@ -76,10 +65,11 @@ public:
 	
 	// renvoi la normal du terrain au point p
 	Vector3 normal(Vector3 p);
-	// Desctructeur. Desalloue pointList.
-	~Terrain();
+
 
 	Mesh* GetMesh();
 
 	Vector3 getColor(double x, double y);
+
+	virtual ~Terrain(){};
 };

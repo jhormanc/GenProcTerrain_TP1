@@ -23,7 +23,7 @@
 #include <QtOpenGL/QGLWidget>
 #include <QtOpenGL/QGLBuffer>
 #include <gl\GLU.h>
-#include "Terrain.h"
+#include "../Terrain/Terrain.h"
 
 class HeightmapWidget : public QGLWidget
 {

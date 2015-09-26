@@ -45,6 +45,7 @@ HeightmapWidget::HeightmapWidget(Terrain *t, QWidget *parent) :
 HeightmapWidget::~HeightmapWidget()
 {
     deleteTexture(m_textureid);
+	delete mesh;
 }
 
 QSize HeightmapWidget::minimumSizeHint() const
