@@ -50,9 +50,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_tp1mg2.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -80,6 +77,15 @@
     <ClCompile Include="Constante.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain\Terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain\TerrainFractal.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain\TerrainHeightmap.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="tp1mg2.h">
@@ -98,9 +104,6 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_tp1mg2.h">
       <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>Header Files</Filter>
@@ -130,6 +133,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constante.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\Terrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\TerrainFractal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\TerrainHeightmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererConfig1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
