@@ -21,6 +21,7 @@ protected:
 	double hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/
 	
 public:
+
 	Terrain(){};
 	//Pour definir un max et un min
 	void MaxMin(float);

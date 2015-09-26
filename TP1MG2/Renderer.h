@@ -1,4 +1,5 @@
 #pragma once
+#include "vld.h"
 #include "Vector3.h"
 #include "Ray.h"
 #include "Camera.h"
@@ -22,6 +23,12 @@ public:
 	{
 		double f;
 		double eps = 0.1;
+		// Sun
+		double s;
+		float rayon = 50.;
+		Sphere sun(light, rayon);
+
+
 		for (int i = 0; i < width_scrn; i++)
 		{
 			for (int j = 0; j < height_scrn; j++)
@@ -38,19 +45,20 @@ public:
 					Ray lightvec = Ray(light, direction); //On crée le ray.
 
 					t->intersection(lightvec, f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
-
+					//intersect += lightvec.getDirection()  * (eps);
 					Vector3 intersectlight(lightvec.getOrigin() + lightvec.getDirection()*(abs(f))); // coordonée du point d'intersection du Ray sur la sphere.
 					/*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/
-					//intersectlight += lightvec.getDirection()  * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
+					intersectlight += lightvec.getDirection()  * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
 					double distance1 = Vector3::distance(lightvec.getOrigin(), intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
 					double distance2 = Vector3::distance(lightvec.getOrigin(), intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
 
-					if (distance1 + eps <distance2){ //si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
-
+					// Joris hack temp (original : distance1 < distance2)
+					if (distance1 > distance2) // si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
+					{
 						double fact = 0.2;
 						Vector3 color = t->getColor(intersect.x, intersect.y);
 
-						screen.setPixel(i, j, qRgb(color.x*fact, color.y*fact, color.z*fact));//alors pixel d'intersection camera/objet represente l'ombre
+						//screen.setPixel(i, j, qRgb(color.x*fact, color.y*fact, color.z*fact));//alors pixel d'intersection camera/objet represente l'ombre
 						//screen.setPixel(i,j,qRgb(255.,255.,0.));//alors pixel d'intersection camera/objet represente l'ombre
 					}
 					else{
@@ -59,7 +67,7 @@ public:
 						Vector3 L = Vector3::normalize(light - intersect);
 						Vector3 N = t->normal(intersect);
 						double colorDiffuse = L*N;
-						colorDiffuse = (std::abs(colorDiffuse) / (Constante::pi))* 2 + 0.1;
+						colorDiffuse = std::abs(colorDiffuse) / (Constante::pi) * 2 + 0.1;
 
 						Vector3 color = t->getColor(intersect.x, intersect.y);
 
@@ -73,14 +81,34 @@ public:
 				}
 				else
 				{
-					screen.setPixel(i, j, qRgb(155, 255, 255)); // aucun contact avec l'objet.
+					// Sun
+					//Ray ray_sun = Ray(c.getOrigin(), Vector3::normalize(pt - c.getOrigin()));
+					//sun.intersection(r, s); // Intersection entre la vue (caméra) et la lumière.
+
+					//if (s > Constante::noIntersect)
+					//{
+					//	Vector3 pt_sun(r.getOrigin() + r.getDirection() * abs(s));
+					//	screen.setPixel(i, j, qRgb(255., 255., 0.));
+					//}
+					//else
+					//{
+					screen.setPixel(i, j, qRgb(155, 255, 255)); // aucun contact avec le terrain ou la lumière.
+					//}
+				}
+
+				// Sun
+				//Ray ray_sun = Ray(c.getOrigin(), Vector3::normalize(pt - c.getOrigin()));
+				sun.intersection(r, s); // Intersection entre la vue (caméra) et la lumière.
+
+				if (s > Constante::noIntersect)
+				{
+					Vector3 pt_sun(r.getOrigin() + r.getDirection() * abs(s));
+					screen.setPixel(i, j, qRgb(255., 255., 0.));
 				}
 			}
 		}
-
 	}
 
-	// renvoi l'image sur laquelle la fct raytrace dessine.
 	const QImage& getScreen()
 	{
 		return screen;

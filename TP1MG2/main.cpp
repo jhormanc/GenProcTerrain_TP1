@@ -30,7 +30,6 @@ int main(int argc, char *argv[])
 	logTxt->show();
 
 	// Raytracage du terrain
-	
 	r->Raytrace();
 	l.setPixmap(QPixmap::fromImage(r->getScreen()));
 	l.show();
