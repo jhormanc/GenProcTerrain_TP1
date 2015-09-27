@@ -299,14 +299,29 @@ Vector3 Terrain::getColor(double x, double y)
 
 	double max = high - low;
 
-	if (z <= low + (max * (5. / 100.)))
-		color = green;
-	else if (z >= low + (max * (90. / 100.)))
+	// Noise
+	//if (z <= low + (max * (5. / 100.)))
+	//	color = green;
+	//else if (z >= low + (max * (90. / 100.)))
+	//	color = white;
+	//else if (z >= low + (max * (50. / 100.)))
+	//	color = grey;
+	//else if (z >= low + (max * (5. / 100.)) && (z <= low + (max * (50. / 100.))))
+	//	color = brown;
+	//else
+	//	color = blue;
+
+	// World
+	if (z <= low + (max * (0.1 / 100.)))
+		color = blue;
+	else if (z >= low + (max * (80. / 100.)))
 		color = white;
-	else if (z >= low + (max * (50. / 100.)))
+	else if (z >= low + (max * (40. / 100.)))
 		color = grey;
-	else if (z >= low + (max * (5. / 100.)) && (z <= low + (max * (50. / 100.))))
+	else if (z >= low + (max * (20. / 100.)))
 		color = brown;
+	else if (z >= low + (max * (0.1 / 100.)))
+		color = green;
 	else
 		color = blue;
 
