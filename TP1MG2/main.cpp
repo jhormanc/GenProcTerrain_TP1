@@ -9,6 +9,7 @@
 #include "../Renderer/Renderer.h"
 #include "../Renderer/RendererConfig1.h"
 #include "../Renderer/RendererConfig2.h"
+#include "../Renderer/RendererConfig3.h"
 #include <QtWidgets/QApplication>
 #include <qtextedit.h>
 #include <ctime>
@@ -24,7 +25,7 @@ int main(int argc, char *argv[])
 	QTextEdit * logTxt = new QTextEdit();
 	QLabel l;
 	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
-	Renderer * r = new RendererConfig1();
+	Renderer * r = new RendererConfig3();
 
 	// DEBUG
 	d.execTest(logTxt);

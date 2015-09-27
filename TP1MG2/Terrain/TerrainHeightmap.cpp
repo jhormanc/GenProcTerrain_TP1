@@ -1,6 +1,6 @@
 #include "TerrainHeightmap.h"
 
-TerrainHeightmap::TerrainHeightmap(QImage heightmap) :Terrain()
+TerrainHeightmap::TerrainHeightmap(QImage heightmap, bool blackIsHigh, double fact) :Terrain()
 {
 	int height = heightmap.height();
 	int width = heightmap.width();
@@ -10,10 +10,9 @@ TerrainHeightmap::TerrainHeightmap(QImage heightmap) :Terrain()
 
 	terrain_height = height;
 	terrain_width = width;
-	double fact = 1.;
 	
 	QColor it = (heightmap.pixel(0, 0));
-	double gray = 255 - ((it.red() + it.blue() + it.green()) / 3);
+	double gray = blackIsHigh ? 255 - ((it.red() + it.blue() + it.green()) / 3) : ((it.red() + it.blue() + it.green()) / 3);
 
 	high = gray * fact;
 	low = gray * fact;
@@ -23,7 +22,7 @@ TerrainHeightmap::TerrainHeightmap(QImage heightmap) :Terrain()
 		{
 
 			it = (heightmap.pixel(i, j));
-			gray = 255 - ((it.red() + it.blue() + it.green()) / 3);
+			gray = blackIsHigh ? 255 - ((it.red() + it.blue() + it.green()) / 3) : ((it.red() + it.blue() + it.green()) / 3);
 			pointList[i][j] = Vector3(i, j, gray * fact);
 			
 			MaxMin(gray * fact);
