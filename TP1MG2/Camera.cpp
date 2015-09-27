@@ -7,6 +7,7 @@ Camera::Camera(Vector3 o_, Vector3 a_, double dw, Vector3 up)
 	w = Vector3::normalize(a_ - o_);
 	u = Vector3::normalize((w ^ up).inv());
 	v = w ^ u;
+	u = u.inv();
 
 	lu = 16. / 9.;
 	lv = 1.;

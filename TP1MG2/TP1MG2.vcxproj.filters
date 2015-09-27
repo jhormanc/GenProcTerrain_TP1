@@ -86,7 +86,7 @@
     <ClCompile Include="Constante.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -132,9 +132,6 @@
     <ClInclude Include="Noise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Constante.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -147,7 +144,13 @@
     <ClInclude Include="Terrain\TerrainHeightmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RendererConfig1.h">
+    <ClInclude Include="Renderer\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

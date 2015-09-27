@@ -1,5 +1,5 @@
 #include "Renderer.h"
-#include "Sphere.h"
+#include "../Sphere.h"
 
 Renderer::Renderer(const int& width_scrn_, const int& height_scrn_, const Camera& c_, const Vector3& light_, Terrain * t_) :
 	width_scrn(width_scrn_), 
@@ -52,7 +52,7 @@ void Renderer::Raytrace()
 				Vector3 dir = Vector3::normalize(intersect - light);
 
 				// Règle l'imprécision des flottants en décalant d'epsilon le point d'intersection vers la lumière
-				intersect = intersect + cam_dir * eps;
+				//intersect = intersect + cam_dir * eps;
 
 				Ray ray(light, dir);
 				t->intersection(ray, f);
@@ -61,7 +61,7 @@ void Renderer::Raytrace()
 				intersect_light = intersect_light + dir * eps;
 
 				// Si l'intersection lumière / objet se fait avant l'intersection caméra / objet
-				if (f > Constante::noIntersect && Vector3::distance(light, intersect_light) < Vector3::distance(light, intersect))
+				if (f > Constante::noIntersect && Vector3::distance(light, intersect_light) + eps < Vector3::distance(light, intersect))
 				{
 					double fact = 0.2;
 					Vector3 color = t->getColor(intersect.x, intersect.y);

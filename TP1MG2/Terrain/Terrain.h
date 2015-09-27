@@ -19,7 +19,7 @@ protected:
 	Box* boxlimit;
 	double k;  // Pente maximale
 	double high, low; // Paramètre pour connaître la hauteur max et min de la map
-	Vector3 ** pointList;
+	
 	
 public:
 
@@ -28,7 +28,7 @@ public:
 	void MaxMin(float);
 	
 	// Renvoie le point x, y, z appartenant à pointList à partir du x, y (recherche matrice + interpolation).
-	Vector3 getPoint(double x, double y) const;
+	virtual Vector3 getPoint(double x, double y) const = 0;
 	// Renvoie vrai si le point p est en dehors du terrain, faux sinon.
 	bool inOut(Vector3 p) const;
 

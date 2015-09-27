@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Vector3.h"
-#include "Ray.h"
-#include "Camera.h"
-#include "../Terrain/Terrain.h"
-#include "Constante.h"
+#include "../Vector3.h"
+#include "../Ray.h"
+#include "../Camera.h"
+#include "../../Terrain/Terrain.h"
+#include "../Constante.h"
 
 // Classe s'occupant du rendu
 class Renderer
