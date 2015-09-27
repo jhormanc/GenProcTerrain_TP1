@@ -2,7 +2,7 @@
 
 #include "Vector3.h"
 
-static class Noise
+class Noise
 {
 public:
 	static double noise(double x, double y);

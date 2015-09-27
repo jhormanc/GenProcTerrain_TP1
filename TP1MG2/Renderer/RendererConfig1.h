@@ -10,6 +10,6 @@ public:
 
 	//	Vector3(500., 500., 1000.), // Midi
 		Vector3(-100., 1100., 500.), // Couche de soleil
-		new TerrainFractal(1000, 1000, 255.0)){};
+		new TerrainFractal(1000, 1000)){};
 
 };

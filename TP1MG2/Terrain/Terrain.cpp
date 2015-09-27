@@ -40,9 +40,9 @@ bool Terrain::intersection(Ray r, double &t) const
 // Calcul la pente maximale du terrain
 void Terrain::calcK()
 {
-	for (int j = 0; j < terrain_height - 1; j++)
+	for (uint j = 0; j < terrain_height - 1; j++)
 	{
-		for (int i = 0; i < terrain_width - 1; i++)
+		for (uint i = 0; i < terrain_width - 1; i++)
 		{
 			k = std::max(
 				std::max(
@@ -262,9 +262,9 @@ Mesh* Terrain::GetMesh()
 	QVector3D vertice;
     QVector2D texture;
 
-    for(int z = 0; z < terrain_width; ++z)
+    for(uint z = 0; z < terrain_width; ++z)
     {
-        for(int x = 0; x < terrain_height; ++x)
+        for(uint x = 0; x < terrain_height; ++x)
         {
 			float y = getPoint(x, z).z;
 

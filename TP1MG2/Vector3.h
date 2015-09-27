@@ -59,7 +59,7 @@ public:
 		return v.x == x && v.y == y && v.z == z;
 	}
 
-	static inline Vector3 normalize(Vector3& v)
+	static inline Vector3 normalize(const Vector3& v)
 	{
 		double normalV = v.normal();
 		return normalV == 0.0 ? Vector3(.0) : v / normalV; // Règle pb division 0

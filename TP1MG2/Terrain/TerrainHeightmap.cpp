@@ -35,8 +35,8 @@ TerrainHeightmap::TerrainHeightmap(QImage heightmap, bool blackIsHigh, double fa
 // Renvoi le point x, y, z appartenant à pointList à partir du x, y (recherche matrice + interpolation).
 Vector3 TerrainHeightmap::getPoint(double x, double y) const
 {
-	int tmpI = (int)x;
-	int tmpJ = (int)y;
+	uint tmpI = (int)x;
+	uint tmpJ = (int)y;
 
 	if (!(tmpI < terrain_width && tmpJ < terrain_height))
 		return Constante::noIntersectVec;
@@ -57,7 +57,7 @@ Vector3 TerrainHeightmap::getPoint(double x, double y) const
 
 TerrainHeightmap::~TerrainHeightmap()
 {
-	for (int i = 0; i < terrain_width; i++)
+	for (uint i = 0; i < terrain_width; i++)
 		delete[] pointList[i];
 	delete[] pointList;
 }

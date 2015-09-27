@@ -1,16 +1,15 @@
 #include "TerrainFractal.h"
 // Renvoi un terrain généré aléatoirement
-TerrainFractal::TerrainFractal(uint terrain_width_, uint terrain_height_, double max_z)
+TerrainFractal::TerrainFractal(uint terrain_width_, uint terrain_height_)
 {
-	double facteur = max_z; // On veut que les montagnes dépassent pour pouvoir faire le ridge.
 	terrain_width = terrain_width_;
 	terrain_height = terrain_height_;
 	high = (low = Noise::noise(0, 0));
 
 	// Pour récuperer le Low and Height
-	for (int j = 0; j < terrain_height; j++)
+	for (uint j = 0; j < terrain_height; j++)
 	{
-		for (int i = 0; i < terrain_width; i++)
+		for (uint i = 0; i < terrain_width; i++)
 		{
 			MaxMin(Noise::noise(i, j));
 		}

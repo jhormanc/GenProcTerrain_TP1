@@ -13,9 +13,9 @@ QString Debug::printTerrain(Terrain * t) const
 {
 	QString res("width : ");
 	res.append(QString::number(t->getWidth())).append(", height : ").append(QString::number(t->getHeight())).append('\n').append("[");
-	for (int j = 0; j < t->getHeight(); j++)
+	for (uint j = 0; j < t->getHeight(); j++)
 	{
-		for (int i = 0; i < t->getWidth(); i++)
+		for (uint i = 0; i < t->getWidth(); i++)
 		{
 			res.append(printVector3(t->getPoint(i,j)));
 			res.append(" ");
