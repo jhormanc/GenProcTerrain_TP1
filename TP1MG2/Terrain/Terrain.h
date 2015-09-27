@@ -1,7 +1,6 @@
 #pragma once
 #include "Vector3.h"
 #include "Ray.h"
-#include "Box.h"
 #include "Mesh.h"
 #include "Constante.h"
 #include <qimage>
@@ -9,25 +8,22 @@
 #include <qrect>
 #include <math.h>
 
-// Classe représentant un Terrain 3D.
+// Classe representant un Terrain 3D.
 class Terrain {
 protected:
 	uint terrain_width;
 	uint terrain_height;
-	double step_x;
-	double step_y;
-	Box* boxlimit;
 	double k;  // Pente maximale
-	double high, low; // Paramètre pour connaître la hauteur max et min de la map
+	double high, low; // Paramètre pour connaitre la hauteur max et min de la map
 	
 	
 public:
 
 	Terrain(){};
-	//Pour définir un max et un min
-	void MaxMin(float);
+	//Pour definir un max et un min
+	void MaxMin(double);
 	
-	// Renvoie le point x, y, z appartenant à pointList à partir du x, y (recherche matrice + interpolation).
+	// Renvoie le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
 	virtual Vector3 getPoint(double x, double y) const = 0;
 	// Renvoie vrai si le point p est en dehors du terrain, faux sinon.
 	bool inOut(Vector3 p) const;
@@ -43,14 +39,6 @@ public:
 	uint getHeight() const
 	{
 		return terrain_height;
-	}
-	uint getStepX() const
-	{
-		return step_x;
-	}
-	uint getStepY() const
-	{
-		return step_y;
 	}
 
 	double getLow() const

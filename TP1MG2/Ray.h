@@ -1,7 +1,7 @@
 #pragma once
 #include <Vector3.h>
 
-// Classe représentant un Rayon (demi droite dans un espace 3D).
+// Classe representant un Rayon (demi droite dans un espace 3D).
 class Ray	
 {
 	Vector3 origin;

@@ -58,7 +58,7 @@ Vector3 TerrainHeightmap::getPoint(double x, double y) const
 
 TerrainHeightmap::~TerrainHeightmap()
 {
-	for (int i = 0; i < terrain_width; ++i)
+	for (int i = 0; i < terrain_width; i++)
 		delete[] pointList[i];
 	delete[] pointList;
 }
