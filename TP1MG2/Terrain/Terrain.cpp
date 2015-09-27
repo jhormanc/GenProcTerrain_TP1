@@ -1,14 +1,14 @@
 #include "Terrain.h"
 #include "Noise.h"
 
-//*Fonction pour trouver la hauteur max et min*//
-void Terrain::MaxMin(float x){
-	if(x>hight)
-		hight=x;
+// Fonction pour trouver la hauteur max et min
+void Terrain::MaxMin(float x)
+{
+	if (x > high)
+		high = x;
 		
-	if(x<low)
-		low=x;
-		
+	if(x < low)
+		low = x;
 }
 
 // Renvoie vrai si le point p est en dehors du terrain, faux sinon.
@@ -22,7 +22,7 @@ bool Terrain::intersection(Ray r, double &t) const
 {
 	t = 0.;
 	Vector3 res;
-	for (int i = 0; i<256; i++)
+	for (int i = 0; i < 256; i++)
 	{
 		res = r.getOrigin() + (r.getDirection() * t);
 		Vector3 tmp = getPoint(res.x, res.y);
@@ -40,10 +40,9 @@ bool Terrain::intersection(Ray r, double &t) const
 	return false;
 }
 
-// calcul la pente maximale du terrain
+// Calcul la pente maximale du terrain
 void Terrain::calcK()
 {
-	// Calcul de l'écart z maximum entre deux points
 	for (int j = 0; j < terrain_height - 1; j++)
 	{
 		for (int i = 0; i < terrain_width - 1; i++)
@@ -59,10 +58,9 @@ void Terrain::calcK()
 }
 
 
-// renvoi la normal du terrain au point p
+// Renvoi la normal du terrain au point p
 Vector3 Terrain::normal(Vector3 p)
 {
-
 	//Technique Derivé
 	//Vector3 eps(1.,0.0,0.0);
 	//Vector3 tmp = p;
@@ -279,9 +277,9 @@ Mesh* Terrain::GetMesh()
         {
 			float y = getPoint(x, z).z;
 
-			vertice.setX((MAP_SIZE * x / terrain_height) - MAP_SIZE / 2); // x
-			vertice.setY(y / 255); //(2.0 * qGray(color) / 255);
-			vertice.setZ((MAP_SIZE * z / terrain_width) - MAP_SIZE / 2); // y
+			vertice.setX((MAP_SIZE * x / terrain_height) - MAP_SIZE / 2);
+			vertice.setY(y / 255);
+			vertice.setZ((MAP_SIZE * z / terrain_width) - MAP_SIZE / 2);
 			mesh->pushVertice(vertice);
 
             texture.setX(static_cast<float>(x) / static_cast<float>(terrain_height));
@@ -295,28 +293,25 @@ Mesh* Terrain::GetMesh()
    return mesh;
 }
 
-// Renvoi le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
+// Renvoi le point x, y, z appartenant à pointList à partir du x, y (recherche matrice + interpolation).
 Vector3 Terrain::getPoint(double x, double y) const
 {
 	int tmpI = (int)x;
 	int tmpJ = (int)y;
 
 	if (!(tmpI < terrain_width && tmpJ < terrain_height))
-	{
 		return Constante::noIntersectVec;
-	}
+
 	Vector3 & a(pointList[tmpI < terrain_width - 1 ? tmpI + 1 : tmpI][tmpJ]);
 	Vector3 & b(pointList[tmpI][tmpJ < terrain_width - 1 ? tmpJ + 1 : tmpJ]);
 	Vector3 & c(pointList[tmpI < terrain_width - 1 ? tmpI + 1 : tmpI][tmpJ < terrain_width - 1 ? tmpJ + 1 : tmpJ]);
 
-	double x2 = x - (double)tmpI; //((x - b.x) / (step_x)) * 0.5;
-	double y2 = y - (double)tmpJ; //((y - a.y) / (step_y)) * 0.5;
+	double x2 = x - (double)tmpI;
+	double y2 = y - (double)tmpJ;
 	double z = (1 - x2) * (1 - y2) * pointList[tmpI][tmpJ].z
 		+ x2 * (1 - y2) * a.z
 		+ (1 - x2) * y2 * b.z
 		+ x2 * y2 * c.z;
-
-
 
 	return Vector3(x, y, z);
 }
@@ -332,15 +327,15 @@ Vector3 Terrain::getColor(double x, double y)
 	Vector3 blue = Vector3(0, 128, 255);
 	Vector3 grey = Vector3(64, 64, 64);
 
-	double max = hight - low;
+	double max = high - low;
 
 	if (z <= low + (max * (5. / 100.)))
 		color = green;
-	else if (z >= low + (max* (90. / 100.)))
+	else if (z >= low + (max * (90. / 100.)))
 		color = white;
-	else if (z >= low + (max* (50. / 100.)))
+	else if (z >= low + (max * (50. / 100.)))
 		color = grey;
-	else if (z >= low + (max * (5. / 100.)) && (z <= low + (max* (50. / 100.))))
+	else if (z >= low + (max * (5. / 100.)) && (z <= low + (max * (50. / 100.))))
 		color = brown;
 	else
 		color = blue;

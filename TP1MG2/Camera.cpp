@@ -17,10 +17,10 @@ Vector3 Camera::PtScreen(int i, int j, int width, int height)
 {
 	double tu = (double)i / (double)(width - 1);
 	double tv = (double)j / (double)(height - 1);
+
 	Vector3 res = o + (w * lw)
-		+ u * (-lu*(1 - tu) + tu*lu)
-		+ v * (-lv*(1 - tv) + tv*lv);
-	/*	+ u * 2 * tu * lu
-		+ v * 2 * tv * lv;*/
+		+ u * (-lu * (1 - tu) + tu * lu)
+		+ v * (-lv * (1 - tv) + tv * lv);
+
 	return res;
 }

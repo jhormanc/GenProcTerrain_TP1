@@ -12,7 +12,7 @@ public:
 	Ray(Vector3 origin_, Vector3 direction_) : origin(origin_), direction(direction_){};
 	Ray(const Ray& r) : origin(r.origin), direction(r.direction){};
 	
-	// getters.
+	// Getters.
 	Vector3 getOrigin()
 	{
 		return origin;

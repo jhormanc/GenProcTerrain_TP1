@@ -14,11 +14,11 @@ protected:
 	int height_scrn;
 	Camera c;
 	Vector3 light;
-	Terrain * t;
+	Terrain *t;
 	QImage screen;
 
 public:
-	Renderer(const int& width_scrn_, const int& height_scrn_, const Camera& c_, const Vector3& light_, Terrain * t_);
+	Renderer(const int& width_scrn_, const int& height_scrn_, const Camera& c_, const Vector3& light_, Terrain *t_);
 
 	// Raytrace le terrain sur l'image screen grace aux differents objets du constructeur.
 	void Raytrace();

@@ -52,11 +52,6 @@ private:
     void rotateBy(int x, int y, int z);
 
 private:
-    //// Heightmap infos
-    //int vertices_by_x;
-    //int vertices_by_z;
-    //int quads_by_x;
-    //int quads_by_z;
 
     // FPS
     QTimer timer;
@@ -64,12 +59,6 @@ private:
     int frame_count;
     int last_count;
 
-    // 3D / 2D coords
-    //QVector<QVector3D> m_vertices;
-    //QVector<QVector3D> m_vertexarray;
-    //QVector<QVector2D> m_textures;
-    //QVector<QVector2D> m_texturearray;
-    //QVector<GLuint>    m_indices;
     GLuint             m_textureid;
 
     // GPU Buffer

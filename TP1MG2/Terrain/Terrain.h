@@ -17,17 +17,17 @@ protected:
 	double step_x;
 	double step_y;
 	Box* boxlimit;
-	double k;  // pente maximale (coefficient de liepz...
-	double hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/
+	double k;  // Pente maximale
+	double high, low; // Paramètre pour connaître la hauteur max et min de la map
 	Vector3 ** pointList;
 	
 public:
 
 	Terrain(){};
-	//Pour definir un max et un min
+	//Pour définir un max et un min
 	void MaxMin(float);
 	
-	// Renvoi le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
+	// Renvoie le point x, y, z appartenant à pointList à partir du x, y (recherche matrice + interpolation).
 	Vector3 getPoint(double x, double y) const;
 	// Renvoie vrai si le point p est en dehors du terrain, faux sinon.
 	bool inOut(Vector3 p) const;
@@ -58,14 +58,14 @@ public:
 		return low;
 	}
 
-	double getHight() const
+	double getHigh() const
 	{
-		return hight;
+		return high;
 	}
-	// calcul la pente maximale du terrain
+	// Calcul la pente maximale du terrain
 	void calcK();
 	
-	// renvoi la normal du terrain au point p
+	// Renvoi la normal du terrain au point p
 	Vector3 normal(Vector3 p);
 	
 

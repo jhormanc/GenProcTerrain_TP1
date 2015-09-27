@@ -62,19 +62,21 @@ public:
 	static inline Vector3 normalize(Vector3& v)
 	{
 		double normalV = v.normal();
-		return normalV == 0.0 ? Vector3(.0) : v / normalV; // regle pb division 0
+		return normalV == 0.0 ? Vector3(.0) : v / normalV; // Règle pb division 0
 	}
 
 	inline double normal() const
 	{
 		return std::sqrt(x*x + y*y + z*z);
 	}
-	// pdt scalaire
+
+	// Produit scalaire
 	inline double operator*(const Vector3& v) const
 	{
 		return x * v.x + y * v.y + z * v.z;
 	}
-	// pdt vectoriel
+
+	// Produit vectoriel
 	inline Vector3 operator^(const Vector3& v) const
 	{
 		return Vector3(y*v.z - z*v.y,

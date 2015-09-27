@@ -13,19 +13,19 @@
 #include <ctime>
 #include<qlabel.h>
 
-// point d'entrée du programme, initialise Qt et les objets necessaire au déroulement du programme
+// Point d'entrée du programme, initialise Qt et les objets necessaire au déroulement du programme
 int main(int argc, char *argv[])
 {
 	srand(time(0));
 	QApplication a(argc, argv);
 	Debug d;
-	Terrain * t2 = new TerrainFractal(1000, 1000, 10.0, 15.0, 255.0); /*Terain créé grace à une fonction*/
+	Terrain * t2 = new TerrainFractal(1000, 1000, 10.0, 15.0, 255.0); // Terain créé grace à une fonction
 	QTextEdit * logTxt = new QTextEdit();
 	QLabel l;
 	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 	Renderer * r = new RendererConfig1();
 
-	/*Debugage écrie*/
+	// DEBUG
 	d.execTest(logTxt);
 	logTxt->show();
 

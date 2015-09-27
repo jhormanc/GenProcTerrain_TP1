@@ -4,21 +4,24 @@
 class Box
 {
 private:
-	Vector3 P1/*Point right bottom*/,   P2/*Point left top*/;
+	Vector3 P1, // Point right bottom
+		P2; // Point left top
 
 public:
 	Box(void);
-	Box(Vector3,Vector3);
+	Box(Vector3, Vector3);
 
-
-	//Accessor
-	Vector3 togetP1()const{
+	// Accessor
+	Vector3 getP1() const
+	{
 		return P1;
 	}
 
-	Vector3 togetP2()const{
+	Vector3 getP2() const
+	{
 		return P2;
 	}
+
 	~Box(void);
 };
 

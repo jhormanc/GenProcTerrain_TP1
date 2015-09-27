@@ -27,7 +27,7 @@ const QImage& Renderer::getScreen()
 void Renderer::Raytrace()
 {
 	double f;
-	double eps = 7.;
+	double eps = 10.;
 	// Sun
 	double s;
 	float rayon = 50.;
@@ -42,23 +42,12 @@ void Renderer::Raytrace()
 			Vector3 cam_dir = Vector3::normalize(pt - c.getOrigin());
 			Ray r = Ray(c.getOrigin(), cam_dir);
 
-			t->intersection(r, f); //Intersection entre la vue ( camera ) et l'objet.
+			// Intersection entre la vue (caméra) et l'objet.
+			t->intersection(r, f); 
 			Vector3 intersect(r.getOrigin() + r.getDirection() * abs(f));
 
-			if (f > Constante::noIntersect && intersect.z >= t->getLow()) //Si intersection
+			if (f > Constante::noIntersect && intersect.z >= t->getLow()) // Si intersection
 			{
-				//Pour avoir le point d'intersection sur la l'objet ( sphere )
-				//Vector3 direction = Vector3::normalize(intersect - light); //Pour avoir la direction entre la lumiére ( son origine ) et le point d'intersection sur l'object (sphere )
-				//Ray lightvec = Ray(light, direction); //On crée le ray.
-
-				//t->intersection(lightvec, f); //Intersection entre le ray (de la lumiére ) et l'objet ( sphere )
-
-				//Vector3 intersectlight(lightvec.getOrigin() + lightvec.getDirection()*(abs(f))); // coordonée du point d'intersection du Ray sur la sphere.
-				///*Je fait un "*(-h)" car je sais pas pourquoi le h retourné est negatif*/
-				//intersectlight += lightvec.getDirection()  * (eps);// regle l'imprecision des flottants en decalant d'epsilon le point d'intersection vers la lumiere
-				//double distance1 = Vector3::distance(lightvec.getOrigin(), intersectlight); //Distance entre lumiére ( origine ) et intersection (lumiére / object )
-				//double distance2 = Vector3::distance(lightvec.getOrigin(), intersect); //Distance entre lumiére ( origine ) et intersection (camera / object )
-
 				// Vecteur directeur du point d'intersection vers la lumière
 				Vector3 dir = Vector3::normalize(intersect - light);
 
@@ -71,15 +60,16 @@ void Renderer::Raytrace()
 				Vector3 intersect_light(ray.getOrigin() + ray.getDirection() * abs(f));
 				intersect_light = intersect_light + dir * eps;
 
-				// Joris hack temp (original : distance1 < distance2)
-				//if (distance1 < distance2) // si l'intersection lumiére / objet ce fait avant l'intersection camera / objet
+				// Si l'intersection lumière / objet se fait avant l'intersection caméra / objet
 				if (f > Constante::noIntersect && Vector3::distance(light, intersect_light) < Vector3::distance(light, intersect))
 				{
 					double fact = 0.2;
 					Vector3 color = t->getColor(intersect.x, intersect.y);
 
-					screen.setPixel(i, j, qRgb(color.x*fact, color.y*fact, color.z*fact));//alors pixel d'intersection camera/objet represente l'ombre
-					//screen.setPixel(i,j,qRgb(255.,255.,0.));//alors pixel d'intersection camera/objet represente l'ombre
+					// Pixel d'intersection caméra/objet représente l'ombre
+					screen.setPixel(i, j, qRgb(color.x*fact, color.y*fact, color.z*fact)); 
+					// DEBUG
+					//screen.setPixel(i,j,qRgb(255.,255.,0.)); 
 				}
 				else{
 
@@ -91,8 +81,8 @@ void Renderer::Raytrace()
 
 					Vector3 color = t->getColor(intersect.x, intersect.y);
 
-
-					screen.setPixel(i, j, qRgb(color.x * colorDiffuse, color.y * colorDiffuse, color.z * colorDiffuse));//sinon represente lumiére 
+					// Représente lumière 
+					screen.setPixel(i, j, qRgb(color.x * colorDiffuse, color.y * colorDiffuse, color.z * colorDiffuse)); 
 
 
 				}

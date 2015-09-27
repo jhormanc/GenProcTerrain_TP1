@@ -6,7 +6,7 @@ class TerrainHeightmap : public Terrain
 public:
 	TerrainHeightmap(QImage heightmap);
 
-	// Desctructeur. Desalloue pointList.
+	// Desctructeur. Désalloue pointList.
 	~TerrainHeightmap();
 };
 
