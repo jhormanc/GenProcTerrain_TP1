@@ -175,6 +175,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Noise.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Terrain\TerrainHeightmap.cpp" />
     <ClCompile Include="Terrain\Terrain.cpp" />
     <ClCompile Include="Terrain\TerrainFractal.cpp" />

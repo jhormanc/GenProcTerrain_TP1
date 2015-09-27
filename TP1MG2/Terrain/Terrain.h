@@ -19,6 +19,7 @@ protected:
 	Box* boxlimit;
 	double k;  // pente maximale (coefficient de liepz...
 	double hight,low; /*Parametre pour connaitre la hauteur max et minimum de la map*/
+	Vector3 ** pointList;
 	
 public:
 
@@ -27,7 +28,7 @@ public:
 	void MaxMin(float);
 	
 	// Renvoi le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
-	virtual inline Vector3 getPoint(double x, double y) const = 0;
+	Vector3 getPoint(double x, double y) const;
 	// Renvoie vrai si le point p est en dehors du terrain, faux sinon.
 	bool inOut(Vector3 p) const;
 

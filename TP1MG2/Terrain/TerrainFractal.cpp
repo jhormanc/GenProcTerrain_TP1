@@ -7,6 +7,11 @@ TerrainFractal::TerrainFractal(uint terrain_width_, uint terrain_height_, double
 	terrain_height = terrain_height_;
 	double z;
 	hight = (low = Noise::noise(0, 0));
+
+	pointList = new Vector3 *[terrain_width];
+	for (int i = 0; i < terrain_width; i++)
+		pointList[i] = new Vector3[terrain_height];
+
 	/**Pour recuperer le Low and Hight**/
 	for (int j = 0; j < terrain_height_; j++)
 	{
@@ -19,7 +24,7 @@ TerrainFractal::TerrainFractal(uint terrain_width_, uint terrain_height_, double
 			hight = std::max(hight, z);
 			low = std::min(low, z);
 
-
+			pointList[i][j] = z;
 		}
 	}
 }
