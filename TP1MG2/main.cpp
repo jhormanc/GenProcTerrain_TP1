@@ -10,6 +10,7 @@
 #include "../Renderer/RendererConfig1.h"
 #include "../Renderer/RendererConfig2.h"
 #include "../Renderer/RendererConfig3.h"
+#include "../Renderer/RendererConfig4.h"
 #include <QtWidgets/QApplication>
 #include <qtextedit.h>
 #include <ctime>

@@ -156,5 +156,8 @@
     <ClInclude Include="Renderer\RendererConfig3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
