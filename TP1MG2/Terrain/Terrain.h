@@ -67,11 +67,12 @@ public:
 	
 	// renvoi la normal du terrain au point p
 	Vector3 normal(Vector3 p);
-
+	
 
 	Mesh* GetMesh();
 
 	Vector3 getColor(double x, double y);
 
 	virtual ~Terrain(){};
+	Vector3 normalT(Vector3 a, Vector3 b, Vector3 c);
 };

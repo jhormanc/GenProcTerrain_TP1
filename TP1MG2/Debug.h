@@ -10,6 +10,9 @@
 class Debug {
 public :
 	Debug(){};
+	// Execute les tests predefinis.
+	void execTest(QTextEdit * log) const;
+private:
 	// Renvoi une QString du Vector3 v pour l'afficher dans le log (ici QTextEdit).
 	QString printVector3(Vector3 v) const;
 	// Renvoi une QString du Terrain t pour l'afficher dans le log (ici QTextEdit).
@@ -18,7 +21,5 @@ public :
 	QString testInOut(Vector3 p, Terrain * t) const;
 	// Renvoi une QString du resultat de la "collision" entre le rayon r et le terrain t pour l'afficher dans le log (ici QTextEdit).
 	QString testIntersection(Ray r, Terrain * t) const;
-
-	void execTest(QTextEdit * log);
 	
 };

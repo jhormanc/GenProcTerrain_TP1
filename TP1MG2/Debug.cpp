@@ -13,8 +13,6 @@ QString Debug::printTerrain(Terrain * t) const
 {
 	QString res("width : ");
 	res.append(QString::number(t->getWidth())).append(", height : ").append(QString::number(t->getHeight())).append('\n').append("[");
-	//Vector3 ** tmp = t.getPointList();
-
 	for (int j = 0; j < t->getHeight(); j++)
 	{
 		for (int i = 0; i < t->getWidth(); i++)
@@ -53,7 +51,8 @@ QString Debug::testIntersection(Ray r, Terrain * t) const
 	return res;
 }
 
-void Debug::execTest(QTextEdit * logTxt)
+// Execute les tests predefinis.
+void Debug::execTest(QTextEdit * logTxt) const
 {
 	QImage hm("Resources/testhm");
 	Terrain * t = new TerrainHeightmap(hm); /*Terrain crée grace à une image*/
@@ -69,12 +68,6 @@ void Debug::execTest(QTextEdit * logTxt)
 	logTxt->append(printVector3(t->getPoint(90.0, 10.0)).toHtmlEscaped());
 	logTxt->append(testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, -5.0)), t).toHtmlEscaped());
 	logTxt->append(testIntersection(Ray(Vector3(0.0, 0.0, 10.0), Vector3(1.0, 1.0, 5.0)), t).toHtmlEscaped());
-	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 255), Vector3(1.0, 1.0, -100.0)));
-	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 5.0)));
-	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(2.0, 1.0, -20)));
-	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.5, 1.5, -20)));
-	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(0.0, 0.5, 5)));
-	//hmw->AddRay(Ray(Vector3(0.0, 0.0, 100.0), Vector3(1.0, 1.0, 50)));
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -82,11 +75,7 @@ void Debug::execTest(QTextEdit * logTxt)
 		Vector3 tmp2((int)(rand() % 180) / 10.0, (int)(rand() % 180) / 10.0, (int)(rand() % 200) / 10.0 + 5);
 		logTxt->append(testIntersection(Ray(tmp1, tmp2), t).toHtmlEscaped());
 	}
-	//logTxt.append(d.printVector3(t.getPoint(90.0, 10.0)));
 	logTxt->append(QString('\n').toHtmlEscaped());
-
-	//Afficher en écrie le Terrain "t2"
-	/*logTxt.append(d.printTerrain(t2).toHtmlEscaped());*/
 
 	logTxt->insertPlainText(printTerrain(t).toHtmlEscaped());
 	delete t;
