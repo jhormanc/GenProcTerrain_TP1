@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 Raytracage Fractal : 125915369900
 Raytracage Heightmap : 25100035100
+=======
+Raytracage Fractal : 46915920100
+Raytracage Heightmap : 7152657900
+>>>>>>> origin/master

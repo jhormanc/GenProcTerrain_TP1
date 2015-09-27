@@ -129,7 +129,11 @@
     <ClInclude Include="Renderer\RendererConfig3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Renderer\RendererConfig4.h">
+=======
     <ClInclude Include="Mesure.h">
+>>>>>>> origin/master
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

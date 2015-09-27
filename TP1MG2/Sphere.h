@@ -32,7 +32,7 @@ public:
 	bool intersection(Ray r, double& t) const
 	{
 		
-		Vector3 op = r.getOrigin() - o;		// Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
+		Vector3 op = o - r.getOrigin();		// Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
 		double b = r.getDirection() * op;
 		t = 0.0;
 		double det = b * b - (op * op) + rayon * rayon;

@@ -9,7 +9,9 @@
 #include "../Renderer/RendererConfig1.h"
 #include "../Renderer/RendererConfig2.h"
 #include "../Renderer/RendererConfig3.h"
+#include "../Renderer/RendererConfig4.h"
 #include "Mesure.h"
+
 #include <QtWidgets/QApplication>
 #include <qtextedit.h>
 #include <ctime>
@@ -27,7 +29,7 @@ int main(int argc, char *argv[])
 	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 	Renderer * r = new RendererConfig3();
 	Mesure m;
-	m.execMesure();
+	//m.execMesure();
 
 	// DEBUG
 	d.execTest(logTxt);

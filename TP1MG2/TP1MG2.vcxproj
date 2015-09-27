@@ -197,6 +197,7 @@
     <ClInclude Include="Renderer\RendererConfig1.h" />
     <ClInclude Include="Renderer\RendererConfig2.h" />
     <ClInclude Include="Renderer\RendererConfig3.h" />
+    <ClInclude Include="Renderer\RendererConfig4.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Terrain\TerrainHeightmap.h" />
     <ClInclude Include="Terrain\Terrain.h" />
