@@ -1,4 +1,3 @@
-//#include "tp1mg2.h"
 #include "vld.h"
 #include "../Terrain/Terrain.h"
 #include "../Terrain/TerrainHeightmap.h"
@@ -11,11 +10,9 @@
 #include "../Renderer/RendererConfig1.h"
 #include "../Renderer/RendererConfig2.h"
 #include "../Renderer/RendererConfig3.h"
-<<<<<<< HEAD
 #include "../Renderer/RendererConfig4.h"
-=======
 #include "Mesure.h"
->>>>>>> origin/master
+
 #include <QtWidgets/QApplication>
 #include <qtextedit.h>
 #include <ctime>
@@ -33,7 +30,7 @@ int main(int argc, char *argv[])
 	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 	Renderer * r = new RendererConfig3();
 	Mesure m;
-	m.execMesure();
+	//m.execMesure();
 
 	// DEBUG
 	d.execTest(logTxt);
