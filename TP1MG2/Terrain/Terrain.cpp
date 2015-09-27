@@ -2,13 +2,10 @@
 #include "Noise.h"
 
 // Fonction pour trouver la hauteur max et min
-void Terrain::MaxMin(float x)
+void Terrain::MaxMin(double x)
 {
-	if (x > high)
-		high = x;
-		
-	if(x < low)
-		low = x;
+	high = std::max(high,x);
+	low = std::min(low, x);
 }
 
 // Renvoie vrai si le point p est en dehors du terrain, faux sinon.
@@ -75,9 +72,11 @@ Vector3 Terrain::normal(Vector3 p)
 	//int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
 	//int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
 
+
+	Vector3 a = getPoint(p.x, p.y);
+
 	if (p.x == 0 && p.y == 0){
 		//Need 2 normals
-		Vector3 a = getPoint(p.x, p.y);
 		Vector3 b = getPoint(p.x + 1.,p.y);
 		Vector3 c = getPoint(p.x,p.y + 1.);
 		//normal point b
@@ -89,7 +88,6 @@ Vector3 Terrain::normal(Vector3 p)
 
 	if (p.x == terrain_width - 1. && p.y == 0){
 		//Need 3 normals
-		Vector3 a = getPoint(p.x, p.y);
 		Vector3 b = getPoint(p.x - 1.,p.y);
 		Vector3 c = getPoint(p.x,p.y + 1.);
 		Vector3 d = getPoint(p.x - 1.,p.y + 1.);
@@ -107,7 +105,6 @@ Vector3 Terrain::normal(Vector3 p)
 
 	if (p.x == terrain_width - 1. && p.y == terrain_height - 1.){
 		//Need 3 normals
-		Vector3 a = getPoint(p.x, p.y);
 		Vector3 b = getPoint(p.x + 1.,p.y);
 		Vector3 c = getPoint(p.x,p.y - 1.);
 		Vector3 d = getPoint(p.x + 1.,p.y - 1.);
@@ -124,7 +121,6 @@ Vector3 Terrain::normal(Vector3 p)
 
 	if (p.x == 0 && p.y == terrain_height - 1.){
 		//Need 2 normals
-		Vector3 a = getPoint(p.x, p.y);
 		Vector3 b = getPoint(p.x - 1.,p.y);
 		Vector3 c = getPoint(p.x,p.y - 1.);
 		//normal point b
@@ -138,7 +134,6 @@ Vector3 Terrain::normal(Vector3 p)
 	//Coté gauche
 	if (p.x == 0 && p.y != 0 && p.y != terrain_height - 1.){
 		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
 		//point du haut
 		Vector3 b = getPoint(p.x,p.y - 1.);
 		//point diagonal
@@ -160,7 +155,6 @@ Vector3 Terrain::normal(Vector3 p)
 	//Coté haut
 	if (p.y == 0 && p.x != 0 && p.x != terrain_width - 1.){
 		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
 		//point du haut
 		Vector3 b = getPoint(p.x - 1.,p.y);
 		//point diagonal
@@ -182,7 +176,6 @@ Vector3 Terrain::normal(Vector3 p)
 	//Coté droit
 	if (p.x == terrain_width - 1. && p.y != 0 && p.y != terrain_height - 1.){
 		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
 		//point du haut
 		Vector3 b = getPoint(p.x,p.y - 1.);
 		//point diagonal
@@ -204,7 +197,6 @@ Vector3 Terrain::normal(Vector3 p)
 	//Coté Bas
 	if (p.y == terrain_height && p.x != 0 && p.x != terrain_width - 1.){
 		//Need 4 normals
-		Vector3 a = getPoint(p.x, p.y);
 		//point du haut
 		Vector3 b = getPoint(p.x - 1.,p.y);
 		//point diagonal
@@ -226,7 +218,6 @@ Vector3 Terrain::normal(Vector3 p)
 	//Le reste des points :
 
 	//Need 6 normals
-	Vector3 a = getPoint(p.x, p.y);
 	Vector3 b = getPoint(p.x - 1.,p.y);
 	Vector3 c = getPoint(p.x,p.y - 1.);
 	Vector3 d = getPoint(p.x + 1.,p.y - 1.);

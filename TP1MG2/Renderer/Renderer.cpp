@@ -14,7 +14,7 @@ Renderer::Renderer(const int& width_scrn_, const int& height_scrn_, const Camera
 
 Renderer::~Renderer()
 {
-
+	delete t;
 }
 
 // renvoi l'image sur laquelle la fct raytrace dessine.
@@ -38,21 +38,18 @@ void Renderer::Raytrace()
 	{
 		for (int j = 0; j < height_scrn; j++)
 		{
-			Vector3 pt(c.PtScreen(i, j, width_scrn, height_scrn));
-			Vector3 cam_dir = Vector3::normalize(pt - c.getOrigin());
+			
+			Vector3 cam_dir = Vector3::normalize(c.PtScreen(i, j, width_scrn, height_scrn) -c.getOrigin());
 			Ray r = Ray(c.getOrigin(), cam_dir);
 
-			// Intersection entre la vue (caméra) et l'objet.
+			// Intersection entre la vue (camera) et l'objet.
 			t->intersection(r, f); 
 			Vector3 intersect(r.getOrigin() + r.getDirection() * abs(f));
 
 			if (f > Constante::noIntersect && intersect.z >= t->getLow()) // Si intersection
 			{
-				// Vecteur directeur du point d'intersection vers la lumière
+				// Vecteur directeur du point d'intersection vers la lumiere
 				Vector3 dir = Vector3::normalize(intersect - light);
-
-				// Règle l'imprécision des flottants en décalant d'epsilon le point d'intersection vers la lumière
-				//intersect = intersect + cam_dir * eps;
 
 				Ray ray(light, dir);
 				t->intersection(ray, f);
@@ -60,20 +57,18 @@ void Renderer::Raytrace()
 				Vector3 intersect_light(ray.getOrigin() + ray.getDirection() * abs(f));
 				intersect_light = intersect_light + dir * eps;
 
-				// Si l'intersection lumière / objet se fait avant l'intersection caméra / objet
-				if (f > Constante::noIntersect && Vector3::distance(light, intersect_light) + eps < Vector3::distance(light, intersect))
+				// Si l'intersection lumiere / objet se fait avant l'intersection camera / objet
+				if (f > Constante::noIntersect && Vector3::distance(light, intersect_light) + eps < Vector3::distance(light, intersect)) //"+eps" pour l'imperfection des flotant
 				{
 					double fact = 0.2;
 					Vector3 color = t->getColor(intersect.x, intersect.y);
 
-					// Pixel d'intersection caméra/objet représente l'ombre
+					// Pixel d'intersection camera/objet represente l'ombre
 					screen.setPixel(i, j, qRgb(color.x*fact, color.y*fact, color.z*fact)); 
-					// DEBUG
-					//screen.setPixel(i,j,qRgb(255.,255.,0.)); 
 				}
 				else{
 
-					/*Diffu v2*/
+					/*Diffusion*/
 					Vector3 L = Vector3::normalize(light - intersect);
 					Vector3 N = t->normal(intersect);
 					double colorDiffuse = L*N;
@@ -91,24 +86,11 @@ void Renderer::Raytrace()
 			}
 			else
 			{
-				// Sun
-				//Ray ray_sun = Ray(c.getOrigin(), Vector3::normalize(pt - c.getOrigin()));
-				//sun.intersection(r, s); // Intersection entre la vue (caméra) et la lumière.
-
-				//if (s > Constante::noIntersect)
-				//{
-				//	Vector3 pt_sun(r.getOrigin() + r.getDirection() * abs(s));
-				//	screen.setPixel(i, j, qRgb(255., 255., 0.));
-				//}
-				//else
-				//{
-				screen.setPixel(i, j, qRgb(155, 255, 255)); // aucun contact avec le terrain ou la lumière.
+				screen.setPixel(i, j, qRgb(155, 255, 255)); // aucun contact avec le terrain ou la lumiere.
 				//}
 			}
 
-			// Sun
-			//Ray ray_sun = Ray(c.getOrigin(), Vector3::normalize(pt - c.getOrigin()));
-			sun.intersection(r, s); // Intersection entre la vue (caméra) et la lumière.
+			sun.intersection(r, s); // Intersection entre la vue (camera) et la lumiere.
 
 			if (s > Constante::noIntersect)
 			{

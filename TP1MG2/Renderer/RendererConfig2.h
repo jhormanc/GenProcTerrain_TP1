@@ -11,8 +11,4 @@ public:
 		Vector3(-100., 1100., 500.), // Couche de soleil
 		new TerrainHeightmap(QImage("Resources/Heightmap2.png"), true, 1.)){};
 
-	~RendererConfig2()
-	{
-		delete t;
-	}
 };

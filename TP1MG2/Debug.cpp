@@ -56,7 +56,7 @@ void Debug::execTest(QTextEdit * logTxt) const
 	QImage hm("Resources/testhm");
 	Terrain * t = new TerrainHeightmap(hm, true, 1.); /*Terrain crée grace à une image*/
 	logTxt->setReadOnly(true);
-	//Afficher en écrie le Terrain "t"
+	//Afficher en ecrie le Terrain "t"
 	logTxt->insertPlainText(printTerrain(t).toHtmlEscaped());
 	for (int i = 0; i < 10; i++)
 	{

@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-// classe utilitaire représente les points dans l'espace 3D.
+// classe utilitaire represente les points dans l'espace 3D.
 class Vector3 {
 public:
 	double x, y, z;
