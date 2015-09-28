@@ -153,19 +153,20 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_heightmapwidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="heightmapwidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Mesure.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Noise.cpp" />
+    <ClCompile Include="OpBinaire.cpp" />
+    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
+    <ClCompile Include="CSG_Sphere.cpp" />
     <ClCompile Include="Terrain\TerrainHeightmap.cpp" />
     <ClCompile Include="Terrain\Terrain.cpp" />
     <ClCompile Include="Terrain\TerrainFractal.cpp" />
+    <ClCompile Include="Union.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -191,6 +192,9 @@
     </CustomBuild>
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mesure.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="OpBinaire.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Noise.h" />
     <ClInclude Include="Renderer\Renderer.h" />
@@ -198,10 +202,12 @@
     <ClInclude Include="Renderer\RendererConfig2.h" />
     <ClInclude Include="Renderer\RendererConfig3.h" />
     <ClInclude Include="Renderer\RendererConfig4.h" />
+    <ClInclude Include="CSG_Sphere.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Terrain\TerrainHeightmap.h" />
     <ClInclude Include="Terrain\Terrain.h" />
     <ClInclude Include="Terrain\TerrainFractal.h" />
+    <ClInclude Include="Union.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,13 +2,17 @@
 #include "Vector3.h"
 #include "Ray.h"
 #include "Constante.h"
-class Sphere {
+
+class Sphere
+{
+
+public:
 	Vector3 o;
 	double rayon;
 
+	Sphere() {} //: CSG_Sphere() {}
+	Sphere(Vector3 o_, float rayon_) : o(o_), rayon(rayon_) {}
 
-public:
-	Sphere(Vector3 o_, float rayon_) :o(o_), rayon(rayon_){};
 	inline Vector3 getO() const
 	{
 		return o;
@@ -19,7 +23,7 @@ public:
 		return rayon;
 	}
 
-	inline bool isIn(Vector3 p) const
+	inline bool isIn(const Vector3 &p) const
 	{
 		return (p - o).normal() <= rayon;
 	}

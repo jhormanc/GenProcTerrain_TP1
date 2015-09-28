@@ -31,7 +31,7 @@ void Renderer::Raytrace()
 	// Sun
 	double s;
 	float rayon = 50.;
-	Sphere sun(light, rayon);
+	Sphere *sun = new Sphere(light, rayon);
 
 
 	for (int i = 0; i < width_scrn; i++)
@@ -90,7 +90,7 @@ void Renderer::Raytrace()
 				//}
 			}
 
-			sun.intersection(r, s); // Intersection entre la vue (camera) et la lumiere.
+			sun->intersection(r, s); // Intersection entre la vue (camera) et la lumiere.
 
 			if (s > Constante::noIntersect)
 			{
