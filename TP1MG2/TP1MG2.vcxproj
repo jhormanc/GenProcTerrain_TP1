@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Constante.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_heightmapwidget.cpp">
@@ -166,10 +167,12 @@
     <ClCompile Include="Terrain\TerrainHeightmap.cpp" />
     <ClCompile Include="Terrain\Terrain.cpp" />
     <ClCompile Include="Terrain\TerrainFractal.cpp" />
+    <ClCompile Include="Torus.cpp" />
     <ClCompile Include="Union.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="Constante.h" />
     <ClInclude Include="Debug.h" />
     <CustomBuild Include="heightmapwidget.h">
@@ -207,6 +210,7 @@
     <ClInclude Include="Terrain\TerrainHeightmap.h" />
     <ClInclude Include="Terrain\Terrain.h" />
     <ClInclude Include="Terrain\TerrainFractal.h" />
+    <ClInclude Include="Torus.h" />
     <ClInclude Include="Union.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
