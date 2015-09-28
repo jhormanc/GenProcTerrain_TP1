@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Ray.h"
+#include "Constante.h"
 
 class Node
 {
@@ -10,8 +11,10 @@ public:
 
 	virtual bool inside(const Vector3 &p) const = 0;
 
-	bool intersect(const Ray r, double t) const;
+	bool intersect(Ray & r, double & dist) const;
 
-	virtual Vector3 getColor(const Vector3 &p) const = 0;
+	virtual double distance(const Vector3 & a) const = 0;
+
+	virtual Vector3 getColor(const Vector3 & p) const = 0;
 
 };

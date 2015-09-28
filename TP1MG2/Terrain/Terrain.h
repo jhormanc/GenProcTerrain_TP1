@@ -3,13 +3,14 @@
 #include "Ray.h"
 #include "Mesh.h"
 #include "Constante.h"
+#include "Primitive.h"
 #include <qimage>
 #include <qpixmap>
 #include <qrect>
 #include <math.h>
 
 // Classe representant un Terrain 3D.
-class Terrain {
+class Terrain{
 protected:
 	uint terrain_width;
 	uint terrain_height;

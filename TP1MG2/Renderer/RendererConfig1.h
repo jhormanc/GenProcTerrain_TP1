@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "Renderer.h"
 #include "../../Terrain/TerrainFractal.h"
 
@@ -11,4 +11,4 @@ public:
 		Vector3(-100., 1100., 500.), // Couche de soleil
 		new TerrainFractal(1000, 1000)){};
 
-};
+};*/

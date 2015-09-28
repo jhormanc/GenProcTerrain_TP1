@@ -10,7 +10,7 @@ public:
 	Vector3 o;
 	double rayon;
 
-	Sphere() {} //: CSG_Sphere() {}
+	Sphere() {}
 	Sphere(Vector3 o_, float rayon_) : o(o_), rayon(rayon_) {}
 
 	inline Vector3 getO() const
@@ -23,7 +23,7 @@ public:
 		return rayon;
 	}
 
-	inline bool isIn(const Vector3 &p) const
+	inline bool inside_s(const Vector3 &p) const
 	{
 		return (p - o).normal() <= rayon;
 	}
@@ -33,17 +33,5 @@ public:
 		return Vector3::normalize(p - o);
 	}
 
-	bool intersection(Ray r, double& t) const
-	{
-		
-		Vector3 op = o - r.getOrigin();		// Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
-		double b = r.getDirection() * op;
-		t = 0.0;
-		double det = b * b - (op * op) + rayon * rayon;
-		if (det < 0)
-			return (t = Constante::noIntersect);
-		else
-			det = std::sqrt(det);
-		return (t = b - det) >= 0 ? t : ((t = b + det) >= 0 ? t : Constante::noIntersect);
-	}
+	double distance_s(const Vector3 & a) const;
 };
