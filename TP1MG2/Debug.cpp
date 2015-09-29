@@ -30,7 +30,7 @@ QString Debug::testInOut(Vector3 p, Terrain * t) const
 {
 	QString res("Point ");
 	res.append(printVector3(p));
-	t->inOut(p) ? res.append(" est dehors") : res.append(" est dedans") ;
+	t->inside(p) ? res.append(" est dehors") : res.append(" est dedans") ;
 	res.append('\n');
 	return res;
 }
@@ -42,7 +42,8 @@ QString Debug::testIntersection(Ray r, Terrain * t) const
 	res.append(printVector3(r.getOrigin()));
 	res.append(printVector3(r.getDirection()));
 	double n;
-	bool touche = t->intersection(r, n);
+	
+	bool touche = ((Node *)t)->intersect(r, n);
 	if (!touche)
 		res.append(" ne touche pas");
 	else

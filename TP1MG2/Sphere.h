@@ -23,7 +23,7 @@ public:
 		return rayon;
 	}
 
-	inline bool inside_s(const Vector3 &p) const
+	inline bool inside(const Vector3 &p) const
 	{
 		return (p - o).normal() <= rayon;
 	}
@@ -33,5 +33,5 @@ public:
 		return Vector3::normalize(p - o);
 	}
 
-	double distance_s(const Vector3 & a) const;
+	double distance(const Vector3 & a) const;
 };

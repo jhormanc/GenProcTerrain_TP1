@@ -9,37 +9,24 @@ void Terrain::MaxMin(double x)
 }
 
 // Renvoie vrai si le point p est en dehors du terrain, faux sinon.
-bool Terrain::inOut(Vector3 p) const
+bool Terrain::inside(const Vector3 &  p) const
 {
 	return (p.z > getPoint(p.x, p.y).z);
 }
 
-// Renvoie True si le Ray r touche le terrain
-bool Terrain::intersection(Ray r, double &t) const
+// calcul la distance en hauteur entre le point p et le terrain
+double Terrain::distance(const Vector3 &  p) const
 {
-	t = 0.;
-	Vector3 res;
-	for (int i = 0; i < 256; i++)
-	{
-		res = r.getOrigin() + (r.getDirection() * t);
-		Vector3 tmp = getPoint(res.x, res.y);
-		if (tmp != Constante::noIntersectVec)
-		{
-			double h = res.z - tmp.z;
-			if (h < (0.01*t)) return true;
-			t += 0.5*h;
-		}
-		else
-			t += 10.;
-		
-	}
-	t = Constante::noIntersect;
-	return false;
+	Vector3 pointTerrain = getPoint(p.x, p.y);
+	if (pointTerrain != Constante::noIntersectVec) // Car distance en z en attendant box.
+		return (p.z - pointTerrain.z) * k; // 0.5 = pente maximale
+	return Constante::noIntersect;
 }
 
 // Calcul la pente maximale du terrain
 void Terrain::calcK()
 {
+	k = std::abs(getPoint(0., 0.).z - getPoint(0., 1.).z);
 	for (uint j = 0; j < terrain_height - 1; j++)
 	{
 		for (uint i = 0; i < terrain_width - 1; i++)
@@ -52,6 +39,7 @@ void Terrain::calcK()
 				std::abs(getPoint(i, j).z - getPoint(i + 1, j + 1).z));
 		}
 	}
+	k /= high;
 }
 
 
@@ -286,9 +274,9 @@ Mesh* Terrain::GetMesh()
 
 
 
-Vector3 Terrain::getColor(double x, double y)
+Vector3 Terrain::getColor(const Vector3 & p) const
 {
-	double z = getPoint(x, y).z;
+	double z = getPoint(p.x, p.y).z;
 	Vector3 color;
 
 	Vector3 white = Vector3(255, 255, 255);

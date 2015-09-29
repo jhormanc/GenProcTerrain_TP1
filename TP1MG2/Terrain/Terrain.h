@@ -10,7 +10,7 @@
 #include <math.h>
 
 // Classe representant un Terrain 3D.
-class Terrain{
+class Terrain : public Primitive{
 protected:
 	uint terrain_width;
 	uint terrain_height;
@@ -18,19 +18,24 @@ protected:
 	double high, low; // Paramètre pour connaitre la hauteur max et min de la map
 	
 	
+
 public:
 
-	Terrain(){};
+	Terrain():Primitive(){};
 	//Pour definir un max et un min
 	void MaxMin(double);
 	
+	// Renvoie vrai si le point p est en dehors du terrain, faux sinon.
+	virtual bool inside(const Vector3 & p) const;
+	// calcul la distance en hauteur entre le point p et le terrain
+	virtual double distance(const Vector3 & p) const;
+
+	virtual Vector3 getColor(const Vector3 & p) const;
 	// Renvoie le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
 	virtual Vector3 getPoint(double x, double y) const = 0;
-	// Renvoie vrai si le point p est en dehors du terrain, faux sinon.
-	bool inOut(Vector3 p) const;
-
+	
 	// Renvoie vrai si le Ray r touche le terrain.
-	bool intersection(Ray r, double &t) const;
+//	bool intersection(Ray r, double &t) const;
 	
 	// DEBUG
 	uint getWidth() const
@@ -60,7 +65,6 @@ public:
 
 	Mesh* GetMesh();
 
-	Vector3 getColor(double x, double y);
 
 	virtual ~Terrain(){};
 	Vector3 normalT(Vector3 a, Vector3 b, Vector3 c);

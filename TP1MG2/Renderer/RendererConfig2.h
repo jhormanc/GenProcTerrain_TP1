@@ -1,4 +1,4 @@
-/*#pragma once
+#pragma once
 #include "Renderer.h"
 #include "../../Terrain/TerrainHeightmap.h"
 
@@ -11,4 +11,4 @@ public:
 		Vector3(-100., 1100., 500.), // Couche de soleil
 		new TerrainHeightmap(QImage("Resources/Heightmap2.png"), true, 1.)){};
 
-};*/
+};

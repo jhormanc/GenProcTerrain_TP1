@@ -14,14 +14,14 @@ public:
 	
 	bool inside(const Vector3 &p) const 
 	{ 
-		return inside_s(p);
+		return Sphere::inside(p);
 	} 
-
+	
 	double distance(const Vector3 & a) const
 	{
-		return distance_s(a);
+		return Sphere::distance(a);
 	}
-
+	 
 	Vector3 getColor(const Vector3 &p) const { return Vector3(255.); }
 
 protected:

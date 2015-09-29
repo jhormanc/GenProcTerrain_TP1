@@ -63,7 +63,7 @@ void Renderer::Raytrace()
 				// Si l'intersection lumiere / objet se fait avant l'intersection camera / objet
 				if (f > Constante::noIntersect && Vector3::distance(light, intersect_light) + eps < Vector3::distance(light, intersect)) //"+eps" pour l'imperfection des flotant
 				{
-					double fact = 0.2;
+					double fact = .0;
 					Vector3 color = p->getColor(intersect);// = s->getColor(intersect.x, intersect.y);
 
 					// Pixel d'intersection camera/objet represente l'ombre

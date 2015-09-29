@@ -1,10 +1,10 @@
 #include "TerrainFractal.h"
 // Renvoi un terrain généré aléatoirement
-TerrainFractal::TerrainFractal(uint terrain_width_, uint terrain_height_)
+TerrainFractal::TerrainFractal(uint terrain_width_, uint terrain_height_) :Terrain()
 {
 	terrain_width = terrain_width_;
 	terrain_height = terrain_height_;
-	high = (low = Noise::noise(0, 0));
+	high = (low = Noise::noise(0., 0.));
 
 	// Pour récuperer le Low and Height
 	for (uint j = 0; j < terrain_height; j++)
