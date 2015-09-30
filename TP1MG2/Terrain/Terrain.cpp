@@ -27,7 +27,7 @@ bool Terrain::intersection(Ray r, double &t) const
 		{
 			double h = res.z - tmp.z;
 			if (h < (0.01*t)) return true;
-			t += 0.5*h;
+			t += k*h;
 		}
 		else
 			t += 10.;
@@ -52,6 +52,7 @@ void Terrain::calcK()
 				std::abs(getPoint(i, j).z - getPoint(i + 1, j + 1).z));
 		}
 	}
+	k /= high;
 }
 
 

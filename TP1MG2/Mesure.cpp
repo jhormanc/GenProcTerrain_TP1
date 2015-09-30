@@ -7,15 +7,14 @@ void Mesure::execMesure() const
 	auto start = std::chrono::high_resolution_clock::now();
 	auto end = std::chrono::high_resolution_clock::now();
 
-
 	start = std::chrono::high_resolution_clock::now();
 	r1->Raytrace();
 	end = std::chrono::high_resolution_clock::now();
-	mesureFile << "Raytracage Fractal : " << std::chrono::nanoseconds(end - start).count()<< std::endl;
+	mesureFile << "Raytracage Fractal : " << std::chrono::duration<float, std::milli>(end - start).count() << std::endl;
 	start = std::chrono::high_resolution_clock::now();
 	r2->Raytrace();
 	end = std::chrono::high_resolution_clock::now();
-	mesureFile << "Raytracage Heightmap : " << std::chrono::nanoseconds(end - start).count() << std::endl;
+	mesureFile << "Raytracage Heightmap : " << std::chrono::duration<float, std::milli> (end - start).count() << std::endl;
 	mesureFile.close();
 
 	delete r1;
