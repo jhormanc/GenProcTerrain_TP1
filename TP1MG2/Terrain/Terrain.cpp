@@ -26,7 +26,8 @@ bool Terrain::intersection(Ray r, double &t) const
 		if (tmp != Constante::noIntersectVec)
 		{
 			double h = res.z - tmp.z;
-			if (h < (0.01*t)) return true;
+			if (h < (0.001*t)) 
+				return true;
 			t += k*h;
 		}
 		else
@@ -48,7 +49,6 @@ void Terrain::calcK()
 				std::max(
 				std::max(k, std::abs(getPoint(i, j).z - getPoint(i, j + 1).z)),
 				std::abs(getPoint(i, j).z - getPoint(i + 1, j).z)),
-
 				std::abs(getPoint(i, j).z - getPoint(i + 1, j + 1).z));
 		}
 	}
@@ -59,21 +59,15 @@ void Terrain::calcK()
 // Renvoi la normal du terrain au point p
 Vector3 Terrain::normal(Vector3 p)
 {
-	//Technique Derivé
-	//Vector3 eps(1.,0.0,0.0);
-	//Vector3 tmp = p;
-	//Vector3 tmp2 = eps;
-	//double x = getPoint(tmp.x-tmp2.x,tmp.z-tmp2.y).z-getPoint(tmp.x+tmp2.x,tmp.z+tmp2.y).z;
-	//double y = 2*eps.x;
-	//double z = getPoint(tmp.x-tmp2.y,tmp.z-tmp2.x).z-getPoint(tmp.x+tmp2.y,tmp.z+tmp2.x).z;
+	// Technique derivee
 
-	//return Vector3::normalize(Vector3(x,y,z));
-	
-	//Technique triangle
-	//int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
-	//int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
+	//double eps = 0.5;
+	//double x = (getPoint(p.x + eps, p.y).z - getPoint(p.x - eps, p.y).z) / (2 * eps);
+	//double y = (getPoint(p.x, p.y + eps).z - getPoint(p.x, p.y - eps).z) / (2 * eps);
+	//double z = 1.;
+	//return Vector3::normalize(Vector3(-x, -y, z));
 
-
+	// Technique triangle
 	Vector3 a = getPoint(p.x, p.y);
 
 	if (p.x == 0 && p.y == 0){
@@ -301,30 +295,44 @@ Vector3 Terrain::getColor(double x, double y)
 	double max = high - low;
 
 	// Noise
-	//if (z <= low + (max * (5. / 100.)))
-	//	color = green;
-	//else if (z >= low + (max * (90. / 100.)))
-	//	color = white;
+	if (z <= low + (max * (5. / 100.)))
+		color = green;
+	else if (z >= low + (max * (90. / 100.)))
+		color = white;
+	else if (z >= low + (max * (50. / 100.)))
+		color = grey;
+	else if (z >= low + (max * (5. / 100.)) && (z <= low + (max * (50. / 100.))))
+		color = brown;
+	else
+		color = blue;
+
+	// World
+	//if (z <= low + (max * (0.1 / 100.)))
+	//	color = blue;
 	//else if (z >= low + (max * (50. / 100.)))
+	//	color = white;
+	//else if (z >= low + (max * (30. / 100.)))
 	//	color = grey;
-	//else if (z >= low + (max * (5. / 100.)) && (z <= low + (max * (50. / 100.))))
+	//else if (z >= low + (max * (10. / 100.)))
 	//	color = brown;
+	//else if (z >= low + (max * (0.1 / 100.)))
+	//	color = green;
 	//else
 	//	color = blue;
 
-	// World
-	if (z <= low + (max * (0.1 / 100.)))
-		color = blue;
-	else if (z >= low + (max * (80. / 100.)))
-		color = white;
-	else if (z >= low + (max * (40. / 100.)))
-		color = grey;
-	else if (z >= low + (max * (20. / 100.)))
-		color = brown;
-	else if (z >= low + (max * (0.1 / 100.)))
-		color = green;
-	else
-		color = blue;
+	// Heightmap2
+	//if (z <= low + (max * (0.1 / 100.)))
+	//	color = blue;
+	//else if (z >= low + (max * (50. / 100.)))
+	//	color = green;
+	//else if (z >= low + (max * (30. / 100.)))
+	//	color = green;
+	//else if (z >= low + (max * (10. / 100.)))
+	//	color = brown;
+	//else if (z >= low + (max * (0.1 / 100.)))
+	//	color = blue;
+	//else
+	//	color = blue;
 
 	return color;
 }

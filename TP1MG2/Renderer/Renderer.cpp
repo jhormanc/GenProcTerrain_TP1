@@ -48,7 +48,7 @@ void Renderer::Raytrace()
 
 			if (f > Constante::noIntersect && intersect.z >= t->getLow()) // Si intersection
 			{
-				// Vecteur directeur du point d'intersection vers la lumiere
+				// Vecteur directeur de la lumiere vers le point d'intersection 
 				Vector3 dir = Vector3::normalize(intersect - light);
 
 				Ray ray(light, dir);
@@ -68,11 +68,11 @@ void Renderer::Raytrace()
 				}
 				else{
 
-					/*Diffusion*/
+					// Diffusion
 					Vector3 L = Vector3::normalize(light - intersect);
 					Vector3 N = t->normal(intersect);
 					double colorDiffuse = L*N;
-					colorDiffuse = std::abs(colorDiffuse) / Constante::pi * 2 + 0.1;
+					colorDiffuse = std::abs(colorDiffuse) / Constante::pi * 2.; //  * 2 + 0.1
 
 					Vector3 color = t->getColor(intersect.x, intersect.y);
 

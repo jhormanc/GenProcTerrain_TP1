@@ -1,2 +1,0 @@
-Raytracage Fractal : 130135
-Raytracage Heightmap : 24751.4
