@@ -24,6 +24,12 @@ public:
 	 
 	Vector3 getColor(const Vector3 &p) const { return Vector3(255.); }
 
+	Vector3 normal(const Vector3& p )const{
+		return Sphere::normal(p);
+	};
+
+
+
 protected:
 
 

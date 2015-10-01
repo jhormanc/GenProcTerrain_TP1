@@ -1,6 +1,6 @@
 #pragma once
 #include "Renderer.h"
-#include "../../CSG_Sphere.h"
+#include "../../CSG_Cube.h"
 
 class RendererSphere : public Renderer
 {

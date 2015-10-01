@@ -7,6 +7,7 @@
 #include "../Constante.h"
 #include "../Primitive.h"
 
+
 // Classe s'occupant du rendu
 class Renderer
 {

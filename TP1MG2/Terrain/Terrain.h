@@ -31,8 +31,15 @@ public:
 	virtual double distance(const Vector3 & p) const;
 
 	virtual Vector3 getColor(const Vector3 & p) const;
+	
+	// Renvoi la normal du terrain au point p
+	virtual Vector3 normal(const Vector3 & ) const;
+
 	// Renvoie le point x, y, z appartenant a pointList a partir du x, y (recherche matrice + interpolation).
-	virtual Vector3 getPoint(double x, double y) const = 0;
+	virtual Vector3 getPoint(double x, double y) const = 0	;
+
+
+
 	
 	// Renvoie vrai si le Ray r touche le terrain.
 //	bool intersection(Ray r, double &t) const;
@@ -59,13 +66,9 @@ public:
 	// Calcul la pente maximale du terrain
 	void calcK();
 	
-	// Renvoi la normal du terrain au point p
-	Vector3 normal(Vector3 p);
-	
 
 	Mesh* GetMesh();
 
 
 	virtual ~Terrain(){};
-	Vector3 normalT(Vector3 a, Vector3 b, Vector3 c);
 };

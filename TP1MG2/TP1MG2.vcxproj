@@ -114,6 +114,7 @@
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,6 +150,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Constante.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_heightmapwidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -168,6 +170,7 @@
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="CSG_Sphere.cpp" />
+    <ClCompile Include="CSG_Cube.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Terrain\TerrainHeightmap.cpp" />
     <ClCompile Include="Terrain\Terrain.cpp" />
@@ -179,6 +182,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Constante.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="Debug.h" />
     <CustomBuild Include="heightmapwidget.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing heightmapwidget.h...</Message>
@@ -205,6 +209,7 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Noise.h" />
+    <ClInclude Include="RendererCube.h" />
     <ClInclude Include="Renderer\RendererSphere.h" />
     <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="Renderer\RendererConfig1.h" />
@@ -212,6 +217,7 @@
     <ClInclude Include="Renderer\RendererConfig3.h" />
     <ClInclude Include="Renderer\RendererConfig4.h" />
     <ClInclude Include="CSG_Sphere.h" />
+    <ClInclude Include="CSG_Cube.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Terrain\TerrainHeightmap.h" />
     <ClInclude Include="Terrain\Terrain.h" />

@@ -43,8 +43,39 @@ void Terrain::calcK()
 }
 
 
+Mesh* Terrain::GetMesh()
+{
+	const float MAP_SIZE = 5.0;
+
+	Mesh *mesh = new Mesh(terrain_height, terrain_width);;
+
+	QVector3D vertice;
+    QVector2D texture;
+
+    for(uint z = 0; z < terrain_width; ++z)
+    {
+        for(uint x = 0; x < terrain_height; ++x)
+        {
+			float y = getPoint(x, z).z;
+
+			vertice.setX((MAP_SIZE * x / terrain_height) - MAP_SIZE / 2);
+			vertice.setY(y / 255);
+			vertice.setZ((MAP_SIZE * z / terrain_width) - MAP_SIZE / 2);
+			mesh->pushVertice(vertice);
+
+            texture.setX(static_cast<float>(x) / static_cast<float>(terrain_height));
+            texture.setY(1.0 - static_cast<float>(z) / static_cast<float>(terrain_width));
+			mesh->pushTexture(texture);
+        }
+    }
+
+   mesh->generateArray();
+
+   return mesh;
+}
+
 // Renvoi la normal du terrain au point p
-Vector3 Terrain::normal(Vector3 p)
+Vector3 Terrain::normal(const Vector3 &p) const
 {
 	//Technique Derivé
 	//Vector3 eps(1.,0.0,0.0);
@@ -56,11 +87,6 @@ Vector3 Terrain::normal(Vector3 p)
 
 	//return Vector3::normalize(Vector3(x,y,z));
 	
-	//Technique triangle
-	//int tmpI = (int)((((p.x + 1.) * 0.5) * terrain_width));
-	//int tmpJ = (int)((((p.y + 1) * 0.5) * terrain_height));
-
-
 	Vector3 a = getPoint(p.x, p.y);
 
 	if (p.x == 0 && p.y == 0){
@@ -239,40 +265,6 @@ Vector3 Terrain::normal(Vector3 p)
 
 	return Vector3::normalize((nb + nc + nd + ne + nf + ng) / 6.0);
 }
-
-
-Mesh* Terrain::GetMesh()
-{
-	const float MAP_SIZE = 5.0;
-
-	Mesh *mesh = new Mesh(terrain_height, terrain_width);;
-
-	QVector3D vertice;
-    QVector2D texture;
-
-    for(uint z = 0; z < terrain_width; ++z)
-    {
-        for(uint x = 0; x < terrain_height; ++x)
-        {
-			float y = getPoint(x, z).z;
-
-			vertice.setX((MAP_SIZE * x / terrain_height) - MAP_SIZE / 2);
-			vertice.setY(y / 255);
-			vertice.setZ((MAP_SIZE * z / terrain_width) - MAP_SIZE / 2);
-			mesh->pushVertice(vertice);
-
-            texture.setX(static_cast<float>(x) / static_cast<float>(terrain_height));
-            texture.setY(1.0 - static_cast<float>(z) / static_cast<float>(terrain_width));
-			mesh->pushTexture(texture);
-        }
-    }
-
-   mesh->generateArray();
-
-   return mesh;
-}
-
-
 
 Vector3 Terrain::getColor(const Vector3 & p) const
 {

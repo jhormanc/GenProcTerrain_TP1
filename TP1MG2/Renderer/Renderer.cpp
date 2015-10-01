@@ -63,7 +63,7 @@ void Renderer::Raytrace()
 				// Si l'intersection lumiere / objet se fait avant l'intersection camera / objet
 				if (f > Constante::noIntersect && Vector3::distance(light, intersect_light) + eps < Vector3::distance(light, intersect)) //"+eps" pour l'imperfection des flotant
 				{
-					double fact = .0;
+					double fact = .2;
 					Vector3 color = p->getColor(intersect);// = s->getColor(intersect.x, intersect.y);
 
 					// Pixel d'intersection camera/objet represente l'ombre
@@ -75,17 +75,17 @@ void Renderer::Raytrace()
 					Vector3 color = p->getColor(intersect);// = s->getColor(intersect.x, intersect.y);
 
 					// Pixel d'intersection camera/objet represente l'ombre
-					screen.setPixel(i, j, qRgb(color.x*fact, color.y*fact, color.z*fact));
+					//screen.setPixel(i, j, qRgb(color.x*fact, color.y*fact, color.z*fact));
 					/*Diffusion*/
-					/*Vector3 L = Vector3::normalize(light - intersect);
+					Vector3 L = Vector3::normalize(light - intersect);
 					Vector3 N = p->normal(intersect);
 					double colorDiffuse = L*N; 
 					colorDiffuse = std::abs(colorDiffuse) / Constante::pi * 2 + 0.1;
 
-					Vector3 color(255);
+					//Vector3 color(255);
 
 					// Représente lumière 
-					screen.setPixel(i, j, qRgb(color.x * colorDiffuse, color.y * colorDiffuse, color.z * colorDiffuse)); */
+					screen.setPixel(i, j, qRgb(color.x * colorDiffuse, color.y * colorDiffuse, color.z * colorDiffuse)); 
 
 
 				}

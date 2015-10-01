@@ -11,6 +11,9 @@
 #include "../Renderer/RendererConfig2.h"
 #include "../Renderer/RendererConfig3.h"
 #include "../Renderer/RendererConfig4.h"
+#include "../Renderer/RendererSphere.h"
+#include "RendererCube.h"
+
 #include "Mesure.h"
 
 #include <QtWidgets/QApplication>
@@ -24,12 +27,12 @@ int main(int argc, char *argv[])
 	srand(time(0));
 	QApplication a(argc, argv);
 	Debug d;
-	 Terrain * t2 = new TerrainFractal(1000, 1000); // Terain créé grace à une fonction
+	Terrain * t2 = new TerrainFractal(1000, 1000); // Terain créé grace à une fonction
 	QTextEdit * logTxt = new QTextEdit();
 	QLabel l;
 	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 
-	Renderer * r = new RendererConfig1();
+	Renderer * r = new RendererCube();
 	//m.execMesure();
 
 	// DEBUG

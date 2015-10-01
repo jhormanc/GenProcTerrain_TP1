@@ -17,4 +17,5 @@ public:
 
 	virtual Vector3 getColor(const Vector3 & p) const = 0;
 
+	virtual Vector3 normal(const Vector3 & ) const = 0;
 };
