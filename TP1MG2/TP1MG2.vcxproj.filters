@@ -2,37 +2,72 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Constante.cpp" />
-    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_heightmapwidget.cpp" />
-    <ClCompile Include="heightmapwidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Mesure.cpp" />
     <ClCompile Include="Noise.cpp" />
-    <ClCompile Include="Renderer\Renderer.cpp" />
-    <ClCompile Include="Terrain\TerrainHeightmap.cpp" />
-    <ClCompile Include="Terrain\Terrain.cpp" />
-    <ClCompile Include="Terrain\TerrainFractal.cpp" />
+    <ClCompile Include="Terrain\Terrain.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain\TerrainFractal.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain\TerrainHeightmap.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Constante.cpp" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="heightmapwidget.cpp" />
+    <ClCompile Include="Mesure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Noise.h" />
+    <ClInclude Include="Renderer\Renderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig1.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig2.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig3.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig4.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererConfig5.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\Terrain.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\TerrainFractal.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\TerrainHeightmap.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
     <ClInclude Include="Constante.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mesure.h" />
     <ClInclude Include="Ray.h" />
-    <ClInclude Include="Noise.h" />
-    <ClInclude Include="Renderer\Renderer.h" />
-    <ClInclude Include="Renderer\RendererConfig1.h" />
-    <ClInclude Include="Renderer\RendererConfig2.h" />
-    <ClInclude Include="Renderer\RendererConfig3.h" />
-    <ClInclude Include="Renderer\RendererConfig4.h" />
     <ClInclude Include="Sphere.h" />
-    <ClInclude Include="Terrain\TerrainHeightmap.h" />
-    <ClInclude Include="Terrain\Terrain.h" />
-    <ClInclude Include="Terrain\TerrainFractal.h" />
     <ClInclude Include="Vector3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{d51e78d0-e911-434c-85df-412c4ad4cf21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{5d0f2bd4-599d-4d31-8e05-0ce85cccc451}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="heightmapwidget.h" />

@@ -77,7 +77,8 @@ double Noise::smooth(const double z, const double zmin, const double zmax)
 // 2D Simplex noise
 double Noise::simplex(const double xin, const double yin) 
  {
-	 for(int i=0; i<512; i++) perm[i]=p[i & 255];
+	 for(int i = 0; i < 512; i++) 
+		 perm[i] = p[i & 255];
 
 	 double n0, n1, n2; // Noise contributions from the three corners
 	 // Skew the input space to determine which Noise cell we're in
@@ -163,21 +164,21 @@ double Noise::perlin2D(const double x, const double y)
 	
 	double tmp, s, t, u, v, Cx, Cy, Li1, Li2;
 
-	//On récupère les positions de la grille associée à (x,y)
+	// On récupère les positions de la grille associée à (x,y)
 	x0 = (int)(x);
 	y0 = (int)(y);
 
-	//Masquage
+	// Masquage
 	ii = x0 & 255;
 	jj = y0 & 255;
 
-	//Pour récupérer les vecteurs
+	// Pour récupérer les vecteurs
 	gi0 = p[ii + p[jj]] % 8;
 	gi1 = p[ii + 1 + p[jj]] % 8;
 	gi2 = p[ii + p[jj + 1]] % 8;
 	gi3 = p[ii + 1 + p[jj + 1]] % 8;
 
-	//on récupère les vecteurs et on pondère
+	// On récupère les vecteurs et on pondère
 	tempX = x - x0;
 	tempY = y - y0;
 	s = grad2[gi0][0] * tempX + grad2[gi0][1] * tempY;
@@ -195,7 +196,7 @@ double Noise::perlin2D(const double x, const double y)
 	v = grad2[gi3][0] * tempX + grad2[gi3][1] * tempY;
 
 
-	//Lissage
+	// Lissage
 	tmp = x - x0;
 	Cx = 3 * tmp * tmp - 2 * tmp * tmp * tmp;
 
@@ -217,43 +218,41 @@ double Noise::noise1(const double x, const double y)
 {
 	Vector3 w = warp(Vector3(x, y, 0.), 5., 1. / 50.0, false);
 	double tmp;
-	tmp = (simplex(w.x / 500., w.y / 500.) + 1.) * 0.5;
 
+	tmp = (simplex(w.x / 500., w.y / 500.) + 1.) * 0.5;
 	double z0 = ridge(200. * tmp, 180.);
 
 	tmp = (simplex(w.x / 200., w.y / 200.) + 1.) * 0.5;
-
-	double z1 = 50. * tmp; //ridge(50 * tmp, 15);
+	double z1 = 50. * tmp;
 
 	tmp = (simplex(w.x / 50, w.y / 50) + 1.) * 0.5;
-
-	double z2 = 15. * tmp; //ridge(15 * tmp, 5);
+	double z2 = 15. * tmp;
 
 	double z = z0 * smooth(z0, 50., 200.) + z1 * smooth(z0, 50., 200.) + z2 * smooth(z0, 50., 200.);
 	return z;
 }
 
-// TEST
 double Noise::noise2(const double x, const double y)
 {
 	Vector3 w = warp(Vector3(x, y, 0.), 5., 1. / 50.0, false);
 	double tmp;
-	tmp = (simplex(w.x / 400., w.y / 400.) + 1.) * 0.5;
 
+	tmp = (simplex(w.x / 700., w.y / 700.) + 1.) * 0.5;
 	double z0 = 200. * tmp;
 
 	tmp = (simplex(w.x / 300., w.y / 300.) + 1.) * 0.5;
-
-	double z1 = 50. * tmp; //ridge(50 * tmp, 15);
+	double z1 = 100. * tmp;
 
 	tmp = (simplex(w.x / 100., w.y / 100.) + 1.) * 0.5;
-
-	double z2 = 50. * tmp; //ridge(15 * tmp, 5);
+	double z2 = 50. * tmp;
 
 	tmp = (simplex(w.x / 30., w.y / 30.) + 1.) * 0.5;
-
 	double z3 = 30. * tmp;
 
-	double z = z0 + z1 * smooth(z0, 50., 200.) + z2 * smooth(z0, 100., 200.) + z3 * smooth(z0, 150., 200.);
+	double z = z0 - ridge(z0 * smooth(z0, 0., 100.), 100.);
+	z += z1 * smooth(z, 50., 300.);
+	z += z2 * smooth(z, 70., 300.);
+	z += z3 * smooth(z, 100., 300.);
+
 	return z;
 }

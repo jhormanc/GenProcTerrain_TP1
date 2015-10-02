@@ -26,9 +26,9 @@ bool Terrain::intersection(Ray r, double &t) const
 		if (tmp != Constante::noIntersectVec)
 		{
 			double h = res.z - tmp.z;
-			if (h < (0.001*t)) 
+			if (h < (0.001 * t)) 
 				return true;
-			t += k*h;
+			t += k * h;
 		}
 		else
 			t += 10.;
@@ -294,6 +294,9 @@ Vector3 Terrain::getColor(double x, double y)
 	//	color = blue;
 	//else
 	//	color = blue;
+
+	// Nuances de gris
+	//color = Vector3(z, z, z);
 
 	return color;
 }

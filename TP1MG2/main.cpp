@@ -10,6 +10,7 @@
 #include "../Renderer/RendererConfig2.h"
 #include "../Renderer/RendererConfig3.h"
 #include "../Renderer/RendererConfig4.h"
+#include "../Renderer/RendererConfig5.h"
 #include "Mesure.h"
 
 #include <QtWidgets/QApplication>
@@ -27,9 +28,14 @@ int main(int argc, char *argv[])
 	QTextEdit * logTxt = new QTextEdit();
 	QLabel l;
 	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
+
+	// Choix de la configuration à afficher (de RendererConfig1 à RendererConfig5)
+	// Changer les couleurs dans Terrain.getColor()
 	Renderer * r = new RendererConfig1();
+
+	// Mesures
 	Mesure m;
-	m.execMesure();
+	//m.execMesure();
 
 	// DEBUG
 	d.execTest(logTxt);
@@ -42,7 +48,6 @@ int main(int argc, char *argv[])
 
 	
     hmw->show();
-
 	delete t2;
 	
 	a.exec();
