@@ -73,6 +73,9 @@
     <ClCompile Include="CSG_Cube.cpp">
       <Filter>Cube</Filter>
     </ClCompile>
+    <ClCompile Include="Intersection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="RendererCube.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Intersection.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

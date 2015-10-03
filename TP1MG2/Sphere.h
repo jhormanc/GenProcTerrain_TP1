@@ -9,9 +9,10 @@ class Sphere
 public:
 	Vector3 o;
 	double rayon;
+	Vector3 color;
 
 	Sphere() {}
-	Sphere(Vector3 o_, float rayon_) : o(o_), rayon(rayon_) {}
+	Sphere(Vector3 o_, float rayon_, Vector3 color_) : o(o_), rayon(rayon_), color(color_) {}
 
 	inline Vector3 getO() const
 	{
@@ -21,6 +22,11 @@ public:
 	inline double getRayon() const
 	{
 		return rayon;
+	}
+
+	inline Vector3 getColor(const Vector3 & p) const
+	{
+		return color;
 	}
 
 	inline bool inside(const Vector3 &p) const

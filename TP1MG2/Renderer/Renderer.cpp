@@ -34,7 +34,7 @@ void Renderer::Raytrace()
 	// Sun
 	//double s;
 	float rayon = 50.;
-	Sphere sun(light, rayon);
+	Sphere sun(light, rayon, Vector3(255., 255., 255.));
 
 
 	for (int i = 0; i < width_scrn; i++)
