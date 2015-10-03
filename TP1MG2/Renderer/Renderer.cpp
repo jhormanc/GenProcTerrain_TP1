@@ -1,7 +1,7 @@
 #include "Renderer.h"
 #include "../Sphere.h"
 
-Renderer::Renderer(const int& width_scrn_, const int& height_scrn_, const Camera& c_, const Vector3& light_, Primitive * p_) :
+Renderer::Renderer(const int& width_scrn_, const int& height_scrn_, const Camera& c_, const Vector3& light_, Node * p_) :
 	width_scrn(width_scrn_), 
 	height_scrn(height_scrn_), 
 	c(c_), 

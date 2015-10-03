@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	QLabel l;
 	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 
-	Renderer * r = new RendererCube();
+	Renderer * r = new RendererSphere();
 	//m.execMesure();
 
 	// DEBUG
