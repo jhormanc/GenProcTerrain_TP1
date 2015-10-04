@@ -64,17 +64,23 @@
     <ClCompile Include="CSG\Primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpBinaire\OpBinaire.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OpBinaire\Union.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Primitives\Box.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\Difference.cpp">
+      <Filter>OpBinaire</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\OpBinaire.cpp">
+      <Filter>OpBinaire</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\Union.cpp">
+      <Filter>OpBinaire</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\Intersection.cpp">
+      <Filter>OpBinaire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,12 +180,6 @@
     <ClInclude Include="CSG\Primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OpBinaire\OpBinaire.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OpBinaire\Union.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Primitives\Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -188,6 +188,18 @@
     </ClInclude>
     <ClInclude Include="Renderer\RendererBox.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\Difference.h">
+      <Filter>OpBinaire</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\OpBinaire.h">
+      <Filter>OpBinaire</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\Union.h">
+      <Filter>OpBinaire</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\Intersection.h">
+      <Filter>OpBinaire</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +239,9 @@
     </Filter>
     <Filter Include="Cube">
       <UniqueIdentifier>{c68463de-6880-4060-bb2c-8ee18fdfa6ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpBinaire">
+      <UniqueIdentifier>{483323f6-cd3e-497e-9abf-1c0b48c2f076}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
