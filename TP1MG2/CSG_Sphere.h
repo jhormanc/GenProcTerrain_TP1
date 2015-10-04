@@ -8,7 +8,7 @@ class CSG_Sphere :
 public:
 	CSG_Sphere(void) : Primitive(), Sphere() {}
 
-	CSG_Sphere(Vector3 o_, float rayon_) : Primitive(), Sphere(o_, rayon_) {}
+	CSG_Sphere(Vector3 o_, float rayon_, Vector3 color_) : Primitive(), Sphere(o_, rayon_, color_) {}
 
 	~CSG_Sphere(void);
 	
@@ -22,7 +22,10 @@ public:
 		return Sphere::distance(a);
 	}
 	 
-	Vector3 getColor(const Vector3 &p) const { return Vector3(255.); }
+	inline Vector3 getColor(const Vector3 & p) const
+	{ 
+		return Sphere::getColor(p);
+	}
 
 	Vector3 normal(const Vector3& p )const{
 		return Sphere::normal(p);

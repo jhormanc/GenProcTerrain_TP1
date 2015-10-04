@@ -17,8 +17,8 @@ public:
 		new Rotation(new Scale
 		(new Translation
 		(new Union
-		(new CSG_Sphere(Vector3(400., 400., 0.), 100.),
-		new CSG_Sphere(Vector3(450., 450., 0.), 100.)),
+		(new CSG_Sphere(Vector3(400., 400., 0.), 100., Vector3(255., 0., 0.)),
+		new CSG_Sphere(Vector3(450., 450., 0.), 100., Vector3(0., 0., 255.))),
 		Vector3(10., 40., 0.)),
 		2.),
 		Vector3(Constante::pi, 0., 0.))){};

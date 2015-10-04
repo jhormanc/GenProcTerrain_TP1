@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 //	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 
 	Renderer * r = new RendererOpUnaire();
+	//Renderer * r = new RendererSphere();
 	//m.execMesure();
 
 	// DEBUG

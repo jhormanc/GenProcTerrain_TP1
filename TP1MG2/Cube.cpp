@@ -16,7 +16,7 @@ bool Cube::inside(const Vector3 &p) const{
 
 
 double Cube::distance(const Vector3 & p) const{
-	float d=0;
+	double d=0;
 	Vector3 a(o.x-Largeur/2,o.y-Largeur/2,o.z+Largeur/2);
 	Vector3 b(o.x+Largeur/2,o.y+Largeur/2,o.z-Largeur/2);
 	//axe x
