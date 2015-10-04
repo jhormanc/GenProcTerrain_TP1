@@ -10,9 +10,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_heightmapwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Constante.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -71,6 +68,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OpBinaire\Union.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitives\Box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,6 +178,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OpBinaire\Union.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives\Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSG\CSG_Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

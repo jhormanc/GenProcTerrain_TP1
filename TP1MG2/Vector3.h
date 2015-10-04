@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <algorithm>
 // classe utilitaire represente les points dans l'espace 3D.
 class Vector3 {
 public:
@@ -100,6 +101,16 @@ public:
 		return *this;
 	}
 
+
+	inline Vector3 abs() const
+	{
+		return Vector3(std::abs(x), std::abs(y), std::abs(z));
+	}
+
+	inline Vector3 max(double x_) const
+	{
+		return Vector3(std::max(x, x_), std::max(y, x_), std::max(z, x_));
+	}
 	// Pour connaître la distance entre 2 points (vector3)
 	static inline double distance(const Vector3& v1,const Vector3& v2)
 	{

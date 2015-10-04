@@ -12,6 +12,7 @@
 #include "../Renderer/RendererSphere.h"
 #include "../Renderer/RendererOpUnaire.h"
 #include "../Renderer/RendererCube.h"
+#include "../Renderer/RendererBox.h"
 
 #include "Mesure.h"
 
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
 //	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 
 	//Renderer * r = new RendererOpUnaire();
-	Renderer * r = new RendererSphere();
+	Renderer * r = new RendererBox();
 	//m.execMesure();
 
 	// DEBUG
