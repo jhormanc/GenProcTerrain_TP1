@@ -1,6 +1,6 @@
 #pragma once
 #include "primitive.h"
-#include "Cube.h"
+#include "../Primitives/Cube.h"
 
 class CSG_Cube : 
 	public Primitive, public Cube

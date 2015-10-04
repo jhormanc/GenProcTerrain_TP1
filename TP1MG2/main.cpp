@@ -2,8 +2,6 @@
 #include "../Terrain/TerrainHeightmap.h"
 #include "../Terrain/TerrainFractal.h"
 #include "Debug.h"
-#include "Sphere.h"
-#include "CSG_Sphere.h"
 #include "heightmapwidget.h"
 #include "Camera.h"
 #include "../Renderer/Renderer.h"
@@ -13,7 +11,7 @@
 #include "../Renderer/RendererConfig4.h"
 #include "../Renderer/RendererSphere.h"
 #include "../Renderer/RendererOpUnaire.h"
-#include "RendererCube.h"
+#include "../Renderer/RendererCube.h"
 
 #include "Mesure.h"
 
@@ -33,8 +31,8 @@ int main(int argc, char *argv[])
 	QLabel l;
 //	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
 
-	Renderer * r = new RendererOpUnaire();
-	//Renderer * r = new RendererSphere();
+	//Renderer * r = new RendererOpUnaire();
+	Renderer * r = new RendererSphere();
 	//m.execMesure();
 
 	// DEBUG

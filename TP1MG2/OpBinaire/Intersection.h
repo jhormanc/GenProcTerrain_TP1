@@ -1,6 +1,6 @@
 #pragma once
 #include "opbinaire.h"
-#include "Primitive.h"
+#include "../CSG/Primitive.h"
 #include <algorithm>
 
 class Intersection :

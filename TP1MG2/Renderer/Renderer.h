@@ -5,7 +5,7 @@
 #include "../Camera.h"
 #include "../../Terrain/Terrain.h"
 #include "../Constante.h"
-#include "../Primitive.h"
+#include "../Node.h"
 
 
 // Classe s'occupant du rendu

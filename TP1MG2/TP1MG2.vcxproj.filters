@@ -4,21 +4,6 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OpBinaire.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Union.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Torus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_heightmapwidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -61,36 +46,36 @@
     <ClCompile Include="Renderer\Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="CSG_Sphere.cpp">
+    <ClCompile Include="Primitives\Circle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitives\Sphere.cpp">
       <Filter>Sphere</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp">
+    <ClCompile Include="Primitives\Torus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitives\Cube.cpp">
+      <Filter>Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="CSG\CSG_Cube.cpp">
+      <Filter>Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="CSG\CSG_Sphere.cpp">
       <Filter>Sphere</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Cube</Filter>
+    <ClCompile Include="CSG\Primitive.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CSG_Cube.cpp">
-      <Filter>Cube</Filter>
+    <ClCompile Include="OpBinaire\OpBinaire.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\Union.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OpBinaire.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Union.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Circle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Torus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -144,21 +129,6 @@
     <ClInclude Include="Renderer\Renderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="CSG_Sphere.h">
-      <Filter>Sphere</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Sphere</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="CSG_Cube.h">
-      <Filter>Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererCube.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Mat3x3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -175,6 +145,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\RendererOpUnaire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives\Circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives\Torus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives\Sphere.h">
+      <Filter>Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives\Cube.h">
+      <Filter>Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="CSG\CSG_Sphere.h">
+      <Filter>Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="CSG\CSG_Cube.h">
+      <Filter>Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererCube.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CSG\Primitive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\OpBinaire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\Union.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

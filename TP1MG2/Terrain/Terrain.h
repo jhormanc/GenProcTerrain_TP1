@@ -3,7 +3,7 @@
 #include "Ray.h"
 #include "Mesh.h"
 #include "Constante.h"
-#include "Primitive.h"
+#include "../CSG/Primitive.h"
 #include <qimage>
 #include <qpixmap>
 #include <qrect>

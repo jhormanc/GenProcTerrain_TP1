@@ -148,9 +148,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Primitives\Circle.cpp" />
     <ClCompile Include="Constante.cpp" />
-    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Primitives\Cube.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_heightmapwidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -166,23 +166,23 @@
     <ClCompile Include="Mesure.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Noise.cpp" />
-    <ClCompile Include="OpBinaire.cpp" />
-    <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="OpBinaire\OpBinaire.cpp" />
+    <ClCompile Include="CSG\Primitive.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
-    <ClCompile Include="CSG_Sphere.cpp" />
-    <ClCompile Include="CSG_Cube.cpp" />
-    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="CSG\CSG_Sphere.cpp" />
+    <ClCompile Include="CSG\CSG_Cube.cpp" />
+    <ClCompile Include="Primitives\Sphere.cpp" />
     <ClCompile Include="Terrain\TerrainHeightmap.cpp" />
     <ClCompile Include="Terrain\Terrain.cpp" />
     <ClCompile Include="Terrain\TerrainFractal.cpp" />
-    <ClCompile Include="Torus.cpp" />
-    <ClCompile Include="Union.cpp" />
+    <ClCompile Include="Primitives\Torus.cpp" />
+    <ClCompile Include="OpBinaire\Union.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Primitives\Circle.h" />
     <ClInclude Include="Constante.h" />
-    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Primitives\Cube.h" />
     <ClInclude Include="Debug.h" />
     <CustomBuild Include="heightmapwidget.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing heightmapwidget.h...</Message>
@@ -206,12 +206,12 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mesure.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="OpBinaire.h" />
+    <ClInclude Include="OpBinaire\OpBinaire.h" />
     <ClInclude Include="OpUnaire\OpUnaire.h" />
-    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="CSG\Primitive.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Noise.h" />
-    <ClInclude Include="RendererCube.h" />
+    <ClInclude Include="Renderer\RendererCube.h" />
     <ClInclude Include="Renderer\RendererOpUnaire.h" />
     <ClInclude Include="Renderer\RendererSphere.h" />
     <ClInclude Include="Renderer\Renderer.h" />
@@ -219,17 +219,17 @@
     <ClInclude Include="Renderer\RendererConfig2.h" />
     <ClInclude Include="Renderer\RendererConfig3.h" />
     <ClInclude Include="Renderer\RendererConfig4.h" />
-    <ClInclude Include="CSG_Sphere.h" />
-    <ClInclude Include="CSG_Cube.h" />
+    <ClInclude Include="CSG\CSG_Sphere.h" />
+    <ClInclude Include="CSG\CSG_Cube.h" />
     <ClInclude Include="OpUnaire\Rotation.h" />
     <ClInclude Include="OpUnaire\Scale.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Primitives\Sphere.h" />
     <ClInclude Include="Terrain\TerrainHeightmap.h" />
     <ClInclude Include="Terrain\Terrain.h" />
     <ClInclude Include="Terrain\TerrainFractal.h" />
-    <ClInclude Include="Torus.h" />
+    <ClInclude Include="Primitives\Torus.h" />
     <ClInclude Include="OpUnaire\Translation.h" />
-    <ClInclude Include="Union.h" />
+    <ClInclude Include="OpBinaire\Union.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

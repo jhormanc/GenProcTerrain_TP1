@@ -1,6 +1,6 @@
 #pragma once
 #include "primitive.h"
-#include "Sphere.h"
+#include "../Primitives/Sphere.h"
 
 class CSG_Sphere :
 	public Primitive, public Sphere

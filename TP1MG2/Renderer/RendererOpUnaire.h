@@ -1,7 +1,7 @@
 #pragma once
 #include "Renderer.h"
-#include "../../CSG_Sphere.h"
-#include "../../Union.h"
+#include "../../CSG/CSG_Sphere.h"
+#include "../../OpBinaire/Union.h"
 #include "../../OpUnaire/Translation.h"
 #include "../../OpUnaire/Rotation.h"
 #include "../../OpUnaire/Scale.h"

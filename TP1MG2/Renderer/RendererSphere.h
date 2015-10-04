@@ -1,8 +1,8 @@
 #pragma once
 #include "Renderer.h"
-#include "../../CSG_Sphere.h"
-#include "../../Union.h"
-#include "../../Intersection.h"
+#include "../../CSG/CSG_Sphere.h"
+#include "../../OpBinaire/Union.h"
+#include "../../OpBinaire/Intersection.h"
 
 class RendererSphere : public Renderer
 {
