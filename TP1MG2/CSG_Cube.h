@@ -24,6 +24,11 @@ bool inside(const Vector3 &p) const {
 	 
 	Vector3 getColor(const Vector3 &p) const { return Vector3(255.); }
 
+	virtual Vector3 getOrigin() const
+	{
+		return getO();
+	}
+
 	Vector3 normal(const Vector3& p )const{
 		return Cube::normal(p);
 	};

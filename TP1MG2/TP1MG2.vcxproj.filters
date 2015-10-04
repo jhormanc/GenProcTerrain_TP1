@@ -159,6 +159,24 @@
     <ClInclude Include="RendererCube.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Mat3x3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpUnaire\OpUnaire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpUnaire\Scale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpUnaire\Rotation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpUnaire\Translation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererOpUnaire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

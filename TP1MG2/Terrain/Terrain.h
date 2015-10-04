@@ -39,7 +39,10 @@ public:
 	virtual Vector3 getPoint(double x, double y) const = 0	;
 
 
-
+	Vector3 getOrigin() const
+	{
+		return Vector3(0.); // TODO
+	}
 	
 	// Renvoie vrai si le Ray r touche le terrain.
 //	bool intersection(Ray r, double &t) const;

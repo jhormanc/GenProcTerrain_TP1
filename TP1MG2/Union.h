@@ -47,6 +47,11 @@ public:
 		return n2->getColor(p);
 	}
 
+	Vector3 getOrigin() const
+	{
+		return (n1->getOrigin() + n2->getOrigin() )/ 2.;
+	}
+
 
 };
 

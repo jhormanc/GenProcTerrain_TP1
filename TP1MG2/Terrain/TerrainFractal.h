@@ -7,5 +7,5 @@ public:
 	// Renvoi un terrain géneré aléatoirement
 	 TerrainFractal(uint terrain_width_, uint terrain_height_);
 	 Vector3 getPoint(double x, double y) const;
-	 
+	
 };

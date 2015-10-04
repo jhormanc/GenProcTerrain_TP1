@@ -28,6 +28,11 @@ public:
 		return Sphere::normal(p);
 	};
 
+	Vector3 getOrigin() const
+	{
+		return Sphere::getO();
+	}
+
 
 
 protected:

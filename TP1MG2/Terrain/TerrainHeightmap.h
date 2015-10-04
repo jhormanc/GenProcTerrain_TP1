@@ -6,7 +6,7 @@ class TerrainHeightmap : public Terrain
 public:
 	TerrainHeightmap(QImage heightmap, bool blackIsHigh, double fact);
 	Vector3 getPoint(double x, double y) const;
-	
+
 	// Desctructeur. Désalloue pointList.
 	~TerrainHeightmap();
 };
