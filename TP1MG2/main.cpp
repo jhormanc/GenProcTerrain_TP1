@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
 	//t2->GetMesh()->save("C:/Users/jhormanc/Desktop/test", 10);
 
 	//Renderer * r = new RendererOpUnaire();
-	//Renderer * r = new RendererSphere();
-	Renderer * r = new RendererCylinder();
+	Renderer * r = new RendererSphere();
+	//Renderer * r = new RendererCylinder();
 	//m.execMesure();
 
 	// DEBUG

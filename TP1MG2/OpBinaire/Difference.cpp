@@ -15,25 +15,25 @@ double Difference::distance(const Vector3 &p) const
 	double d1 = n1->distance(p);
 	double d2 = n2->distance(p);
 
-	return std::max(-d1, d2);
+	return std::max(d1, -d2);
 }
 
 Vector3 Difference::normal(const Vector3 &p) const
 {
-	if (inside(p))
-		return n1->normal(p).inv();
+	if (n2->inside(p))
+		return n2->normal(p).inv();
 
-	return n2->normal(p);
+	return n1->normal(p);
 }
 
 Vector3 Difference::getColor(const Vector3 &p) const
 {
-	if (inside(p))
-		return n1->getColor(p);
-	return n2->getColor(p);
+	/*if (n2->inside(p))
+		return n2->getColor(p); */
+	return n1->getColor(p);
 }
 
 Vector3 Difference::getOrigin() const
 {
-	return (n1->getOrigin() + n2->getOrigin()) / 2.;
+	return (n1->getOrigin());
 }
