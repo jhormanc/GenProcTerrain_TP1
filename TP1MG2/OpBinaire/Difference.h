@@ -1,20 +1,20 @@
 #pragma once
-#include "opbinaire.h"
-#include "../CSG/Primitive.h"
+#include "OpBinaire\OpBinaire.h"
+#include "CSG\Primitive.h"
 #include <algorithm>
 
-class Intersection :
+class Difference :
 	public OpBinaire
 {
 
 public:
-	Intersection(void) : OpBinaire() {}
-	Intersection(Primitive *p1_, Primitive *p2_) : OpBinaire(p1_, p2_) {}
-	~Intersection(void);
+	Difference(void) : OpBinaire() {}
+	Difference(Primitive *p1_, Primitive *p2_) : OpBinaire(p1_, p2_) {}
+	~Difference(void);
 
 	bool inside(const Vector3 &p) const
 	{
-		return n1->inside(p) && n2->inside(p);
+		return n1->inside(p) && !n2->inside(p);
 	}
 
 	double distance(const Vector3 &p) const
@@ -22,13 +22,13 @@ public:
 		double d1 = n1->distance(p);
 		double d2 = n2->distance(p);
 
-		return std::max(d1, d2);
+		return std::max(-d1, d2);
 	}
 
 	Vector3 normal(const Vector3 &p) const
 	{
 		if (inside(p))
-			return n1->normal(p);
+			return n1->normal(p).inv();
 
 		return n2->normal(p);
 	}
@@ -37,7 +37,6 @@ public:
 	{
 		if (inside(p))
 			return n1->getColor(p);
-
 		return n2->getColor(p);
 	}
 
@@ -45,7 +44,5 @@ public:
 	{
 		return (n1->getOrigin() + n2->getOrigin()) / 2.;
 	}
-
-
 };
 

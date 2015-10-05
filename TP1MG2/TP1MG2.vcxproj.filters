@@ -64,12 +64,6 @@
     <ClCompile Include="CSG\Primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpBinaire\OpBinaire.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OpBinaire\Union.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,6 +72,18 @@
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\Difference.cpp">
+      <Filter>OpBinaire</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\OpBinaire.cpp">
+      <Filter>OpBinaire</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\Union.cpp">
+      <Filter>OpBinaire</Filter>
+    </ClCompile>
+    <ClCompile Include="OpBinaire\Intersection.cpp">
+      <Filter>OpBinaire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +207,18 @@
     <ClInclude Include="RendererTriangle.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="OpBinaire\Difference.h">
+      <Filter>OpBinaire</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\OpBinaire.h">
+      <Filter>OpBinaire</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\Union.h">
+      <Filter>OpBinaire</Filter>
+    </ClInclude>
+    <ClInclude Include="OpBinaire\Intersection.h">
+      <Filter>OpBinaire</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -240,8 +258,13 @@
     <Filter Include="Cube">
       <UniqueIdentifier>{c68463de-6880-4060-bb2c-8ee18fdfa6ff}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Box">
       <UniqueIdentifier>{b8286d86-6730-4952-87de-a59b1923a261}</UniqueIdentifier>
+=======
+    <Filter Include="OpBinaire">
+      <UniqueIdentifier>{483323f6-cd3e-497e-9abf-1c0b48c2f076}</UniqueIdentifier>
+>>>>>>> origin/CSG
     </Filter>
   </ItemGroup>
   <ItemGroup>

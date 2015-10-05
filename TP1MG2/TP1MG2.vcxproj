@@ -148,6 +148,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="OpBinaire\Difference.cpp" />
+    <ClCompile Include="OpBinaire\Intersection.cpp" />
     <ClCompile Include="Primitives\Box.cpp" />
     <ClCompile Include="Primitives\Circle.cpp" />
     <ClCompile Include="Constante.cpp" />
@@ -184,6 +186,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CSG\CSG_Box.h" />
     <ClInclude Include="CSG_Triangle.h" />
+    <ClInclude Include="OpBinaire\Difference.h" />
+    <ClInclude Include="OpBinaire\Intersection.h" />
     <ClInclude Include="Primitives\Box.h" />
     <ClInclude Include="Primitives\Circle.h" />
     <ClInclude Include="Constante.h" />

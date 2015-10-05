@@ -31,7 +31,8 @@ public:
 
 	inline bool inside(const Vector3 &p) const
 	{
-		return (p - o).normal() <= rayon;
+		//return (p - o).normal() <= rayon;
+		return Vector3::distance(o, p) <= rayon;
 	}
 
 	inline Vector3 normal(Vector3 p) const
