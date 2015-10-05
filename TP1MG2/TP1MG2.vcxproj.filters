@@ -32,6 +32,12 @@
     <ClCompile Include="matrix3x3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CSG\CSG_Cylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitives\Cylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -77,6 +83,18 @@
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="matrix3x3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSG\CSG_Cylinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RendererCylindre.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives\Cylinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
