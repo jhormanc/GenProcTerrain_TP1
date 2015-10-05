@@ -178,10 +178,12 @@
     <ClCompile Include="Terrain\TerrainFractal.cpp" />
     <ClCompile Include="Primitives\Torus.cpp" />
     <ClCompile Include="OpBinaire\Union.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CSG\CSG_Box.h" />
+    <ClInclude Include="CSG_Triangle.h" />
     <ClInclude Include="Primitives\Box.h" />
     <ClInclude Include="Primitives\Circle.h" />
     <ClInclude Include="Constante.h" />
@@ -214,6 +216,7 @@
     <ClInclude Include="CSG\Primitive.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Noise.h" />
+    <ClInclude Include="RendererTriangle.h" />
     <ClInclude Include="Renderer\RendererBox.h" />
     <ClInclude Include="Renderer\RendererCube.h" />
     <ClInclude Include="Renderer\RendererOpUnaire.h" />
@@ -234,6 +237,7 @@
     <ClInclude Include="Primitives\Torus.h" />
     <ClInclude Include="OpUnaire\Translation.h" />
     <ClInclude Include="OpBinaire\Union.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -74,6 +74,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Primitives\Box.cpp">
+      <Filter>Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,14 +183,23 @@
     <ClInclude Include="OpBinaire\Union.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CSG\CSG_Box.h">
+      <Filter>Box</Filter>
+    </ClInclude>
     <ClInclude Include="Primitives\Box.h">
+      <Filter>Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CSG\CSG_Box.h">
+    <ClInclude Include="CSG_Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\RendererBox.h">
-      <Filter>Header Files</Filter>
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererTriangle.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +239,9 @@
     </Filter>
     <Filter Include="Cube">
       <UniqueIdentifier>{c68463de-6880-4060-bb2c-8ee18fdfa6ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Box">
+      <UniqueIdentifier>{b8286d86-6730-4952-87de-a59b1923a261}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
