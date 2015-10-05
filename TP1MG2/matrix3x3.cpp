@@ -2,45 +2,43 @@
 
 
 Matrix3x3::Matrix3x3 ( ) {
-	_00 = 0; _01 = 0; _02 = 0;
-	_10 = 0; _11 = 0; _12 = 0;
-	_20 = 0; _21 = 0; _22 = 0;
+	c[9] = { 0 };
 }
 
 Matrix3x3::Matrix3x3 ( double coefs[9] ) {
-	_00 = coefs[0]; _01 = coefs[1]; _02 = coefs[2];
-	_10 = coefs[3]; _11 = coefs[4]; _12 = coefs[5];
-	_20 = coefs[6]; _21 = coefs[7]; _22 = coefs[8];
+	c[0] = coefs[0]; c[1] = coefs[1]; c[2] = coefs[2];
+	c[3] = coefs[3]; c[4] = coefs[4]; c[5] = coefs[5];
+	c[6] = coefs[6]; c[7] = coefs[7]; c[8] = coefs[8];
 }
 
 Matrix3x3::Matrix3x3 ( const Vector3 & vx, const Vector3 & vy, const Vector3 & vz ) {
-	_00 = vx.x; _01 = vx.y; _02 = vx.z;
-	_10 = vy.x; _11 = vy.y; _12 = vy.z;
-	_20 = vz.x; _21 = vz.y; _22 = vz.z;
+	c[0] = vx.x; c[1] = vx.y; c[2] = vx.z;
+	c[3] = vy.x; c[4] = vy.y; c[5] = vy.z;
+	c[6] = vz.x; c[7] = vz.y; c[8] = vz.z;
 }
 
 Matrix3x3 Matrix3x3::operator * ( double k ) const {
 	Matrix3x3 A;
 
-	A._00 = _00 * k; A._01 = _01 * k; A._02 = _02 * k;
-	A._10 = _10 * k; A._11 = _11 * k; A._12 = _12 * k;
-	A._20 = _20 * k; A._21 = _21 * k; A._22 = _22 * k;
+	A ( 0, 0 ) = c[0] * k; A ( 0, 1 ) = c[1] * k; A ( 0, 2 ) = c[2] * k;
+	A ( 1, 0 ) = c[3] * k; A ( 1, 1 ) = c[4] * k; A ( 1, 2 ) = c[5] * k;
+	A ( 2, 0 ) = c[6] * k; A ( 2, 1 ) = c[7] * k; A ( 0, 2 ) = c[8] * k;
 
 	return A;
 }
 
 Vector3 Matrix3x3::operator * ( const Vector3 & v ) const {
-	double x ( _00 * v.x + _01 * v.y + _02 * v.z );
-	double y ( _10 * v.x + _11 * v.y + _12 * v.z );
-	double z ( _20 * v.x + _21 * v.y + _22 * v.z );
+	double x ( c[0] * v.x + c[1] * v.y + c[2] * v.z );
+	double y ( c[3] * v.x + c[4] * v.y + c[5] * v.z );
+	double z ( c[6] * v.x + c[7] * v.y + c[8] * v.z );
 	return Vector3 ( x, y, z );
 }
 
 Matrix3x3 Matrix3x3::transpose ( ) const {
 	Matrix3x3 T;
-	T._00 = _00;	T._01 = _10;	T._02 = _20;
-	T._10 = _01;	T._11 = _11;	T._12 = _21;
-	T._20 = _02;	T._21 = _12;	T._22 = _22;
+	T ( 0, 0 ) = c[0];	T ( 0, 1 ) = c[3];	T ( 0, 2 ) = c[6];
+	T ( 1, 0 ) = c[1];	T ( 1, 1 ) = c[4];	T ( 1, 2 ) = c[7];
+	T ( 2, 0 ) = c[2];	T ( 2, 1 ) = c[5];	T ( 2, 2 ) = c[8];
 	return T;
 }
 

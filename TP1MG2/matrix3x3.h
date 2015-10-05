@@ -13,12 +13,13 @@ public:
 
 	Matrix3x3 operator * ( double k ) const;
 	Vector3 operator * ( const Vector3 & v ) const;
-
-	double _00, _01, _02;
-	double _10, _11, _12;
-	double _20, _21, _22;
+	double operator ( ) ( int i, int j ) const { return c[i * 3 + j]; }
+	double & operator ( ) ( int i, int j ) { return c[i * 3 + j]; }
 
 	Matrix3x3 transpose ( ) const;
+
+private:
+	double c[9];
 };
 
 #endif // MATRIX3x3_H

@@ -148,6 +148,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CSG\CSG_Cylinder.cpp" />
+    <ClCompile Include="Primitives\Cylinder.cpp" />
+    <ClCompile Include="matrix3x3.cpp" />
     <ClCompile Include="OpBinaire\Difference.cpp" />
     <ClCompile Include="OpBinaire\Intersection.cpp" />
     <ClCompile Include="Primitives\Box.cpp" />
@@ -186,6 +189,10 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CSG\CSG_Box.h" />
+    <ClInclude Include="CSG\CSG_Cylinder.h" />
+    <ClInclude Include="CSG_Triangle.h" />
+    <ClInclude Include="Primitives\Cylinder.h" />
+    <ClInclude Include="matrix3x3.h" />
     <ClInclude Include="OpBinaire\Difference.h" />
     <ClInclude Include="OpBinaire\Intersection.h" />
     <ClInclude Include="Primitives\Box.h" />
@@ -225,6 +232,7 @@
     <ClInclude Include="Noise.h" />
     <ClInclude Include="Renderer\RendererBox.h" />
     <ClInclude Include="Renderer\RendererCube.h" />
+    <ClInclude Include="Renderer\RendererCylindre.h" />
     <ClInclude Include="Renderer\RendererOpUnaire.h" />
     <ClInclude Include="Renderer\RendererSphere.h" />
     <ClInclude Include="Renderer\Renderer.h" />
@@ -243,6 +251,7 @@
     <ClInclude Include="Primitives\Torus.h" />
     <ClInclude Include="OpUnaire\Translation.h" />
     <ClInclude Include="OpBinaire\Union.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,15 +1,16 @@
 #pragma once
 #include "Vector3.h"
+#include "Vector2.h"
 #include <algorithm>
 
-class Box
+class Cylinder
 {
 public:
 	Vector3 o;
-	Vector3 b;
+	Vector2 h;
 
-	Box() {}
-	Box(Vector3 o_, Vector3 b_) : o(o_), b(b_) {}
+	Cylinder() {}
+	Cylinder(Vector3 o_, Vector2 h_) : o(o_), h(h_) {}
 
 	Vector3 getO() const;
 
