@@ -27,10 +27,12 @@ int main(int argc, char *argv[])
 	srand(time(0));
 	QApplication a(argc, argv);
 //	Debug d;
-	//Terrain * t2 = new TerrainFractal(1000, 1000); // Terain créé grace à une fonction
+	Terrain * t2 = new TerrainFractal(1000, 1000); // Terain créé grace à une fonction
 //	QTextEdit * logTxt = new QTextEdit();
 	QLabel l;
-//	HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
+	//HeightmapWidget * hmw = new HeightmapWidget(t2, 0);
+
+	//t2->GetMesh()->save("C:/Users/jhormanc/Desktop/test", 10);
 
 	//Renderer * r = new RendererOpUnaire();
 	Renderer * r = new RendererSphere();
@@ -46,13 +48,13 @@ int main(int argc, char *argv[])
 	l.show();
 
 	
-//    hmw->show();
+    //hmw->show();
 
-//	delete t2;
+	delete t2;
 	
 	a.exec();
 //	delete logTxt;
-//	delete hmw;
+	//delete hmw;
 	delete r;
 	return 0;
 	

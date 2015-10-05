@@ -11,7 +11,7 @@ public:
 	Voxel(Node &n, int n_);
 	~Voxel(void);
 
-	Mesh getMesh() const;
+	Mesh* getMesh() const;
 
 	// Surcharge de l'opérateur () pour l'accès au tableau
 	int operator()(int i, int j, int k) const

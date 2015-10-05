@@ -83,13 +83,13 @@ void HeightmapWidget::initializeGL()
     // Texture coordonnees vbo
     m_texturebuffer.create();
     m_texturebuffer.bind();
-    m_texturebuffer.allocate(mesh->getTextures().constData(), sizeof(QVector2D) * mesh->getTextures().size());
+    m_texturebuffer.allocate(mesh->getTex().constData(), sizeof(QVector2D) * mesh->getTex().size());
     m_texturebuffer.release();
 
     // Indices buffer init
     m_indicebuffer.create();
     m_indicebuffer.bind();
-    m_indicebuffer.allocate(mesh->getIndices().constData(), mesh->getIndices().size() * sizeof(GLuint));
+    m_indicebuffer.allocate(mesh->getFaces().constData(), mesh->getFaces().size() * sizeof(GLuint));
     m_indicebuffer.release();
 
     // GL options
@@ -132,112 +132,112 @@ void HeightmapWidget::paintGL()
 	glLineWidth(1);
 
 
-	QVector<QVector3D> m_vertices = mesh->getVertices();
-    QVector<QVector3D> m_vertexarray = mesh->getVertexArray();
-    QVector<QVector2D> m_textures = mesh->getTextures();
-    QVector<QVector2D> m_texturearray = mesh->getTextureArray();
-	QVector<GLuint>    m_indices = mesh->getIndices();
+	//QVector<QVector3D> m_vertices = mesh->getVertices();
+ //   QVector<QVector3D> m_vertexarray = mesh->getVertices();
+ //   QVector<QVector2D> m_textures = mesh->getTextures();
+ //   QVector<QVector2D> m_texturearray = mesh->getTextureArray();
+	//QVector<GLuint>    m_indices = mesh->getIndices();
 
-    switch(mode_rendu)
-    {
-    case MODE_GL_VERTEX:        
-        glBegin(GL_TRIANGLES);
-        for(int i = 0; i < m_vertexarray.size(); i += 3)
-        {
-            glBindTexture(GL_TEXTURE_2D, m_textureid);
+ //   switch(mode_rendu)
+ //   {
+ //   case MODE_GL_VERTEX:        
+ //       glBegin(GL_TRIANGLES);
+ //       for(int i = 0; i < m_vertexarray.size(); i += 3)
+ //       {
+ //           glBindTexture(GL_TEXTURE_2D, m_textureid);
 
-            glTexCoord2f(m_texturearray[i].x(), m_texturearray[i].y());
-            glVertex3f(m_vertexarray[i].x(), m_vertexarray[i].y(), m_vertexarray[i].z());
+ //           glTexCoord2f(m_texturearray[i].x(), m_texturearray[i].y());
+ //           glVertex3f(m_vertexarray[i].x(), m_vertexarray[i].y(), m_vertexarray[i].z());
 
-            glTexCoord2f(m_texturearray[i+1].x(), m_texturearray[i+1].y());
-            glVertex3f(m_vertexarray[i+1].x(), m_vertexarray[i+1].y(), m_vertexarray[i+1].z());
+ //           glTexCoord2f(m_texturearray[i+1].x(), m_texturearray[i+1].y());
+ //           glVertex3f(m_vertexarray[i+1].x(), m_vertexarray[i+1].y(), m_vertexarray[i+1].z());
 
-            glTexCoord2f(m_texturearray[i+2].x(), m_texturearray[i+2].y());
-            glVertex3f(m_vertexarray[i+2].x(), m_vertexarray[i+2].y(), m_vertexarray[i+2].z());
-        }   
-		
-        glEnd();
-        break;
+ //           glTexCoord2f(m_texturearray[i+2].x(), m_texturearray[i+2].y());
+ //           glVertex3f(m_vertexarray[i+2].x(), m_vertexarray[i+2].y(), m_vertexarray[i+2].z());
+ //       }   
+	//	
+ //       glEnd();
+ //       break;
 
-    case MODE_VERTEXARRAY:
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+ //   case MODE_VERTEXARRAY:
+ //       glEnableClientState(GL_VERTEX_ARRAY);
+ //       glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-        glVertexPointer(3, GL_FLOAT, 0, m_vertexarray.constData());
-        glTexCoordPointer(2, GL_FLOAT, 0, m_texturearray.constData());
+ //       glVertexPointer(3, GL_FLOAT, 0, m_vertexarray.constData());
+ //       glTexCoordPointer(2, GL_FLOAT, 0, m_texturearray.constData());
 
-        glDrawArrays(GL_TRIANGLES, 0, m_vertexarray.size());
+ //       glDrawArrays(GL_TRIANGLES, 0, m_vertexarray.size());
 
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+ //       glDisableClientState(GL_VERTEX_ARRAY);
+ //       glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-        break;
+ //       break;
 
-    case MODE_VERTEXARRAY_INDICES:
-        glEnableClientState(GL_VERTEX_ARRAY);        
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+ //   case MODE_VERTEXARRAY_INDICES:
+ //       glEnableClientState(GL_VERTEX_ARRAY);        
+ //       glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-        glVertexPointer(3, GL_FLOAT, 0, m_vertices.constData());
-        glTexCoordPointer(2, GL_FLOAT, 0, m_textures.constData());
+ //       glVertexPointer(3, GL_FLOAT, 0, m_vertices.constData());
+ //       glTexCoordPointer(2, GL_FLOAT, 0, m_textures.constData());
 
-        glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, m_indices.constData());
+ //       glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, m_indices.constData());
 
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+ //       glDisableClientState(GL_VERTEX_ARRAY);
+ //       glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-        break;
+ //       break;
 
-    case MODE_VERTEBUFFEROBJECT_INDICES:
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+ //   case MODE_VERTEBUFFEROBJECT_INDICES:
+ //       glEnableClientState(GL_VERTEX_ARRAY);
+ //       glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-        m_vertexbuffer.bind();
-        glVertexPointer(3, GL_FLOAT, 0, NULL);
-        m_vertexbuffer.release();
+ //       m_vertexbuffer.bind();
+ //       glVertexPointer(3, GL_FLOAT, 0, NULL);
+ //       m_vertexbuffer.release();
 
-        m_texturebuffer.bind();
-        glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-        m_texturebuffer.release();
+ //       m_texturebuffer.bind();
+ //       glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+ //       m_texturebuffer.release();
 
-        m_indicebuffer.bind();
-        glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, NULL);
-        m_indicebuffer.release();
+ //       m_indicebuffer.bind();
+ //       glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, NULL);
+ //       m_indicebuffer.release();
 
-        glDisableClientState(GL_VERTEX_ARRAY);
-        break;
-    }
+ //       glDisableClientState(GL_VERTEX_ARRAY);
+ //       break;
+ //   }
 
-	std::list<Ray>::iterator
-		ray(listRays.begin()),
-		lend(listRays.end());
+	//std::list<Ray>::iterator
+	//	ray(listRays.begin()),
+	//	lend(listRays.end());
 
-	for (; ray != lend; ++ray)
-	{
-		double t;
-		bool touche = (Node *)terrain->intersect(*ray, t);
-		glLineWidth(2);
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0f, 0.0f, 1.0f); // le point de départ du lancé est en bleu
+	//for (; ray != lend; ++ray)
+	//{
+	//	double t;
+	//	bool touche = (Node *)terrain->intersect(*ray, t);
+	//	glLineWidth(2);
+	//	glBegin(GL_LINE_STRIP);
+	//	glColor3f(0.0f, 0.0f, 1.0f); // le point de départ du lancé est en bleu
 
-		// Origine
-		glVertex3f((MAP_SIZE * ray->getOrigin().x / mesh->getHeight()) - MAP_SIZE / 2,
-			ray->getOrigin().z / 255,
-			(MAP_SIZE * ray->getOrigin().y / mesh->getWidth()) - MAP_SIZE / 2);
+	//	// Origine
+	//	glVertex3f((MAP_SIZE * ray->getOrigin().x / mesh->getHeight()) - MAP_SIZE / 2,
+	//		ray->getOrigin().z / 255,
+	//		(MAP_SIZE * ray->getOrigin().y / mesh->getWidth()) - MAP_SIZE / 2);
 
-		if (touche)
-			glColor3f(0.0f, 1.0f, 0.0f); // point vert si le Ray a touché le terrain
-		else
-			glColor3f(1.0f, 0.0f, 0.0f); // point rouge sinon
+	//	if (touche)
+	//		glColor3f(0.0f, 1.0f, 0.0f); // point vert si le Ray a touché le terrain
+	//	else
+	//		glColor3f(1.0f, 0.0f, 0.0f); // point rouge sinon
 
-		Vector3 tmp(ray->getDirection() * t);
+	//	Vector3 tmp(ray->getDirection() * t);
 
-		// Point d'arrivée du lancé de rayon
-		glVertex3f((MAP_SIZE * (ray->getOrigin() + tmp).x / mesh->getHeight()) - MAP_SIZE / 2,
-			(ray->getOrigin() + tmp).z / 255,
-			(MAP_SIZE * (ray->getOrigin() + tmp).y / mesh->getWidth()) - MAP_SIZE / 2);
+	//	// Point d'arrivée du lancé de rayon
+	//	glVertex3f((MAP_SIZE * (ray->getOrigin() + tmp).x / mesh->getHeight()) - MAP_SIZE / 2,
+	//		(ray->getOrigin() + tmp).z / 255,
+	//		(MAP_SIZE * (ray->getOrigin() + tmp).y / mesh->getWidth()) - MAP_SIZE / 2);
 
-		glEnd();
-	}
+	//	glEnd();
+	//}
 
     // FPS count
     ++frame_count;
@@ -257,7 +257,7 @@ void HeightmapWidget::paintGL()
     renderText(10, 45, "Press F to fill on/off");
     renderText(10, 60, "Press Up/Down to increase/decrease delay");
     renderText(10, height()-55, "Delay : " + QString::number(delay));
-    renderText(10, height()-40, "Size points : " + QString::number(m_indices.size()));
+    //renderText(10, height()-40, "Size points : " + QString::number(m_indices.size()));
     renderText(10, height()-25, QString("%1 : %2").arg(MODE_NAME[mode_rendu]).arg(last_count));
     renderText(10, height()-10, QString("Rotation x:%1 y:%2 z:%3").arg(x_rot/16).arg(y_rot/16).arg(z_rot/16));
 }
