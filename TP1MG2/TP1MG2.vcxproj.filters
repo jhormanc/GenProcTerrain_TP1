@@ -28,7 +28,6 @@
     <ClCompile Include="Terrain\TerrainFractal.cpp" />
     <ClCompile Include="Primitives\Torus.cpp" />
     <ClCompile Include="OpBinaire\Union.cpp" />
-    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="matrix3x3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -38,11 +37,11 @@
     <ClCompile Include="Primitives\Cylinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Primitives\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CSG\CSG_Box.h" />
-    <ClInclude Include="CSG_Triangle.h" />
     <ClInclude Include="OpBinaire\Difference.h" />
     <ClInclude Include="OpBinaire\Intersection.h" />
     <ClInclude Include="Primitives\Box.h" />
@@ -80,7 +79,6 @@
     <ClInclude Include="Primitives\Torus.h" />
     <ClInclude Include="OpUnaire\Translation.h" />
     <ClInclude Include="OpBinaire\Union.h" />
-    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="matrix3x3.h">
       <Filter>Header Files</Filter>
@@ -97,6 +95,7 @@
     <ClInclude Include="Primitives\Cylinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Primitives\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="heightmapwidget.h" />

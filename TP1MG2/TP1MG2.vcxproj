@@ -183,13 +183,12 @@
     <ClCompile Include="Terrain\TerrainFractal.cpp" />
     <ClCompile Include="Primitives\Torus.cpp" />
     <ClCompile Include="OpBinaire\Union.cpp" />
-    <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Primitives\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CSG\CSG_Box.h" />
     <ClInclude Include="CSG\CSG_Cylinder.h" />
-    <ClInclude Include="CSG_Triangle.h" />
     <ClInclude Include="Primitives\Cylinder.h" />
     <ClInclude Include="matrix3x3.h" />
     <ClInclude Include="OpBinaire\Difference.h" />
@@ -248,7 +247,7 @@
     <ClInclude Include="Primitives\Torus.h" />
     <ClInclude Include="OpUnaire\Translation.h" />
     <ClInclude Include="OpBinaire\Union.h" />
-    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Primitives\Triangle.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
