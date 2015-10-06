@@ -251,12 +251,7 @@
     <ClInclude Include="Primitives\Torus.h" />
     <ClInclude Include="OpUnaire\Translation.h" />
     <ClInclude Include="OpBinaire\Union.h" />
-<<<<<<< HEAD
     <ClInclude Include="Primitives\Triangle.h" />
-    <ClInclude Include="Vector2.h" />
-=======
-    <ClInclude Include="Triangle.h" />
->>>>>>> origin/CSG
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

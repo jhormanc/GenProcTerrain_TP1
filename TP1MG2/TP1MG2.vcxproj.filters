@@ -125,7 +125,6 @@
     <ClCompile Include="Primitives\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CSG\CSG_Box.h" />
     <ClInclude Include="OpBinaire\Difference.h" />

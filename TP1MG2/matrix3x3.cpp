@@ -2,7 +2,7 @@
 
 
 Matrix3x3::Matrix3x3 ( ) {
-	c[9] = { 0 };
+	//c[9] = { 0 };
 }
 
 Matrix3x3::Matrix3x3 ( double coefs[9] ) {
