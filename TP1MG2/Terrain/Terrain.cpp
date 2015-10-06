@@ -45,9 +45,38 @@ void Terrain::calcK()
 
 Mesh* Terrain::GetMesh()
 {
-	const float MAP_SIZE = 5.0;
+	Mesh terrain ( "terrain" );
+	QVector<Vertex> vertices = QVector<Vertex> ( );
+	QVector<qreal> faces = QVector<qreal> ( );
+	QVector<QVector2D> tex = QVector<QVector2D> ( );
 
-	Mesh *mesh = new Mesh(terrain_height, terrain_width);;
+
+	tex << QVector2D ( 0, 0 )
+		<< QVector2D ( 1, 0 )
+		<< QVector2D ( 0, 1 );
+
+	for ( int jj = 0; jj <= terrain_height; ++jj ) {
+		for ( int ii = 0; ii <= terrain_width; ++ii ) {
+			vertices << QVector3D ( ii, jj, getPoint( ii, jj ).z );
+		}
+	}
+
+	for ( int jj = 0; jj <= terrain_height; ++jj ) {
+		for ( int ii = 1; ii <= terrain_width; ++ii ) {
+			faces << ii + jj * ( terrain_width + 1 ) << ii + 1 + jj * ( terrain_width + 1 ) << ii + terrain_width + 1 + jj * ( terrain_width + 1 );
+			faces << ii + 1 + jj * ( terrain_width+ 1 ) << ii + terrain_width + 2 + jj * (terrain_width + 1 ) << ii + terrain_width + 1 + jj * (terrain_width + 1 );
+		}
+	}
+
+	terrain.setVertices ( vertices );
+	terrain.setFaces ( faces );
+	terrain.setTex ( tex );
+
+	return &terrain;
+
+	/*const float MAP_SIZE = 5.0;
+
+	Mesh mesh();
 
 	QVector3D vertice;
     QVector2D texture;
@@ -71,7 +100,7 @@ Mesh* Terrain::GetMesh()
 
    mesh->generateArray();
 
-   return mesh;
+   return mesh;*/
 }
 
 // Renvoi la normal du terrain au point p
